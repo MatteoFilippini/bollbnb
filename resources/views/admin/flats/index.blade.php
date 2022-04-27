@@ -11,7 +11,14 @@
                 <a href="{{route('admin.flats.show', $flat->id)}}">
                     {{$flat->title}}
                 </a>
-                <a href="{{route('admin.flats.edit', $flat->id)}}" class="btn btn-success">MODIFICA</a>
+                <div class="d-flex justify-content-around">
+                    <a href="{{route('admin.flats.edit', $flat->id)}}" class="btn btn-success mr-3">MODIFICA</a>
+                    <form action="{{route('admin.flats.destroy', $flat->id)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">ELIMINA</button>
+                    </form>
+                </div>
             </div>
         </li>
         @endforeach

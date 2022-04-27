@@ -113,8 +113,10 @@ class FlatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Flat $flat)
     {
-        //
+        $flat->delete();
+
+        return redirect()->route('admin.flats.index');
     }
 }
