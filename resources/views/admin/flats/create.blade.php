@@ -27,27 +27,27 @@
             <div class="col-2">
                 <div class="form-group">
                     <label for="rooms">Numero Stanze</label>
-                    <input type="text" class="form-control" id="rooms" aria-describedby="descrizione" name="rooms">
+                    <input type="number" min="0" class="form-control" id="rooms" aria-describedby="descrizione" name="rooms">
 
                 </div>
             </div>
             <div class="col-2">
                 <div class="form-group">
                     <label for="beds">Numero letti</label>
-                    <input type="text" class="form-control" id="beds" aria-describedby="descrizione" name="beds">
+                    <input type="number" min="0" class="form-control" id="beds" aria-describedby="descrizione" name="beds">
 
                 </div>
             </div>
             <div class="col-2">
                 <div class="form-group">
                     <label for="bathrooms">Numeri bagni</label>
-                    <input type="text" class="form-control" id="bathrooms" aria-describedby="descrizione" name="bathrooms">
+                    <input type="number" min="0" class="form-control" id="bathrooms" aria-describedby="descrizione" name="bathrooms">
                 </div>
             </div>
             <div class="col-2">
                 <div class="form-group">
                     <label for="square_meters">Metri quadrati casa</label>
-                    <input type="text" class="form-control" id="square_meters" aria-describedby="descrizione" name="square_meters">
+                    <input type="number" min="0" class="form-control" id="square_meters" aria-describedby="descrizione" name="square_meters">
                 </div>
             </div>
             <div class="col-4">
