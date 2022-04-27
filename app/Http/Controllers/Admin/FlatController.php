@@ -39,7 +39,27 @@ class FlatController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $request->validate(
+            [
+                'title' => ['min:5','max:70','unique:flats','required'],
+                'image'=>['required'],
+                'rooms'=>['nullable','numeric'],
+                'beds'=>['nullable','numeric'],
+                'bathrooms'=>['nullable','numeric'],
+                'square_meters'=>['nullable','numeric'],
+            ],[
+                'title.min'=>"La lunghezza minima del titolo è di 5 caratteri",
+                'title.max'=>"La lunghezza massima del titolo è di 70 caratteri",
+                'title.required'=>"Il titolo dell'appartamento è obbligatorio",
+                'image.required'=>"L'immagine dell'appartamento è obbligatoria",
+                'rooms.numeric'=>'Il numero di stanze deve essere un numero',
+                'beds.numeric'=>'Il numero di letti deve essere un numero',
+                'bathrooms.numeric'=>'Il numero di bagni deve essere un numero',
+                'square_meters.numeric'=>'Il numero di metri deve essere un numero'
+            ]
+            );
+            
+            $data = $request->all();
         $data['user_id'] = Auth::id();
 
         $flat = new Flat();
