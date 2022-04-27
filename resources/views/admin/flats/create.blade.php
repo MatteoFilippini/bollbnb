@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <a href="{{route('admin.flats.index')}}" class="btn btn-danger mb-3">TORNA INDIETRO</a>
     <form action="{{route('admin.flats.store')}}" method="POST">
         @csrf
         <div class="row">

@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <a href="{{route('admin.flats.index')}}" class="btn btn-danger mb-3">TORNA INDIETRO</a>
     <form action="{{route('admin.flats.update', $flat->id)}}" method="POST">
         @csrf
         @method('PUT')
@@ -60,7 +61,7 @@
 
         </div>
         <hr>
-            <button type="submit" class="btn btn-success">Modifica</button>
+        <button type="submit" class="btn btn-success">Modifica</button>
     </form>
 </div>
 @endsection
