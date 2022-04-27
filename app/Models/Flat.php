@@ -3,9 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
 
-class Flat extends Model
+class Flat extends Model implements Viewable
 {
+
+    use InteractsWithViews;
+
     public function user(){
         return $this->belongsTo('App\User');
     }
