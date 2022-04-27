@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Flat;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class FlatController extends Controller
 {
@@ -28,7 +29,8 @@ class FlatController extends Controller
      */
     public function create()
     {
-        return view('admin.flats.create');
+        $flat = new Flat();
+        return view('admin.flats.create', compact('flat'));
     }
 
     /**
@@ -41,21 +43,26 @@ class FlatController extends Controller
     {
         $request->validate(
             [
-                'title' => ['min:5','max:70','unique:flats','required'],
-                'image'=>['required'],
-                'rooms'=>['nullable','numeric'],
-                'beds'=>['nullable','numeric'],
-                'bathrooms'=>['nullable','numeric'],
-                'square_meters'=>['nullable','numeric'],
+                'title' => ['required','min:5','max:70','unique:flats'],
+                 'default_image'=>['required'],
+                'rooms'=>['nullable','numeric', 'min:0'],
+                'beds'=>['nullable','numeric', 'min:0'],
+                'bathrooms'=>['nullable','numeric', 'min:0'],
+                'square_meters'=>['nullable','numeric', 'min:0'],
             ],[
+                'title.required'=>"Il titolo dell'appartamento è obbligatorio",
+                'default_image.required'=>"L'immagine dell'appartamento è obbligatoria",
                 'title.min'=>"La lunghezza minima del titolo è di 5 caratteri",
                 'title.max'=>"La lunghezza massima del titolo è di 70 caratteri",
-                'title.required'=>"Il titolo dell'appartamento è obbligatorio",
-                'image.required'=>"L'immagine dell'appartamento è obbligatoria",
+                'title.unique'=>"Questo titolo è già presente",
                 'rooms.numeric'=>'Il numero di stanze deve essere un numero',
                 'beds.numeric'=>'Il numero di letti deve essere un numero',
                 'bathrooms.numeric'=>'Il numero di bagni deve essere un numero',
-                'square_meters.numeric'=>'Il numero di metri deve essere un numero'
+                'square_meters.numeric'=>'Il numero di metri deve essere un numero',
+                'rooms.min'=>'Il numero di stanze deve essere maggiore di zero',
+                'beds.min'=>'Il numero di letti deve essere maggiore di zero',
+                'bathrooms.min'=>'Il numero di bagni deve essere maggiore di zero',
+                'square_meters.min'=>'Il numero di metri deve essere maggiore di zero'
             ]
             );
             
@@ -100,6 +107,30 @@ class FlatController extends Controller
      */
     public function update(Request $request, Flat $flat)
     {
+        $request->validate(
+            [
+                'title' => ['required','min:5','max:70', Rule::unique('flats')->ignore($flat->id)],
+                 'default_image'=>['required'],
+                'rooms'=>['nullable','numeric', 'min:0'],
+                'beds'=>['nullable','numeric', 'min:0'],
+                'bathrooms'=>['nullable','numeric', 'min:0'],
+                'square_meters'=>['nullable','numeric', 'min:0'],
+            ],[
+                'title.required'=>"Il titolo dell'appartamento è obbligatorio",
+                'default_image.required'=>"L'immagine dell'appartamento è obbligatoria",
+                'title.min'=>"La lunghezza minima del titolo è di 5 caratteri",
+                'title.max'=>"La lunghezza massima del titolo è di 70 caratteri",
+                'title.unique'=>"Questo titolo è già presente",
+                'rooms.numeric'=>'Il numero di stanze deve essere un numero',
+                'beds.numeric'=>'Il numero di letti deve essere un numero',
+                'bathrooms.numeric'=>'Il numero di bagni deve essere un numero',
+                'square_meters.numeric'=>'Il numero di metri deve essere un numero',
+                'rooms.min'=>'Il numero di stanze deve essere maggiore di zero',
+                'beds.min'=>'Il numero di letti deve essere maggiore di zero',
+                'bathrooms.min'=>'Il numero di bagni deve essere maggiore di zero',
+                'square_meters.min'=>'Il numero di metri deve essere maggiore di zero'
+            ]
+            );
         $data = $request->all();
         $flat->update($data);
 
