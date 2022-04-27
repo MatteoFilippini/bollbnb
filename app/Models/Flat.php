@@ -34,4 +34,6 @@ class Flat extends Model implements Viewable
     public function sponsors(){
         return $this->belongsToMany('App\Models\Sponsor');
     }
+
+    protected $fillable = ['user_id', 'title', 'rooms', 'beds', 'bathrooms', 'square_meters', 'default_image'];
 }

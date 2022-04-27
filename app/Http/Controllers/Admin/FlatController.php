@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Models\Flat;
+use App\Models\Flat;
+use Illuminate\Support\Facades\Auth;
 
 class FlatController extends Controller
 {
@@ -15,7 +16,9 @@ class FlatController extends Controller
      */
     public function index()
     {
-        //
+        $flats = Flat::all();
+
+        return view('admin.flats.index', compact('flats'));
     }
 
     /**
@@ -25,7 +28,7 @@ class FlatController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.flats.create');
     }
 
     /**
@@ -36,7 +39,14 @@ class FlatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $data['user_id'] = Auth::id();
+
+        $flat = new Flat();
+        $flat->fill($data);
+        $flat->save();
+
+        return redirect()->route('admin.flats.index');
     }
 
     /**
@@ -45,9 +55,9 @@ class FlatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Flat $flat)
     {
-
+        return view('admin.flats.show', compact('flat'));
     }
 
     /**
