@@ -66,9 +66,9 @@ class FlatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Flat $flat)
     {
-        //
+        return view('admin.flats.edit', compact('flat'));
     }
 
     /**
@@ -78,9 +78,13 @@ class FlatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Flat $flat)
     {
-        //
+        $data = $request->all();
+        $flat->update($data);
+
+        return redirect()->route('admin.flats.show', compact('flat'));
+
     }
 
     /**
