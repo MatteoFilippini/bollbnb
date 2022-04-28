@@ -5,5 +5,7 @@
  */
 
 require('./bootstrap');
+window.Jquery = require('jquery');
+const  jquery_validation= require('jquery-validation');
 
 

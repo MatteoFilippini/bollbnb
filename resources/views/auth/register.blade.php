@@ -105,35 +105,74 @@
     </div>
 </div>
 
-
+{{-- <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/jquery-validation.js') }}"></script> --}}
 
 <!-- SCRIPT VALIDATOR EMAIL -->
- {{-- <script>
+ <script>
 const form= document.getElementById('regForm');
 const button= document.getElementById('btnRegister');
 const errorMsg = document.getElementById('mailError');
 const inputEmail= document.getElementById('email');
+const inputName= document.getElementById('name');
+const inputSurname= document.getElementById('surname');
+const inputDate= document.getElementById('date_of_birth');
+const inputPassword= document.getElementById('password');
+const inputConfirm= document.getElementById('password_confirm');
 const checkEmail = /^[A-z0-9\.\+_-]+@[A-z0-9\._-]+\.[A-z]{2,6}$/;
-
+const checkName = /^([a-zA-Z\xE0\xE8\xE9\xF9\xF2\xEC\x27]\s?)+$/;
+const checkPassword = /^[a-zA-Z0-9\_\*\-\+\!\?\,\:\;\.\xE0\xE8\xE9\xF9\xF2\xEC\x27]{6,15}/
+// const checkDate = ;
 form.addEventListener('submit',(e)=>{
     e.preventDefault();
      console.log('email:'+inputEmail.value);
-    if(inputEmail.value.length<=0){
+     
+     // Validazione name 
+      if(inputName.value.length<=0){
+         errorMsg.innerHTML = 'devi inserire il nome';
+        }
+        else if(inputName.value.length > 254){
+            errorMsg.innerHTML = 'il nome deve essere massimo di 254 caratteri';
+    }
+    else if(!checkName.test(inputName.value)){
+        errorMsg.innerHTML = 'il nome non è corretto';
+    }
+
+    // validazione surname 
+    else if(inputSurname.value.length<=0){
+        errorMsg.innerHTML = 'devi inserire il cognome';
+    }
+    else if(inputName.value.length > 254){
+        errorMsg.innerHTML = 'il cognome deve essere massimo di 254 caratteri';
+    }   
+    
+    //  validazione mail 
+    else if(inputEmail.value.length<=0){
         errorMsg.innerHTML = 'devi inserire la email';
-        if(!checkEmail.test(inputEmail)){
-            errorMsg.innerHTML = 'NON e una email';
-        };
-    }else{
+    }
+    else if(!checkEmail.test(inputEmail.value)){
+        errorMsg.innerHTML = 'non e una email';
+    }
+
+    else if(inputPassword.value.length<=0){
+        errorMsg.innerHTML = 'devi inserire la password';
+    }
+    else if(inputPassword.value.length<8){
+        errorMsg.innerHTML = 'la password deve essere almeno di 8 caratteri';
+    }
+
+
+    else{
         e.target.submit();
     }
 });
-</script>  --}}
-<script>
+</script>  
+{{-- <script>
     // Wait for the DOM to be ready
 $(function() {
   // Initialize form validation on the registration form.
   // It has the name attribute "registration"
-  $("form[name='registration']").validate({
+  $("#regForm").validate({
     // Specify validation rules
     rules: {
       // The key name on the left side is the name attribute
@@ -180,7 +219,7 @@ $(function() {
     }
   });
 });
-</script>
+</script> --}}
 
 
 @endsection
