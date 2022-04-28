@@ -14,8 +14,8 @@ const router = new VueRouter({
     linkExactActiveClass: 'active',
     routes: [
         { path: "/", component: ExampleComponent, name: 'home' },
-        {path:"/register",component: RegisterPage, name: 'register_page'},
-         { path: '*', component: NotFoundPage, name: '404' }
+        { path:"/register",component: RegisterPage, name: 'register_page'},
+        { path: '*', component: NotFoundPage, name: '404' }
     ]
 });
 
