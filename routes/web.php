@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('guest.home');
+// });
 
 Auth::routes();
 
@@ -27,6 +27,13 @@ Route::middleware('auth'
 ->group(function() {
     Route::resource('flats', 'FlatController');
 });
+// home di quando SEI loggato
+Route::get('/admin', 'Admin\HomeController@index')->name('admin.home');
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+// qualunque rotta non admin e non registrata |  '?' parametro opzionale
+Route::get('{any?}', function () {
+    //home di quando NON SEI loggato
+    return view('guest.home');
+})->where("any", ".*");

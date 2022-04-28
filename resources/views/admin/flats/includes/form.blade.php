@@ -35,6 +35,12 @@
             </div>
             <div class="col-12">
                 <div class="form-group">
+                    <label for="address">Indirizzo</label>
+                    <input type="text" class="form-control" id="address" name="address">
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
                     <label for="description">Descrizione</label>
                     <textarea class="form-control" id="description" rows="5" name="description" value="{{old('description', $flat->description)}}"></textarea>
 
