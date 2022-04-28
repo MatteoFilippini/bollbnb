@@ -7,6 +7,7 @@
 
                     <div class="card-body">
                         I'm an example component.
+                        <router-link to="/register">Registrazione vue</router-link>
                     </div>
                 </div>
             </div>

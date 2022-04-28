@@ -71,12 +71,12 @@ class FlatController extends Controller
             $data = $request->all();
         $data['user_id'] = Auth::id();
 
+        // UPLOAD IMAGE
         if(array_key_exists('default_image',$data)){
             $img_url=Storage::put('flat_images',$data['default_image']);
             $data['default_image']=$img_url;
         }
-
-        
+   
         $flat = new Flat();
         $flat->fill($data);
         $flat->save();
