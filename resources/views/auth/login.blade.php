@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}" id="loginForm">
                         @csrf
 
                         <div class="form-group row">
@@ -70,4 +70,52 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('js/app.js') }}"></script>
+<script>
+    // Wait for the DOM to be ready
+$(function() {
+  // Initialize form validation on the registration form.
+  // It has the name attribute "registration"
+  $("#loginForm").validate({
+    // Specify validation rules
+    rules: {
+      // The key name on the left side is the name attribute
+      // of an input field. Validation rules are defined
+      // on the right side    
+      email: {
+        required: true,
+        // Specify that email should be validated
+        // by the built-in "email" rule
+        email: true,
+        maxlength: 254
+      },
+     
+      password: {
+        required: true,
+        string: true,
+        minlength: 8
+      },
+      
+    },
+    // Specify validation error messages
+    messages: {
+      password: {
+        required: "La password è obbligatoria",
+        string:"La password deve essere una stringa",
+        minlength: "La password deve essere almeno di 5 caratteri"
+      },
+      email: {
+        required: "La mail è obbligatoria",
+        mail: "La mail deve essere di tipo mail",
+        maxlength:"La mail può essere al massimo lunga 254 caratteri"
+      }
+    },
+    // Make sure the form is submitted to the destination defined
+    // in the "action" attribute of the form when valid
+    submitHandler: function(form) {
+      form.submit();
+    }
+  });
+});
+</script> 
 @endsection

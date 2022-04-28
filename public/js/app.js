@@ -38943,7 +38943,12 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Jquery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
-var jquery_validation = __webpack_require__(/*! jquery-validation */ "./node_modules/jquery-validation/dist/jquery.validate.js");
+var jquery_validation = __webpack_require__(/*! jquery-validation */ "./node_modules/jquery-validation/dist/jquery.validate.js"); // import Vue from 'vue';
+// import RegisterValidation from './components/RegisterValidation';
+// Vue.component('RegisterValidation', RegisterValidation);
+// const root = new Vue({
+//     el:'#root',
+// });
 
 /***/ }),
 

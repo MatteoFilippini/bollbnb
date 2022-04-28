@@ -105,14 +105,17 @@
     </div>
 </div>
 
-{{-- <script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('js/jquery-validation.js') }}"></script> --}}
+ <script src="{{ asset('js/app.js') }}"></script>
+{{-- <script src="{{ asset('js/jquery-validation.js') }}"></script>  --}}
 
 <!-- SCRIPT VALIDATOR EMAIL -->
- <script>
+ {{-- <script>
 const form= document.getElementById('regForm');
 const button= document.getElementById('btnRegister');
-const errorMsg = document.getElementById('mailError');
+const mailMsg = document.getElementById('mailError');
+const nameMsg = document.getElementById('nameError');
+const surnameMsg = document.getElementById('surnameError');
+const passwordMsg = document.getElementById('passwordError');
 const inputEmail= document.getElementById('email');
 const inputName= document.getElementById('name');
 const inputSurname= document.getElementById('surname');
@@ -126,39 +129,45 @@ const checkPassword = /^[a-zA-Z0-9\_\*\-\+\!\?\,\:\;\.\xE0\xE8\xE9\xF9\xF2\xEC\x
 form.addEventListener('submit',(e)=>{
     e.preventDefault();
      console.log('email:'+inputEmail.value);
-     
+     nameMsg.innerHTML = "";
+     surnameMsg.innerHTML = "";
+     mailMsg.innerHTML = "";
      // Validazione name 
       if(inputName.value.length<=0){
-         errorMsg.innerHTML = 'devi inserire il nome';
+         nameMsg.innerHTML = 'Devi inserire il nome';
         }
         else if(inputName.value.length > 254){
-            errorMsg.innerHTML = 'il nome deve essere massimo di 254 caratteri';
+            nameMsg.innerHTML = 'Il nome deve essere massimo di 254 caratteri';
     }
     else if(!checkName.test(inputName.value)){
-        errorMsg.innerHTML = 'il nome non è corretto';
+        nameMsg.innerHTML = 'Il nome non è corretto';
     }
 
     // validazione surname 
     else if(inputSurname.value.length<=0){
-        errorMsg.innerHTML = 'devi inserire il cognome';
+        surnameMsg.innerHTML = 'Devi inserire il cognome';
     }
-    else if(inputName.value.length > 254){
-        errorMsg.innerHTML = 'il cognome deve essere massimo di 254 caratteri';
+    else if(inputSurname.value.length > 254){
+        surnameMsg.innerHTML = 'Il cognome deve essere massimo di 254 caratteri';
     }   
+    else if(!checkName.test(inputSurname.value)){
+        nameMsg.innerHTML = 'Il nome non è corretto';
+    }
     
     //  validazione mail 
     else if(inputEmail.value.length<=0){
-        errorMsg.innerHTML = 'devi inserire la email';
+        mailMsg.innerHTML = 'Devi inserire la email';
     }
     else if(!checkEmail.test(inputEmail.value)){
-        errorMsg.innerHTML = 'non e una email';
+        mailMsg.innerHTML = 'Non e una email';
     }
 
+    // validazione password
     else if(inputPassword.value.length<=0){
-        errorMsg.innerHTML = 'devi inserire la password';
+        passwordMsg.innerHTML = 'Devi inserire la password';
     }
     else if(inputPassword.value.length<8){
-        errorMsg.innerHTML = 'la password deve essere almeno di 8 caratteri';
+        passwordMsg.innerHTML = 'La password deve essere almeno di 8 caratteri';
     }
 
 
@@ -166,8 +175,8 @@ form.addEventListener('submit',(e)=>{
         e.target.submit();
     }
 });
-</script>  
-{{-- <script>
+</script>   --}}
+ <script>
     // Wait for the DOM to be ready
 $(function() {
   // Initialize form validation on the registration form.
@@ -178,13 +187,20 @@ $(function() {
       // The key name on the left side is the name attribute
       // of an input field. Validation rules are defined
       // on the right side
-      name: "required",
-      surname: "required",
+      name: {
+        required: true,
+        maxlength: 254
+      },
+      surname: {
+        required: true,
+        maxlength: 254
+      },
       email: {
         required: true,
         // Specify that email should be validated
         // by the built-in "email" rule
-        email: true
+        email: true,
+        maxlength: 254
       },
       date_of_birth:{
           required:true,
@@ -192,24 +208,34 @@ $(function() {
       },
       password: {
         required: true,
-        minlength: 5
+        minlength: 8
       },
       password_confirm: {
         required: true,
-        minlength: 5
+        minlength: 8
       }
     },
     // Specify validation error messages
     messages: {
-      name: "Il nome non è valido",
-      surname: "Il cognome non è valido",
+      name:{
+          required:"Il nome è obbligatorio",
+          maxlength:"Il nome può essere al massimo di 254 caratteri"
+      } ,
+      surname:{
+          required:"Il cognome è obbligatorio",
+          maxlength:"Il cognome può essere al massimo di 254 caratteri"
+      } ,
       password: {
         required: "La password è obbligatoria",
-        minlength: "La password deve essere almeno di 5 caratteri"
+        minlength: "La password deve essere almeno di 8 caratteri"
+      },
+      date_of_birth:{
+          required:"La data di nascita è obbligatoria"
       },
       email: {
         required: "La mail è obbligatoria",
-        mail: "La mail deve essere di tipo mail"
+        mail: "La mail deve essere di tipo mail",
+        maxlength:"La mail può essere al massimo lunga 254 caratteri"
       }
     },
     // Make sure the form is submitted to the destination defined
@@ -219,7 +245,7 @@ $(function() {
     }
   });
 });
-</script> --}}
+</script> 
 
 
 @endsection
