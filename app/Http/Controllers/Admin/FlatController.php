@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Flat;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class FlatController extends Controller
@@ -44,7 +45,7 @@ class FlatController extends Controller
         $request->validate(
             [
                 'title' => ['required','min:5','max:70','unique:flats'],
-                 'default_image'=>['required'],
+                'default_image'=>['required','image'],
                 'rooms'=>['nullable','numeric', 'min:0'],
                 'beds'=>['nullable','numeric', 'min:0'],
                 'bathrooms'=>['nullable','numeric', 'min:0'],
@@ -52,6 +53,7 @@ class FlatController extends Controller
             ],[
                 'title.required'=>"Il titolo dell'appartamento è obbligatorio",
                 'default_image.required'=>"L'immagine dell'appartamento è obbligatoria",
+                'default_image.image'=>"Il file caricato non è supportato",
                 'title.min'=>"La lunghezza minima del titolo è di 5 caratteri",
                 'title.max'=>"La lunghezza massima del titolo è di 70 caratteri",
                 'title.unique'=>"Questo titolo è già presente",
@@ -69,6 +71,12 @@ class FlatController extends Controller
             $data = $request->all();
         $data['user_id'] = Auth::id();
 
+        // UPLOAD IMAGE
+        if(array_key_exists('default_image',$data)){
+            $img_url=Storage::put('flat_images',$data['default_image']);
+            $data['default_image']=$img_url;
+        }
+   
         $flat = new Flat();
         $flat->fill($data);
         $flat->save();
@@ -110,7 +118,7 @@ class FlatController extends Controller
         $request->validate(
             [
                 'title' => ['required','min:5','max:70', Rule::unique('flats')->ignore($flat->id)],
-                 'default_image'=>['required'],
+                 'default_image'=>['required','image'],
                 'rooms'=>['nullable','numeric', 'min:0'],
                 'beds'=>['nullable','numeric', 'min:0'],
                 'bathrooms'=>['nullable','numeric', 'min:0'],
@@ -118,6 +126,7 @@ class FlatController extends Controller
             ],[
                 'title.required'=>"Il titolo dell'appartamento è obbligatorio",
                 'default_image.required'=>"L'immagine dell'appartamento è obbligatoria",
+                'default_image.image'=>"Il file caricato non è supportato",
                 'title.min'=>"La lunghezza minima del titolo è di 5 caratteri",
                 'title.max'=>"La lunghezza massima del titolo è di 70 caratteri",
                 'title.unique'=>"Questo titolo è già presente",
