@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\FlatSponsor;
 use App\Http\Controllers\Controller;
 use App\Models\Flat;
-use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,7 +20,7 @@ class FlatController extends Controller
         $flats_sponsor = DB::table('flat_sponsor')
             ->join('flats', 'flat_sponsor.flat_id', '=', 'flats.id')
             ->select('flats.title', 'flats.id')
-            ->distinct()->get();
+            ->distinct()->where('visible', 1)->get();
         // prendo gli ID degli appartamenti sponsorizzati
         $flat_sponsor_ids = [];
         foreach ($flats_sponsor as $fs) {
@@ -30,7 +28,7 @@ class FlatController extends Controller
         };
 
         // prendo tutti gli appartamenti
-        $flats = Flat::all();
+        $flats = Flat::where('visible', 1)->get();
 
         // prendo gli appartamenti NON sponsorizzati
         $not_sponsor = [];
@@ -40,7 +38,7 @@ class FlatController extends Controller
             }
         }
 
-        return response()->json(['sponsor'=>$flats_sponsor,'not_sponsor'=>$not_sponsor]);
+        return response()->json(['sponsor' => $flats_sponsor, 'not_sponsor' => $not_sponsor]);
     }
 
     /**
