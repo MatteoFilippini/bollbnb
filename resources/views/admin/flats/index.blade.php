@@ -13,7 +13,7 @@
                 </a>
                 <div class="d-flex justify-content-around">
                     <a href="{{route('admin.flats.edit', $flat->id)}}" class="btn btn-success mr-3">MODIFICA</a>
-                    <form action="{{route('admin.flats.destroy', $flat->id)}}" method="POST">
+                    <form action="{{route('admin.flats.destroy', $flat->id)}}" method="POST" class="delete-form">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">ELIMINA</button>
@@ -25,3 +25,8 @@
     </ul>
 </div>
 @endsection
+
+@section('additional-scripts')
+<script src="{{ asset('js/delete-confirm.js') }}"></script>
+@endsection
+
