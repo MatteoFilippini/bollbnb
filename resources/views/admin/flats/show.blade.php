@@ -3,7 +3,10 @@
 @section('content')
 <div class="container">
     <h1>
-        {{$flat->title}}
+        <div class="d-flex justify-content-between">
+            {{$flat->title}}
+            <a href="{{route('admin.flats.index')}}" class="btn btn-danger mb-3">TORNA INDIETRO</a>
+        </div>
     </h1>
     <p>
         {{$flat->square_meters}} mq
