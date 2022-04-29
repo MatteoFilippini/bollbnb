@@ -141,6 +141,10 @@ class FlatController extends Controller
             ]
             );
         $data = $request->all();
+        if(array_key_exists('default_image',$data)){
+            $img_url=Storage::put('flat_images',$data['default_image']);
+            $data['default_image']=$img_url;
+        }
         $flat->update($data);
 
         return redirect()->route('admin.flats.show', compact('flat'));
