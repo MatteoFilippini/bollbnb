@@ -120,7 +120,7 @@ jQuery.validator.addMethod("numericBeds", function(inputId){
 jQuery.validator.addMethod("numericBathrooms", function(inputId){
         
         var inputVal = $('#bathrooms').val();
-        if($.isNumeric(inputVal)){
+        if($.isNumeric(inputVal) && inputVal > 0){
             return true;
         }else{
             return false;
