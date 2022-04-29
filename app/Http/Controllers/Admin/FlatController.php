@@ -18,9 +18,9 @@ class FlatController extends Controller
      */
     public function index()
     {
-        $flats = Flat::all();
-
-        return view('admin.flats.index', compact('flats'));
+        $user_id = $user = auth()->user()->id;
+        $flats = Flat::where('user_id', $user_id)->get();
+        return view('admin.flats.index', compact('flats', 'user_id'));
     }
 
     /**

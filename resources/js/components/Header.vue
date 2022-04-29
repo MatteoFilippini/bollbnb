@@ -13,6 +13,7 @@ name:'Header'
 </script>
 
 <style scoped lang='scss'>
+
 nav{
     display: flex;
     justify-content: space-between;
