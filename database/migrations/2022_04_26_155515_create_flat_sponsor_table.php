@@ -14,6 +14,7 @@ class CreateFlatSponsorTable extends Migration
     public function up()
     {
         Schema::create('flat_sponsor', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('flat_id');
             $table->foreign('flat_id')->references('id')->on('flats')->onDelete('cascade');
 
