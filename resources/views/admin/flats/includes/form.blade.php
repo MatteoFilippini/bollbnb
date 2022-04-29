@@ -24,19 +24,19 @@
             <div class="col-12">
                 <div class="form-group">
                     <label for="title">Titolo</label>
-                    <input type="text" class="form-control" id="title" name="title" value="{{old('title', $flat->title)}}">
+                    <input type="text" class="form-control" id="title" name="title" value="{{old('title', $flat->title)}}" required>
                 </div>
             </div>
             <div class="col-12">
                 <div class="form-group">
                     <label for="default_image">Immagine copertina</label>
-                    <input type="file" class="form-control-file" id="default_image" name="default_image">
+                    <input type="file" class="form-control-file" id="default_image" name="default_image" required>
                 </div>
             </div>
             <div class="col-12">
                 <div class="form-group">
                     <label for="address">Indirizzo</label>
-                    <input type="text" class="form-control" id="address" name="address">
+                    <input type="text" class="form-control" id="address" name="address" required>
                 </div>
             </div>
             <div class="col-12">
@@ -49,26 +49,26 @@
             <div class="col-2">
                 <div class="form-group">
                     <label for="rooms">Numero Stanze</label>
-                    <input type="number"  class="form-control" id="rooms" name="rooms" value="{{old('rooms', $flat->rooms)}}">
+                    <input type="number"  class="form-control" id="rooms" name="rooms" value="{{old('rooms', $flat->rooms)}}" min="0" required>
                 </div>
             </div>
             <div class="col-2">
                 <div class="form-group">
                     <label for="beds">Numero letti</label>
-                    <input type="number"  class="form-control" id="beds" name="beds" value="{{old('beds', $flat->beds)}}">
+                    <input type="number"  class="form-control" id="beds" name="beds" value="{{old('beds', $flat->beds)}}" min="0" required>
 
                 </div>
             </div>
             <div class="col-2">
                 <div class="form-group">
                     <label for="bathrooms">Numeri bagni</label>
-                    <input type="number"  class="form-control" id="bathrooms" name="bathrooms" value="{{old('bathrooms', $flat->bathrooms)}}">
+                    <input type="number"  class="form-control" id="bathrooms" name="bathrooms" value="{{old('bathrooms', $flat->bathrooms)}}" min="0" required>
                 </div>
             </div>
             <div class="col-2">
                 <div class="form-group">
                     <label for="square_meters">Metri quadrati casa</label>
-                    <input type="text" class="form-control" id="square_meters" name="square_meters" value="{{old('square_meters', $flat->square_meters)}}">
+                    <input type="text" class="form-control" id="square_meters" name="square_meters" value="{{old('square_meters', $flat->square_meters)}}" min="0" required>
                 </div>
             </div>
             <div class="col-4">

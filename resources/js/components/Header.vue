@@ -1,15 +1,15 @@
 <template>
-<div>
+  <div class="container mt-3">
     <nav>
-        <a href="/admin">Accedi</a>
+      <a href="/admin">Accedi</a>
     </nav>
-</div>
+  </div>
 </template>
 
 <script>
 export default {
-name:'Header'
-}
+  name: "Header",
+};
 </script>
 
 <style scoped lang='scss'>
