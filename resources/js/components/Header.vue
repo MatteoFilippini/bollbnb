@@ -13,8 +13,9 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-nav {
-  display: flex;
-  justify-content: space-between;
+
+nav{
+    display: flex;
+    justify-content: space-between;
 }
 </style>
