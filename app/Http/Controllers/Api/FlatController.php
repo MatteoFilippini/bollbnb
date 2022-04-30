@@ -19,7 +19,7 @@ class FlatController extends Controller
         // prendo gli appartamenti con sponsorizzazione
         $flats_sponsor = DB::table('flat_sponsor')
             ->join('flats', 'flat_sponsor.flat_id', '=', 'flats.id')
-            ->select('flats.title', 'flats.id')
+            ->select('flats.*')
             ->distinct()->where('visible', 1)->get();
         // prendo gli ID degli appartamenti sponsorizzati
         $flat_sponsor_ids = [];
@@ -38,7 +38,7 @@ class FlatController extends Controller
             }
         }
 
-        return response()->json(['sponsor' => $flats_sponsor, 'not_sponsor' => $not_sponsor]);
+        return response()->json(['sponsor_id' => $flat_sponsor_ids, 'sponsor' => $flats_sponsor, 'not_sponsor' => $not_sponsor]);
     }
 
     /**
@@ -49,7 +49,6 @@ class FlatController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -60,7 +59,9 @@ class FlatController extends Controller
      */
     public function show($id)
     {
-        //
+        $flat = Flat::where('id', $id)->with(['user'])->first();
+        if (!$flat) return response('Errore 404', 404);
+        return response()->json($flat);
     }
 
     /**
