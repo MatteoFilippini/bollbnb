@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Models\Flat;
 use Illuminate\Support\Facades\Auth;
@@ -84,7 +85,10 @@ class FlatController extends Controller
         $flat->fill($data);
         $flat->save();
 
-
+        $address = new Address();
+        $address->address = $data['address'];
+        $address->city = $data['city'];
+        $flat->address()->save($address);
 
 
         return redirect()->route('admin.flats.index');
@@ -150,9 +154,9 @@ class FlatController extends Controller
 
 
         $data = $request->all();
-        if(array_key_exists('default_image',$data)){
-            $img_url=Storage::put('flat_images',$data['default_image']);
-            $data['default_image']=$img_url;
+        if (array_key_exists('default_image', $data)) {
+            $img_url = Storage::put('flat_images', $data['default_image']);
+            $data['default_image'] = $img_url;
         }
         $flat->update($data);
 
