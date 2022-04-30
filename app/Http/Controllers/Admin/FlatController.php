@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Flat;
+use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -31,8 +32,9 @@ class FlatController extends Controller
     public function create()
     {
         $flat = new Flat();
+        $services = Service::all();
 
-        return view('admin.flats.create', compact('flat'));
+        return view('admin.flats.create', compact('flat', 'services'));
     }
 
     /**
@@ -109,7 +111,8 @@ class FlatController extends Controller
      */
     public function edit(Flat $flat)
     {
-        return view('admin.flats.edit', compact('flat'));
+        $services = Service::all();
+        return view('admin.flats.edit', compact('flat', 'services'));
     }
 
     /**
@@ -150,9 +153,9 @@ class FlatController extends Controller
 
 
         $data = $request->all();
-        if(array_key_exists('default_image',$data)){
-            $img_url=Storage::put('flat_images',$data['default_image']);
-            $data['default_image']=$img_url;
+        if (array_key_exists('default_image', $data)) {
+            $img_url = Storage::put('flat_images', $data['default_image']);
+            $data['default_image'] = $img_url;
         }
         $flat->update($data);
 

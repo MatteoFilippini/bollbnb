@@ -71,12 +71,13 @@
                     <input type="text" class="form-control" id="square_meters" name="square_meters" value="{{old('square_meters', $flat->square_meters)}}" min="0" required>
                 </div>
             </div>
-            <div class="col-4">
-                <label for="services">Servizi</label>
-                <select class="form-control" id="services">
-                    <option>--</option>
-                    <option value=""></option>
-                </select>
+            <div class="col-12">
+                @foreach ($services as $service)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="service-{{$service->id}}" name="services[]">
+                    <label class="form-check-label" for="service-{{$service->id}}">{{$service->type}}</label>
+                </div>
+                @endforeach
             </div>
 
         </div>
