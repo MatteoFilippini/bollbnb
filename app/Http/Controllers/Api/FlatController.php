@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\FlatSponsor;
 use App\Http\Controllers\Controller;
 use App\Models\Flat;
 use Illuminate\Http\Request;
@@ -16,11 +17,12 @@ class FlatController extends Controller
      */
     public function index()
     {
-        // prendo gli appartamenti con sponsorizzazione
-        $flats_sponsor = DB::table('flat_sponsor')
-            ->join('flats', 'flat_sponsor.flat_id', '=', 'flats.id')
-            ->select('flats.*')
-            ->distinct()->where('visible', 1)->get();
+        $flats_sponsor = [];
+        $query = FlatSponsor::with('flat')->get();
+        foreach ($query as $fs) {
+            array_push($flats_sponsor, $fs->flat);
+        };
+
         // prendo gli ID degli appartamenti sponsorizzati
         $flat_sponsor_ids = [];
         foreach ($flats_sponsor as $fs) {
@@ -28,17 +30,20 @@ class FlatController extends Controller
         };
 
         // prendo tutti gli appartamenti
-        $flats = Flat::where('visible', 1)->get();
+        $flats = Flat::with('user')->get();
 
-        // prendo gli appartamenti NON sponsorizzati
+        // prendo gli apparamenti con queli id
+        $sponsor = [];
         $not_sponsor = [];
         foreach ($flats as $flat) {
             if (!in_array($flat->id, $flat_sponsor_ids)) {
                 array_push($not_sponsor, $flat);
+            } else {
+                array_push($sponsor, $flat);
             }
         }
 
-        return response()->json(['sponsor_id' => $flat_sponsor_ids, 'sponsor' => $flats_sponsor, 'not_sponsor' => $not_sponsor]);
+        return response()->json(['sponsor' => $sponsor, 'Nsponsor' => $not_sponsor]);
     }
 
     /**

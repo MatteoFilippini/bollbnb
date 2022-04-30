@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Home</h1>
     <h2 class="text-center">Appartamenti Sponsor</h2>
     <!-- <h4 v-for="flat_sponsor in flats_sponsor" :key="flat_sponsor.id">
@@ -38,8 +38,8 @@ export default {
       axios
         .get("http://localhost:8000/api/flats")
         .then((res) => {
-          this.flats_sponsor = res.data["sponsor"];
-          this.flats = res.data["not_sponsor"];
+          this.flats = res.data.Nsponsor;
+          this.flats_sponsor = res.data.sponsor;
         })
         .catch((err) => {
           console.error(err);
