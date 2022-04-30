@@ -87,11 +87,14 @@ class FlatController extends Controller
         $flat->fill($data);
         $flat->save();
 
+        //connect address
         $address = new Address();
         $address->address = $data['address'];
         $address->city = $data['city'];
         $flat->address()->save($address);
 
+        //connect services
+        if (array_key_exists('services', $data)) $flat->services()->attach($data['services']);
 
         return redirect()->route('admin.flats.index');
     }
@@ -116,7 +119,10 @@ class FlatController extends Controller
     public function edit(Flat $flat)
     {
         $services = Service::all();
-        return view('admin.flats.edit', compact('flat', 'services'));
+        $flat_services_ids = $flat->services->pluck('id')->toArray();
+
+
+        return view('admin.flats.edit', compact('flat', 'services', 'flat_services_ids'));
     }
 
     /**
@@ -162,6 +168,10 @@ class FlatController extends Controller
             $data['default_image'] = $img_url;
         }
         $flat->update($data);
+
+        //update services
+        if (!array_key_exists('services', $data)) $flat->services()->detach();
+        else $flat->services()->sync($data['services']);
 
         return redirect()->route('admin.flats.show', compact('flat'));
     }

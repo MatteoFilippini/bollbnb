@@ -81,7 +81,8 @@
             <div class="col-12">
                 @foreach ($services as $service)
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="service-{{$service->id}}" name="services[]">
+                    <input class="form-check-input" type="checkbox" id="service-{{$service->id}}" value="{{$service->id}}" name="services[]" 
+                    @if (in_array($service->id, old('services', $flat_services_ids ?? []))) checked @endif>
                     <label class="form-check-label" for="service-{{$service->id}}">{{$service->type}}</label>
                 </div>
                 @endforeach
