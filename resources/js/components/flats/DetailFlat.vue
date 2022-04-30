@@ -38,7 +38,7 @@ export default {
         });
     },
   },
-  created() {
+  mounted() {
     this.getFlat();
   },
 };
