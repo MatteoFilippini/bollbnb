@@ -32,7 +32,7 @@ export default {
         });
     },
   },
-  mounted() {
+  created() {
     this.getFlat();
   },
 };
