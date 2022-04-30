@@ -7,16 +7,14 @@ Vue.use(VueRouter)
 // importiamo i component
 import HomePage from "./components//pages/HomePage";
 import NotFoundPage from "./components/pages/NotFoundPage";
-import RegisterPage from "./components/pages/RegisterPage";
-// import FlatList from "./components/FlatList";
+import DetailFlat from "./components/flats/DetailFlat";
 
 const router = new VueRouter({
     mode: 'history',
     linkExactActiveClass: 'active',
     routes: [
         { path: "/", component: HomePage, name: 'home' },
-        // { path: "/flats", component: FlatList, name: 'index' },
-        { path: "/register", component: RegisterPage, name: 'register_page' },
+        { path: "/flats/:id", component: DetailFlat, name: 'detail' },
         { path: '*', component: NotFoundPage, name: '404' }
     ]
 });
