@@ -8,6 +8,7 @@ Vue.use(VueRouter)
 import HomePage from "./components//pages/HomePage";
 import NotFoundPage from "./components/pages/NotFoundPage";
 import DetailFlat from "./components/flats/DetailFlat";
+import MessageForm from "./components/MessageForm";
 
 const router = new VueRouter({
     mode: 'history',
@@ -15,6 +16,7 @@ const router = new VueRouter({
     routes: [
         { path: "/", component: HomePage, name: 'home' },
         { path: "/flats/:id", component: DetailFlat, name: 'detail' },
+        { path: "/message/:id", component: MessageForm, name: 'messageForm' },
         { path: '*', component: NotFoundPage, name: '404' }
     ]
 });

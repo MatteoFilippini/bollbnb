@@ -4,7 +4,7 @@
     <div class="border border-light">
       <h1>{{ flat.title }}</h1>
       <p>{{ flat.description }}</p>
-      <h3>{{flat.user.name}}</h3>
+      <h3>{{ flat.user.name }}</h3>
       <router-link
         :to="{ name: 'detail', params: { id: flat.id } }"
         class="btn btn-secondary btn-sm"
@@ -18,6 +18,13 @@
       class="btn btn-danger btn-sm"
       v-if="isShow"
       >Indietro</router-link
+    >
+
+    <router-link
+      :to="{ name: 'messageForm', params: { id: flat.id } }"
+      class="btn btn-primary btn-sm"
+      v-if="isShow"
+      >messaggio</router-link
     >
   </div>
 </template>
