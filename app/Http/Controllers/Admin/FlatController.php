@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Models\Flat;
 use App\Models\Service;
@@ -86,7 +87,10 @@ class FlatController extends Controller
         $flat->fill($data);
         $flat->save();
 
-
+        $address = new Address();
+        $address->address = $data['address'];
+        $address->city = $data['city'];
+        $flat->address()->save($address);
 
 
         return redirect()->route('admin.flats.index');
