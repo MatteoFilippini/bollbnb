@@ -12,6 +12,9 @@
         {{$flat->square_meters}} mq
     </p>
     <div>
+    {{$flat->description}} 
+    </div>
+    <div>
     <img src="{{asset('storage/'.$flat->default_image)}}" alt="cover_image" style="width: 400px;height:400px">
     </div>
 </div>
