@@ -46,5 +46,5 @@ class Flat extends Model implements Viewable
           return $this->hasMany('App\Models\FlatSponsor');
       }
 
-    protected $fillable = ['user_id', 'title', 'rooms', 'beds', 'bathrooms', 'square_meters', 'default_image'];
+    protected $fillable = ['user_id', 'title','description', 'rooms', 'beds', 'bathrooms', 'square_meters', 'default_image'];
 }
