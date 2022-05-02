@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Models\Flat;
+use App\Models\Message;
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -107,7 +108,8 @@ class FlatController extends Controller
      */
     public function show(Flat $flat)
     {
-        return view('admin.flats.show', compact('flat'));
+        $message = Message::where('flat_id', $flat->id)->get();
+        return view('admin.flats.show', compact('flat', 'message'));
     }
 
     /**
