@@ -36,7 +36,7 @@
             <div class="col-12">
                 <div class="form-group">
                     <label for="address">Indirizzo</label>
-                    <input type="text" class="form-control" id="address" name="address" required>
+                    <input type="text" class="form-control" id="address" name="address" required >
                 </div>
             </div>
             <div class="col-12">
@@ -78,36 +78,98 @@
                     <input type="text" class="form-control" id="square_meters" name="square_meters" value="{{old('square_meters', $flat->square_meters)}}" min="0" required>
                 </div>
             </div>
-            <div class="col-12">
-                @foreach ($services as $service)
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="service-{{$service->id}}" value="{{$service->id}}" name="services[]" 
-                    @if (in_array($service->id, old('services', $flat_services_ids ?? []))) checked @endif>
-                    <label class="form-check-label" for="service-{{$service->id}}">{{$service->type}}</label>
+                <div class="col-12">
+                    @foreach ($services as $service)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="service-{{$service->id}}" value="{{$service->id}}" name="services[]" 
+                        @if (in_array($service->id, old('services', $flat_services_ids ?? []))) checked @endif>
+                        <label class="form-check-label" for="service-{{$service->id}}">{{$service->type}}</label>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
-            </div>
+                
+            <hr>  
+            <input type="hidden" value="" id="position" name='position'>
+            <input type="hidden" value="" id="latitude" name='latitude'>
+            <input type="hidden" value="" id="longitude" name='longitude'>
+            <button type="submit" class="btn btn-success" id="confirm">Conferma</button>
 
         </div>
-        <hr>
-        <button type="submit" class="btn btn-success">Conferma</button>
     </form>
 </div>
 <script src="{{ asset('js/app.js') }}"></script>
+
 <script>
-    //  $(document).ready(function numeric() {
-    //         $("button").click(function() {
-    //             var inputVal = $('#rooms').val();
-    //             if($.isNumeric(inputVal)){
-    //                console.log(true); 
-    //             }else{
-    //                 console.log(false);                 };
-    //         });
-    //     });
+//  $(document).ready(function numeric() {
+//         $("button").click(function() {
+//             var inputVal = $('#rooms').val();
+//             if($.isNumeric(inputVal)){
+//                console.log(true); 
+//             }else{
+//                 console.log(false);                 };
+//         });
+//     });
         
-    // Wait for the DOM to be ready
+// Wait for the DOM to be ready
+//Aggiungo un evento sul tag con id address
+$( "#address" ).on( "change", function() {
+    console.log('evento');
+
+//let str = document.querySelector('#address').value;
+//Recupero il value dell'input con id address
+let str = $("#address").val();
+  
+
+
+console.log(str);
+//Per passare il valore della stringa e avere la posizione da TOM TOM devo encodare la stringa 
+//che mi arriva dall'input
+const encodedUrl = encodeURIComponent(str);
+console.log(encodedUrl);
+data = {
+name: 'ciao'
+};
+
+//Faccio la chiamata API classica con headers 'Content-Type': 'application/json'
+$.ajax({
+  type: 'GET', 
+  url: `https://api.tomtom.com/search/2/geocode/${encodedUrl}.json?key=pkCWDKdXKoZyvsUh2s53ebk9fAJvlUQ3`,
+   cache: 'false',
+  contentType:'application/json',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  data: data,
+  //Funzione se la chiamata ha successo
+  success: function (response){
+     position = response.results[0].position;
+     //Prendo gli input type hidden e gli assegno il valore del risultato che verrà
+     //inviato al server
+      let positionInput = $('#position').val(`${position.lat},${position.lon}`);
+      let inputLat = $('#latitude').val(position.lat);
+      let inputLon = $('#longitude').val(position.lon);
+     console.log(positionInput.val());
+},
+  error: function (){
+     console.log('no');
+},
+  complete: function (){
+     console.log('yes');
+}
+}); 
+});
+
+
+
+
+//---------------------------------------------------------------------------------------------
+
+
+
+//Inizio Validazione
 $(function() {
-   
+
+//Dichiaro dei metodi custom aggiuntivi per validare gli input    
  jQuery.validator.addMethod("numericRooms", function(inputId){
         
         var inputVal = $('#rooms').val();
@@ -144,14 +206,33 @@ jQuery.validator.addMethod("numericMeters", function(inputId){
             return false;
         };
 }); 
-  // Initialize form validation on the registration form.
-  // It has the name attribute "registration"
+jQuery.validator.addMethod("positionGet", function(inputId){
+        
+        var inputVal = $('#position').val();
+        if(inputVal){
+            return true;
+        }else{
+            return false;
+        };
+}); 
+
+
+
+
+
+//---------------------------------------------------------------------------------------------
+
+
+ 
+
+//Funzione di validazione con oggetti, chiave e valore
   $("#editForm").validate({
     // Specify validation rules
     rules: {
       // The key name on the left side is the name attribute
       // of an input field. Validation rules are defined
       // on the right side
+      done : true,
       title: {
         required: true,
         minlength: 5,
@@ -184,7 +265,7 @@ jQuery.validator.addMethod("numericMeters", function(inputId){
         numericMeters:true
       }
     },
-    // Specify validation error messages
+    // Messaggi di errore custom
     messages: {
       title:{
           required:"Il titolo è obbligatorio",
@@ -215,11 +296,12 @@ jQuery.validator.addMethod("numericMeters", function(inputId){
         numericMeters:'Il numero di dei metri quadri deve essere un numero e deve essere maggiore di zero'
       }
     },
-    // Make sure the form is submitted to the destination defined
-    // in the "action" attribute of the form when valid
+    
+    //Se tutte le regole di validazione sono rispettate mi submitta il form
     submitHandler: function(form) {
       form.submit();
     }
   });
 });
-// </script>
+
+ </script>
