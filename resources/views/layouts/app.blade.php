@@ -11,6 +11,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- Eventuale script addizionale - DEFER --}}
+    @yield('additional-scripts-head')
     
     
 
