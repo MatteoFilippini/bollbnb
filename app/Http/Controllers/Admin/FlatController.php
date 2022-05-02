@@ -56,6 +56,11 @@ class FlatController extends Controller
                 'beds' => ['nullable', 'numeric', 'min:0'],
                 'bathrooms' => ['nullable', 'numeric', 'min:0'],
                 'square_meters' => ['nullable', 'numeric', 'min:0'],
+                'address' => ['required', 'string', 'max:50'],
+                'city' => ['required', 'string', 'max:30'],
+                'latitude' => ['required', 'numeric', 'between:-90,90'],
+                'longitude' => ['required', 'numeric', 'between:-180,180'],
+                'position' => ['required', 'string', 'max:17']
             ],
             [
                 'title.required' => "Il titolo dell'appartamento è obbligatorio",
@@ -71,7 +76,16 @@ class FlatController extends Controller
                 'rooms.min' => 'Il numero di stanze deve essere maggiore di zero',
                 'beds.min' => 'Il numero di letti deve essere maggiore di zero',
                 'bathrooms.min' => 'Il numero di bagni deve essere maggiore di zero',
-                'square_meters.min' => 'Il numero di metri deve essere maggiore di zero'
+                'square_meters.min' => 'Il numero di metri deve essere maggiore di zero',
+                'latitude.required' => 'La Latitudine è obbligatoria',
+                'latitude.numeric' => 'La latitudine deve essere un numero',
+                'latitude.between' => 'La latitudine deve essere tra -90 e 90 gradi',
+                'longitude.required' => 'La latitudine è obbligatoria',
+                'longitude.numeric' => 'La latitudine deve essere un numero',
+                'longitude.between' => 'La latitudine deve essere tra -180 e 180 gradi',
+                'position.required' => 'La posizione è obbligatoria',
+                'position.string' => 'La posizione deve essere una stringa',
+                'position.max' => 'La posizione deve essere lunga al massimo 17 caratteri'
             ]
         );
 
@@ -148,6 +162,11 @@ class FlatController extends Controller
                 'beds' => ['nullable', 'numeric', 'min:0'],
                 'bathrooms' => ['nullable', 'numeric', 'min:0'],
                 'square_meters' => ['nullable', 'numeric', 'min:0'],
+                'address' => ['required', 'string', 'max:50'],
+                'city' => ['required', 'string', 'max:30'],
+                'latitude' => ['required', 'numeric', 'between:-90,90'],
+                'longitude' => ['required', 'numeric', 'between:-180,180'],
+                'position' => ['required', 'string', 'max:17']
             ],
             [
                 'default_image.image' =>'Formato immagine non valido',
@@ -162,7 +181,16 @@ class FlatController extends Controller
                 'rooms.min' => 'Il numero di stanze deve essere maggiore di zero',
                 'beds.min' => 'Il numero di letti deve essere maggiore di zero',
                 'bathrooms.min' => 'Il numero di bagni deve essere maggiore di zero',
-                'square_meters.min' => 'Il numero di metri deve essere maggiore di zero'
+                'square_meters.min' => 'Il numero di metri deve essere maggiore di zero',
+                'latitude.required' => 'La Latitudine è obbligatoria',
+                'latitude.numeric' => 'La latitudine deve essere un numero',
+                'latitude.between' => 'La latitudine deve essere tra -90 e 90 gradi',
+                'longitude.required' => 'La latitudine è obbligatoria',
+                'longitude.numeric' => 'La latitudine deve essere un numero',
+                'longitude.between' => 'La latitudine deve essere tra -180 e 180 gradi',
+                'position.required' => 'La posizione è obbligatoria',
+                'position.string' => 'La posizione deve essere una stringa',
+                'position.max' => 'La posizione deve essere lunga al massimo 17 caratteri'
             ]
         );
 
