@@ -9,8 +9,8 @@ window.Jquery = require('jquery');
 const  jquery_validation= require('jquery-validation');
 
 // import Vue from 'vue';
-// import RegisterValidation from './components/RegisterValidation';
-// Vue.component('RegisterValidation', RegisterValidation);
+// import GetPosition from './components/GetPosition.vue';
+// Vue.component('GetPosition', GetPosition);
 
 // const root = new Vue({
 //     el:'#root',

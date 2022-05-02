@@ -10,4 +10,8 @@ class Address extends Model
     {
         return $this->belongsTo('App\Models\Flat');
     }
+
+    protected $fillable = [
+        'flat_id', 'address' , 'city', 'latitude', 'longitude', 'position'
+    ];
 }

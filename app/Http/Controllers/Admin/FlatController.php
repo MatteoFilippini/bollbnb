@@ -47,6 +47,7 @@ class FlatController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate(
             [
                 'title' => ['required', 'min:5', 'max:70', 'unique:flats'],
@@ -92,6 +93,9 @@ class FlatController extends Controller
         $address = new Address();
         $address->address = $data['address'];
         $address->city = $data['city'];
+        $address->latitude = $data['latitude'];
+        $address->longitude = $data['longitude'];
+        $address->position = $data['position'];
         $flat->address()->save($address);
 
         //connect services
@@ -166,7 +170,46 @@ class FlatController extends Controller
             $img_url = Storage::put('flat_images', $data['default_image']);
             $data['default_image'] = $img_url;
         }
-        $flat->update($data);
+
+        // $flatsColums = [
+        //     'title' => $data['title'],
+        //     'rooms' => $data['rooms'],
+        //     'beds' => $data['beds'],
+        //     'bathrooms' => $data['bathrooms'],
+        //     'square_meters' => $data['square_meters'],
+        //     'default_image' => $data['default_image']
+        // ];
+        
+        $flat->title = $data['title'];
+        $flat->rooms = $data['rooms'];
+        $flat->beds = $data['beds'];
+        $flat->bathrooms = $data['bathrooms'];
+        $flat->square_meters = $data['square_meters'];
+        $flat->default_image = $data['default_image'];
+        $flat->update();
+
+
+        
+
+
+        
+
+        //connect address
+        $address = Address::where('flat_id', $flat->id);
+        $updateAddress = [
+            'address' => $data['address'],
+            'city' => $data['city'],
+            'latitude' => $data['latitude'],
+            'longitude' => $data['longitude'],
+            'position' => $data['position']
+        ];
+        // $address->flat_id = $flat->id;
+        // $address->address = $data['address'];
+        // $address->city = $data['city'];
+        // $address->latitude = $data['latitude'];
+        // $address->longitude = $data['longitude'];
+        // $address->position = $data['position'];
+        $address->update($updateAddress);
 
         //update services
         if (!array_key_exists('services', $data)) $flat->services()->detach();
