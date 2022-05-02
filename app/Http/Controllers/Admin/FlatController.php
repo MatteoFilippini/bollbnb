@@ -143,12 +143,14 @@ class FlatController extends Controller
         $request->validate(
             [
                 'title' => ['required', 'min:5', 'max:70', Rule::unique('flats')->ignore($flat->id)],
+                'default_image'=>['image'],
                 'rooms' => ['nullable', 'numeric', 'min:0'],
                 'beds' => ['nullable', 'numeric', 'min:0'],
                 'bathrooms' => ['nullable', 'numeric', 'min:0'],
                 'square_meters' => ['nullable', 'numeric', 'min:0'],
             ],
             [
+                'default_image.image' =>'Formato immagine non valido',
                 'title.required' => "Il titolo dell'appartamento è obbligatorio",
                 'title.min' => "La lunghezza minima del titolo è di 5 caratteri",
                 'title.max' => "La lunghezza massima del titolo è di 70 caratteri",
@@ -185,16 +187,11 @@ class FlatController extends Controller
         $flat->beds = $data['beds'];
         $flat->bathrooms = $data['bathrooms'];
         $flat->square_meters = $data['square_meters'];
-        $flat->default_image = $data['default_image'];
+        if(array_key_exists('default_image', $data))$flat->default_image = $data['default_image'];
+        
         $flat->update();
 
-
-        
-
-
-        
-
-        //connect address
+ //connect address
         $address = Address::where('flat_id', $flat->id);
         $updateAddress = [
             'address' => $data['address'],

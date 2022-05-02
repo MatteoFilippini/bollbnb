@@ -9,15 +9,16 @@
         :to="{ name: 'detail', params: { id: flat.id } }"
         class="btn btn-secondary btn-sm"
         v-if="!isShow"
-        >dettaglio</router-link
-      >
+        >dettaglio
+        </router-link>
     </div>
 
     <router-link
       :to="{ name: 'home' }"
       class="btn btn-danger btn-sm"
       v-if="isShow"
-      >Indietro</router-link
+      >Indietro
+      </router-link
     >
 
     <router-link
