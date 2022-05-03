@@ -1,14 +1,15 @@
-{{-- @if ($errors->any())
+@if ($errors->any())
 <div class="container">
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
-@endforeach
-</ul>
+            <li>Reinserisci l'indirizzo</li>
+            @endforeach
+        </ul>
+    </div>
 </div>
-</div>
-@endif --}}
+@endif
 
 
 <div class="container">
@@ -31,7 +32,7 @@
                 <div class="col-10">
                     <div class="form-group">
                         <label for="default_image">Immagine copertina</label>
-                        <input type="file" class="form-control-file" id="default_image" name="default_image" required>
+                        <input type="file" class="form-control-file" id="default_image" name="default_image">
                     </div>
                 </div>
                 <div class="col-2">
@@ -43,13 +44,13 @@
                 <div class="form-group">
                     <label for="address">Indirizzo</label>
                     @if($flat->address)
-                    <input type="text" class="form-control" id="address" name="address" value="{{old('city', $flat->address->address)}}" required>
+                    <input type="text" class="form-control" id="address" name="address" value="{{old('address', $flat->address->address)}}" placeholder="indirizzo Citta" required>
                     @else
-                    <input type="text" class="form-control" id="address" name="address" value="{{old('city')}}" required>
+                    <input type="text" class="form-control" id="address" name="address" value="{{old('address')}}" required placeholder="indirizzo Citta">
                     @endif
                 </div>
             </div>
-            <div class="col-12">
+            <!-- <div class="col-12">
                 <div class="form-group">
                     <label for="city">City</label>
                     @if($flat->address)
@@ -58,7 +59,7 @@
                     <input type="text" class="form-control" id="city" name="city" value="{{old('city')}}" required>
                     @endif
                 </div>
-            </div>
+            </div> -->
 
             <div class="col-12">
                 <div class="form-group">
@@ -101,9 +102,16 @@
     @endforeach
 </div>
 <hr>
+@if($flat->address)
+<input type="hidden" value="{{$flat->address->position}}" id="position" name='position'>
+<input type="hidden" value="{{$flat->address->latitude}}" id="latitude" name='latitude'>
+<input type="hidden" value="{{$flat->address->longitude}}" id="longitude" name='longitude'>
+@else
 <input type="hidden" value="" id="position" name='position'>
 <input type="hidden" value="" id="latitude" name='latitude'>
 <input type="hidden" value="" id="longitude" name='longitude'>
+@endif
+
 <button type="submit" class="btn btn-success" id="confirm">Conferma</button>
 
 </div>
@@ -125,15 +133,18 @@
 
     // Wait for the DOM to be ready
     //Aggiungo un evento sul tag con id address
+
+    ;
+
+
+    //---------------------------------------------------------------------------------------------
+
     $("#address").on("change", function() {
         console.log('evento');
 
         //let str = document.querySelector('#address').value;
         //Recupero il value dell'input con id address
         let str = $("#address").val();
-
-
-
 
         console.log(str);
         //Per passare il valore della stringa e avere la posizione da TOM TOM devo encodare la stringa 
@@ -157,8 +168,8 @@
             //Funzione se la chiamata ha successo
             success: function(response) {
                 position = response.results[0].position;
-                //Prendo gli input type hidden e gli assegno il valore del risultato che verrà
-                //inviato al server
+                //             //Prendo gli input type hidden e gli assegno il valore del risultato che verrà
+                //             //inviato al server
                 let positionInput = $('#position').val(`${position.lat},${position.lon}`);
                 let inputLat = $('#latitude').val(position.lat);
                 let inputLon = $('#longitude').val(position.lon);
@@ -171,18 +182,12 @@
                 console.log('yes');
             }
         });
-    });
-
-
-
-
-    //---------------------------------------------------------------------------------------------
+    })
 
 
 
     //Inizio Validazione
     $(function() {
-
         //Dichiaro dei metodi custom aggiuntivi per validare gli input    
         jQuery.validator.addMethod("numericRooms", function(inputId) {
 
@@ -230,15 +235,7 @@
             };
         });
 
-
-
-
-
         //---------------------------------------------------------------------------------------------
-
-
-
-
         //Funzione di validazione con oggetti, chiave e valore
         $("#editForm").validate({
             // Specify validation rules
@@ -247,6 +244,7 @@
                 // of an input field. Validation rules are defined
                 // on the right side
                 done: true,
+
                 title: {
                     required: true,
                     minlength: 5,
@@ -257,13 +255,16 @@
                     required: false,
                     minlength: 5,
                 },
-                default_image: {
-                    required: true,
-                    image: true
-                },
+                // default_image: {
+                //     //     required: true,
+                //     accept: "image/*"
+                // },
                 address: {
                     required: true
                 },
+                // city: {
+                //     required: true
+                // },
                 rooms: {
                     // Specify that email should be validated
                     // by the built-in "email" rule
@@ -295,12 +296,15 @@
                 description: {
                     minlength: "La descriziome deve essere al minimo di 5 caratteri"
                 },
-                default_image: {
-                    image: "Il formato dell'immagine non è valido",
-                },
+                // default_image: {
+                //     accept: "Il formato dell'immagine non è valido",
+                // },
                 address: {
                     required: "L'indirizzo è obbligatorio"
                 },
+                // city: {
+                //     required: "La citta è obbligatoria"
+                // },
                 rooms: {
                     required: "Il numero di stanze è obbligatorio",
                     numericRooms: "Il numero di stanze deve essere un numero e deve essere maggiore di zero"
@@ -321,6 +325,7 @@
 
             //Se tutte le regole di validazione sono rispettate mi submitta il form
             submitHandler: function(form) {
+
                 form.submit();
             }
         });

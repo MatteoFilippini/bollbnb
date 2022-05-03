@@ -48,24 +48,24 @@ class FlatController extends Controller
      */
     public function store(Request $request)
     {
-
+        // dd($request->all());
         $request->validate(
             [
                 'title' => ['required', 'min:5', 'max:70', 'unique:flats'],
-                'default_image' => ['required', 'image'],
+                'default_image' => ['image'],
                 'rooms' => ['nullable', 'numeric', 'min:0'],
                 'beds' => ['nullable', 'numeric', 'min:0'],
                 'bathrooms' => ['nullable', 'numeric', 'min:0'],
                 'square_meters' => ['nullable', 'numeric', 'min:0'],
-                'address' => ['required', 'string', 'max:50'],
-                'city' => ['required', 'string', 'max:30'],
+                'address' => ['required', 'string', 'max:100'],
+                // 'city' => ['required', 'string', 'max:30'],
                 'latitude' => ['required', 'numeric', 'between:-90,90'],
                 'longitude' => ['required', 'numeric', 'between:-180,180'],
                 'position' => ['required', 'string', 'max:17']
             ],
             [
                 'title.required' => "Il titolo dell'appartamento è obbligatorio",
-                'default_image.required' => "L'immagine dell'appartamento è obbligatoria",
+                // 'default_image.required' => "L'immagine dell'appartamento è obbligatoria",
                 'default_image.image' => "Il file caricato non è supportato",
                 'title.min' => "La lunghezza minima del titolo è di 5 caratteri",
                 'title.max' => "La lunghezza massima del titolo è di 70 caratteri",
@@ -109,7 +109,7 @@ class FlatController extends Controller
         //connect address
         $address = new Address();
         $address->address = $data['address'];
-        $address->city = $data['city'];
+        // $address->city = $data['city'];
         $address->latitude = $data['latitude'];
         $address->longitude = $data['longitude'];
         $address->position = $data['position'];
@@ -166,8 +166,8 @@ class FlatController extends Controller
                 'beds' => ['nullable', 'numeric', 'min:0'],
                 'bathrooms' => ['nullable', 'numeric', 'min:0'],
                 'square_meters' => ['nullable', 'numeric', 'min:0'],
-                'address' => ['required', 'string', 'max:50'],
-                'city' => ['required', 'string', 'max:30'],
+                'address' => ['required', 'string', 'max:100'],
+                // 'city' => ['required', 'string', 'max:30'],
                 'latitude' => ['required', 'numeric', 'between:-90,90'],
                 'longitude' => ['required', 'numeric', 'between:-180,180'],
                 'position' => ['required', 'string', 'max:17']
@@ -219,7 +219,8 @@ class FlatController extends Controller
         $flat->beds = $data['beds'];
         $flat->bathrooms = $data['bathrooms'];
         $flat->square_meters = $data['square_meters'];
-        if (array_key_exists('default_image', $data)) $flat->default_image = $data['default_image'];
+        if (array_key_exists('default_image', $data))
+            $flat->default_image = $data['default_image'];
 
         $flat->update();
 
@@ -227,7 +228,7 @@ class FlatController extends Controller
         $address = Address::where('flat_id', $flat->id);
         $updateAddress = [
             'address' => $data['address'],
-            'city' => $data['city'],
+            // 'city' => $data['city'],
             'latitude' => $data['latitude'],
             'longitude' => $data['longitude'],
             'position' => $data['position']
