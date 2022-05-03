@@ -6,7 +6,7 @@
       <p>{{ flat.description }}</p>
       <h3>{{ flat.user.name }}</h3>
       <router-link
-        :to="{ name: 'detail', params: { id: flat.id } }"
+        :to="{ name: 'detail', params: { slug: flat.slug } }"
         class="btn btn-secondary btn-sm"
         v-if="!isShow"
         >dettaglio

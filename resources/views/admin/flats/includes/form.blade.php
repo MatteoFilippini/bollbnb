@@ -258,7 +258,7 @@
                     minlength: 5,
                 },
                 default_image: {
-                    required: false,
+                    required: true,
                     image: true
                 },
                 address: {
@@ -306,7 +306,7 @@
                     numericRooms: "Il numero di stanze deve essere un numero e deve essere maggiore di zero"
                 },
                 beds: {
-                    required: "Il numero di bagni è obbligatorio",
+                    required: "Il numero di letti è obbligatorio",
                     numericBeds: 'Il numero di letti deve essere un numero e deve essere maggiore di zero'
                 },
                 bathrooms: {
