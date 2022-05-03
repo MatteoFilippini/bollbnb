@@ -16,7 +16,7 @@
         {{$flat->description}}
     </div>
     <div>
-        <img src="{{asset('storage/'.$flat->default_image)}}" alt="cover_image" style="width: 400px;height:400px">
+        <img src="{{asset('storage/'.$flat->default_image)}}" alt="cover_image"  class="img-fluid">
     </div>
 
     <h2>Messaggi ricevuti:</h2>
