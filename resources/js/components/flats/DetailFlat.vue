@@ -25,7 +25,7 @@ export default {
     getFlat() {
       this.isLoading = true;
       axios
-        .get("http://localhost:8000/api/flats/" + this.$route.params.id)
+        .get("http://localhost:8000/api/flats/" + this.$route.params.slug)
         .then((res) => {
           this.flat = res.data;
         })

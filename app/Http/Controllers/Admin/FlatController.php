@@ -11,6 +11,7 @@ use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class FlatController extends Controller
 {
@@ -92,12 +93,14 @@ class FlatController extends Controller
 
         $data = $request->all();
         $data['user_id'] = Auth::id();
+        $data['slug'] = Str::slug($request->title, '-');
 
         // UPLOAD IMAGE
         if (array_key_exists('default_image', $data)) {
             $img_url = Storage::put('flat_images', $data['default_image']);
             $data['default_image'] = $img_url;
         }
+
 
         $flat = new Flat();
         $flat->fill($data);
@@ -126,6 +129,7 @@ class FlatController extends Controller
      */
     public function show(Flat $flat)
     {
+
         $message = Message::where('flat_id', $flat->id)->get();
         return view('admin.flats.show', compact('flat', 'message'));
     }
@@ -157,7 +161,7 @@ class FlatController extends Controller
         $request->validate(
             [
                 'title' => ['required', 'min:5', 'max:70', Rule::unique('flats')->ignore($flat->id)],
-                'default_image'=>['image'],
+                'default_image' => ['image'],
                 'rooms' => ['nullable', 'numeric', 'min:0'],
                 'beds' => ['nullable', 'numeric', 'min:0'],
                 'bathrooms' => ['nullable', 'numeric', 'min:0'],
@@ -169,7 +173,7 @@ class FlatController extends Controller
                 'position' => ['required', 'string', 'max:17']
             ],
             [
-                'default_image.image' =>'Formato immagine non valido',
+                'default_image.image' => 'Formato immagine non valido',
                 'title.required' => "Il titolo dell'appartamento è obbligatorio",
                 'title.min' => "La lunghezza minima del titolo è di 5 caratteri",
                 'title.max' => "La lunghezza massima del titolo è di 70 caratteri",
@@ -209,17 +213,17 @@ class FlatController extends Controller
         //     'square_meters' => $data['square_meters'],
         //     'default_image' => $data['default_image']
         // ];
-        
+        $data['slug'] = Str::slug($request->title, '-');
         $flat->title = $data['title'];
         $flat->rooms = $data['rooms'];
         $flat->beds = $data['beds'];
         $flat->bathrooms = $data['bathrooms'];
         $flat->square_meters = $data['square_meters'];
-        if(array_key_exists('default_image', $data))$flat->default_image = $data['default_image'];
-        
+        if (array_key_exists('default_image', $data)) $flat->default_image = $data['default_image'];
+
         $flat->update();
 
- //connect address
+        //connect address
         $address = Address::where('flat_id', $flat->id);
         $updateAddress = [
             'address' => $data['address'],

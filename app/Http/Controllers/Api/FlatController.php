@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Flat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class FlatController extends Controller
 {
@@ -62,9 +63,9 @@ class FlatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $flat = Flat::where('id', $id)->with(['user'])->first();
+        $flat = Flat::where('slug', $slug)->with(['user'])->first();
         if (!$flat) return response('Errore 404', 404);
         return response()->json($flat);
     }
