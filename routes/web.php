@@ -20,13 +20,19 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::middleware('auth'
+Route::middleware(
+    'auth'
 )->prefix('admin')
-->name('admin.')
-->namespace('Admin')
-->group(function() {
-    Route::resource('flats', 'FlatController');
-});
+    ->name('admin.')
+    ->namespace('Admin')
+
+    ->group(function () {
+        // Route::get('flats/{slug}', 'FlatController@show')->name('flats.show');
+        Route::resource('flats', 'FlatController');
+    });
+
+
+
 // home di quando SEI loggato
 Route::get('/admin', 'Admin\HomeController@index')->name('admin.home');
 
