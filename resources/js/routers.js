@@ -9,12 +9,14 @@ import HomePage from "./components//pages/HomePage";
 import NotFoundPage from "./components/pages/NotFoundPage";
 import DetailFlat from "./components/flats/DetailFlat";
 import MessageForm from "./components/MessageForm";
+import AdvancedSearch from "./components/pages/AdvancedSearch";
 
 const router = new VueRouter({
     mode: 'history',
     linkExactActiveClass: 'active',
     routes: [
         { path: "/", component: HomePage, name: 'home' },
+        { path: "/search/:address", component: AdvancedSearch, name: 'searchString' },
         { path: "/flats/:slug", component: DetailFlat, name: 'detail' },
         { path: "/message/:slug", component: MessageForm, name: 'messageForm' },
         { path: '*', component: NotFoundPage, name: '404' }
