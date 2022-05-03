@@ -16,20 +16,28 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
+            <!-- FORM SEARCH -->
             <form class="form-inline my-2 my-lg-0">
               <input
                 class="form-control mr-sm-2"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                v-model="searched"
               />
-              <button
+              <router-link
+                :to="{ name: 'searchString', params: { address: searched } }"
+                class="btn btn-primary"
+                >Search</router-link
+              >
+              <!-- <button
                 class="btn btn-outline-success my-2 my-sm-0"
                 type="submit"
               >
                 Search
-              </button>
+              </button> -->
             </form>
+            <!-- FINE FORM -->
           </li>
         </ul>
       </div>
@@ -40,6 +48,12 @@
 <script>
 export default {
   name: "Header",
+  data() {
+    return {
+      searched: "",
+    };
+  },
+  methods: {},
 };
 </script>
 

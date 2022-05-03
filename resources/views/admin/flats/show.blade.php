@@ -2,29 +2,31 @@
 
 @section('content')
 <div class="container">
-    <h1> {{$flat->id}}</h1>
-    <h1>
-        <div class="d-flex justify-content-between">
+    <div>
+        <h1 class="d-flex justify-content-between">
             {{$flat->title}}
             <a href="{{route('admin.flats.index')}}" class="btn btn-danger mb-3">TORNA INDIETRO</a>
-        </div>
-    </h1>
-    <p>
-        {{$flat->square_meters}} mq
-    </p>
+        </h1>
+    </div>
+    <h4>{{$flat->address->address}}</h4>
+    @if ($flat->description)
     <div>
         {{$flat->description}}
     </div>
+    @else
+    <div>Nessuna descrizione inserita</div>
+    @endif
     <div>
-        <img src="{{asset('storage/'.$flat->default_image)}}" alt="cover_image"  class="img-fluid">
+        <img src="{{asset('storage/'.$flat->default_image)}}" alt="cover_image" class="img-fluid">
     </div>
 
     <h2>Messaggi ricevuti:</h2>
 
     @forelse($message as $m)
-    <div>
-        da: {{$m->sender_mail}}
-        contenuto: {{$m->content}}
+    <div class="border border-light">
+        <p>da: {{$m->sender_mail}}</p>
+        <p>contenuto: {{$m->content}}</p>
+
     </div>
     @empty
     <div>
