@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('additional-scripts-head')
-<script src="{{ asset('js/script-authentication.js') }}" defer></script>
+<script src="{{ asset('js/script-authentication.js') }}" ></script>
 @endsection
 
 @section('content')
@@ -19,7 +19,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right text-dark">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus required>
                                 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -32,7 +32,7 @@
                             <label for="surname" class="col-md-4 col-form-label text-md-right text-dark">{{ __('Surname') }}</label>
 
                             <div class="col-md-6">
-                                <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}"  autocomplete="surname" autofocus>
+                                <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}"  autocomplete="surname" autofocus required>
 
                                 @error('surname')
                                     <span class="invalid-feedback" role="alert">
@@ -46,7 +46,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right text-dark">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email" required>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -63,7 +63,7 @@
                             <label for="date_of_birth" class="col-md-4 col-form-label text-md-right text-dark">{{ __('Date_of_birth') }}</label>
 
                             <div class="col-md-6">
-                                <input id="date_of_birth" type="date" class="form-control @error('date_of_birth') is-invalid @enderror" name="date_of_birth" value="{{ old('date_of_birth') }}"  autocomplete="date_of_birth" autofocus>
+                                <input id="date_of_birth" type="date" class="form-control @error('date_of_birth') is-invalid @enderror" name="date_of_birth" value="{{ old('date_of_birth') }}"  autocomplete="date_of_birth" autofocus required>
 
                                 @error('date_of_birth')
                                     <span class="invalid-feedback" role="alert">
@@ -77,7 +77,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right text-dark">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  autocomplete="new-password" required>
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -91,7 +91,7 @@
                             <label for="password_confirm" class="col-md-4 col-form-label text-md-right text-dark">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password_confirm" type="password" class="form-control" name="password_confirmation"  autocomplete="new-password">
+                                <input id="password_confirm" type="password" class="form-control" name="password_confirmation"  autocomplete="new-password" required>
                             </div>
                         </div>
 
