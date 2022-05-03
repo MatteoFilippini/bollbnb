@@ -28,19 +28,14 @@
                     </div>
                 </div>
 
-                <div class="col-12">
+                <div class="col-10">
                     <div class="form-group">
                         <label for="default_image">Immagine copertina</label>
                         <input type="file" class="form-control-file" id="default_image" name="default_image" required>
                     </div>
-                    @if($errors->any())
-                    @foreach ($errors->all() as $error)
-                    <h5 class="form-text">{{ $error }}</h5>
-                    @endforeach
-
-                    @endif
-
-
+                </div>
+                <div class="col-2">
+                    <img src="{{old("https://marcolanci.it/utils/placeholder.jpg", asset("storage/$flat->default_image"))}}" alt="placeholder" id="preview" class="img-fluid">
                 </div>
             </div>
 
