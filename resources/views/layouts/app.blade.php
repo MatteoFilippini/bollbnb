@@ -10,6 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.15.0/maps/maps-web.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     {{-- Eventuale script addizionale - DEFER --}}
     @yield('additional-scripts-head')
@@ -27,6 +28,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.15.0/maps/maps.css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
     label.error {

@@ -40,7 +40,7 @@
                 </div>
             </div>
 
-            <div class="col-12">
+            <div class="col-6">
                 <div class="form-group">
                     <label for="address">Indirizzo</label>
                     @if($flat->address)
@@ -50,6 +50,11 @@
                     @endif
                 </div>
             </div>
+            {{-- Minimappa --}}
+            <div class="col-6">
+                <div id="map" style="width: 300px; height: 150px;"></div>
+            </div>
+
             <!-- <div class="col-12">
                 <div class="form-group">
                     <label for="city">City</label>
