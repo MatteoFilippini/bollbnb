@@ -12,6 +12,6 @@ class Address extends Model
     }
 
     protected $fillable = [
-        'flat_id', 'address' , 'city', 'latitude', 'longitude', 'position'
+        'flat_id', 'address' , 'latitude', 'longitude', 'position'
     ];
 }

@@ -23,7 +23,7 @@ class CreateFlatsTable extends Migration
             $table->unsignedTinyInteger('bathrooms')->nullable();
             $table->unsignedSmallInteger('square_meters')->nullable();
             $table->boolean('visible')->default(false);
-            $table->string('default_image');
+            $table->string('default_image')->nullable();
             $table->timestamps();
         });
     }
