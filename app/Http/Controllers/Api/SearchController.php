@@ -21,16 +21,17 @@ class SearchController extends Controller
         $flats = [];
         $address_flat = Address::with('flat')->get();
         foreach ($address_flat as $a) {
-            $poi['name'] = $a->flat->title;
+            $poi['title'] = $a->flat->title;
+            $poi['default_image'] = $a->flat->default_image;
             $address['freeformAddress'] = $a->address;
             $position['lat'] = $a->latitude;
             $position['lon'] = $a->longitude;
-            $flat = $a->flat->id;
+            $flat_id = $a->flat->id;
 
             // $user = User::find($flat->user_id);
 
             // , 'flat' => $flat, 'user' => $user
-            $flats[] = ['poi' => $poi, 'address' => $address, 'position' => $position, 'id' => $flat];
+            $flats[] = ['poi' => $poi, 'address' => $address, 'position' => $position, 'id' => $flat_id];
         }
 
         return response()->json($flats);

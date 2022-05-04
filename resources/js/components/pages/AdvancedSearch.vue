@@ -23,7 +23,7 @@
     <h2>aaaaaaaaaaaaaaaaaaaaaaa</h2>
     <!-- <ul> -->
     <!-- <li v-for="adfg in a.results" :key="adfg.id"> -->
-    <FlatCard v-for="flat in a.results" :key="flat.id" :flat="flat" />
+    <ResearchFlatCard v-for="flat in a.results" :key="flat.id" :flat="flat" />
     <!-- {{ adfg.poi.name }} -->
     <!-- </li> -->
     <!-- </ul> -->
@@ -31,11 +31,11 @@
 </template>
 
 <script>
-import FlatCard from "../flats/FlatCard.vue";
+import ResearchFlatCard from "../flats/ResearchFlatCard.vue";
 export default {
   name: "Advancedsearch",
   components: {
-    FlatCard,
+    ResearchFlatCard,
   },
   data() {
     return {
@@ -48,6 +48,10 @@ export default {
     fixAddress() {
       return this.$route.params.address;
     },
+    getEncodedQuery(){
+      const encodedQuery = encodeURIComponent(this.$route.params.address);
+      return encodedQuery;
+    }
   },
   methods: {
     // PRENDERE TUTTE LE POSIZIONI
@@ -93,9 +97,10 @@ export default {
         .get(
           "https://api.tomtom.com/search/2/geocode/" +
             address +
-            ".json?key=pkCWDKdXKoZyvsUh2s53ebk9fAJvlUQ3"
+            ".json?key=pkCWDKdXKoZyvsUh2s53ebk9fAJvlUQ35&typeahead=true&countrySet=ITA"
         )
         .then((res) => {
+          console.log(res.data);
           this.positionCenter = res.data.results[0].position;
           // console.log(this.positionCenter);
         })
@@ -114,7 +119,12 @@ export default {
         axios
           .get(
             //https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[{%22type%22:%22CIRCLE%22,%20%22position%22:%2245.44406,10.01108%22,%20%22radius%22:20000}]&poiList=[{"poi":{"name":"Villa con piscina favolosa"},"address":{"freeformAddress":"via manzoni 2"},"position":{"lat":45.53622,"lon":9.47728}},{"poi":{"name":"Appartamento in piazza del Duomo"},"address":{"freeformAddress":"piazza roma 6"},"position":{"lat":40.92597,"lon":14.45826}},{"poi":{"name":"Grazioso appartamento vista mare"},"address":{"freeformAddress":"corso vittorio emanuele 15"},"position":{"lat":37.90196,"lon":13.42846}},{"poi":{"name":"Baita immersa nella natura in montagna"},"address":{"freeformAddress":"via bergamo 67"},"position":{"lat":45.14808,"lon":10.01025}},{"poi":{"name":"dsadsa"},"address":{"freeformAddress":"via caduti di via fani 2 orzivecchi"},"position":{"lat":45.4203,"lon":9.95693}},{"poi":{"name":"sdfdsfsd aaaaaaaaaaaa"},"address":{"freeformAddress":"via caduti di via fani 2 orzivecchi"},"position":{"lat":45.4203,"lon":9.95693}},{"poi":{"name":"saddsadsadsadas"},"address":{"freeformAddress":"via caduti di via fani 2"},"position":{"lat":42.93023,"lon":10.52129}},{"poi":{"name":"dsadsadsa"},"address":{"freeformAddress":"via garibaldi 31 Corzano"},"position":{"lat":45.44406,"lon":10.01108}},{"poi":{"name":"dsadsada"},"address":{"freeformAddress":"via caduti di via fani 2 orzivecchi"},"position":{"lat":45.4203,"lon":9.95693}},{"poi":{"name":"BSdddd"},"address":{"freeformAddress":"via garibaldi 31 corzano"},"position":{"lat":45.44406,"lon":10.01108}},{"poi":{"name":"ddddddddddddddddddddddd"},"address":{"freeformAddress":"via caduti di via fani 2 orzivecchi"},"position":{"lat":45.4203,"lon":9.95693}},{"poi":{"name":"dsadsadas"},"address":{"freeformAddress":"via caduti di via fani 2 orzivecchi"},"position":{"lat":45.4203,"lon":9.95693}},{"poi":{"name":"BSdsadasd"},"address":{"freeformAddress":"via caduti di via fani 2 orzivecchi"},"position":{"lat":45.4203,"lon":9.95693}},{"poi":{"name":"dsadsadsadasd"},"address":{"freeformAddress":"via caduti di via fani 2 orzivecchi"},"position":{"lat":45.4203,"lon":9.95693}},{"poi":{"name":"dsadsadsad"},"address":{"freeformAddress":"via caduti di via fani 2 orzivecchi"},"position":{"lat":45.4203,"lon":9.95693}},{"poi":{"name":"prova ennesima"},"address":{"freeformAddress":"via garibaldi 31 Corzano"},"position":{"lat":45.44406,"lon":10.01108}},{"poi":{"name":"dsadsadsadsa"},"address":{"freeformAddress":"via caduti di via fani 2 corznaoo"},"position":{"lat":42.93023,"lon":10.52129}},{"poi":{"name":"dsadsadsadddddddddddd"},"address":{"freeformAddress":"via garibaldi 31 Corzano"},"position":{"lat":45.44406,"lon":10.01108}}]&key=prsglhDY7UXLN07r6myMmkdbLGJJxLo2
-            `https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[{%22type%22:%22CIRCLE%22,%20%22position%22:%22${this.positionCenter.lat},${this.positionCenter.lon}%22,%20%22radius%22:20000}]&poiList=${url}&key=prsglhDY7UXLN07r6myMmkdbLGJJxLo2`
+//             `https://api.tomtom.com/search/2/geometrySearch/${this.getEncodedQuery}.json?key=prsglhDY7UXLN07r6myMmkdbLGJJxLo2&geometryList={
+//   "type":"CIRCLE",
+//    "position":"${this.positionCenter.lat},${this.positionCenter.lon}",
+//    "radius":6000
+//  }&limit=20&idxSet=${url}&entityTypeSet=Country`
+             `https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[{%22type%22:%22CIRCLE%22,%20%22position%22:%22${this.positionCenter.lat},${this.positionCenter.lon}%22,%20%22radius%22:20000}]&poiList=${url}&key=prsglhDY7UXLN07r6myMmkdbLGJJxLo2`
           )
           .then((res) => {
             console.log(res.data.results);
