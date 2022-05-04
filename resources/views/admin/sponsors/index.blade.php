@@ -4,6 +4,7 @@
 <div class="container">
     <a href="{{route('admin.flats.index')}}" class="btn btn-success ml-3">TORNA INDIETRO</a>
     <div class="row">
+        {{-- prendo tutte le sponsorizzazioni e le stampo come card singole --}}
         @foreach($sponsors as $sponsor)
         <div class="col-4">
             <div class="card my-5">
@@ -13,7 +14,7 @@
              <div class="card-body text-dark">
                 <h5 class="card-title">{{$sponsor->price}}</h5>
                  <p class="card-text">{{$sponsor->length}}</p>
-        <button type="button" data-toggle="collapse" data-target="#collapseExample{{$sponsor->id}}" aria-expanded="false" aria-controls="collapseExample" class="btn btn-success">SPONSORIZZA</button>
+        <button type="button" data-toggle="collapse" data-target="#collapseExample{{$sponsor->id}}" aria-expanded="false" aria-controls="collapseExample" class="btn btn-warning">SPONSORIZZA</button>
             </div>
 </div>
 </div>
@@ -21,7 +22,7 @@
 
 <div class="container">
     <div class="row">
-        {{-- giriamo su sponsor e li stampiamo come card --}}
+        {{-- giriamo su sponsor e li stampiamo come card al dettaglio --}}
         @foreach($sponsors as $sponsor)
         <div class="col-12">
             <div class="collapse text-dark" id="collapseExample{{$sponsor->id}}">
@@ -29,9 +30,9 @@
                     <h2>{{$sponsor->label}}</h2>
                     <p>Sponsorizzazione per {{$sponsor->length}} ore. Dai valore al tuo appartamento con questa sponsorizzazione.</p>
                     <p>Facendolo, il tuo appartamento verrà messo in evidenza nella pagina principale del sito - così avrai più visibilità!</p>
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-around">
                         <span>Procedi al pagamento:</span>
-                        <button type="button" data-toggle="collapse" class="btn btn-secondary" data-target="#collapse" aria-expanded="false" aria-controls="collapseExample">VAI</button>
+                        <button type="button" data-toggle="collapse" class="btn btn-danger" data-target="#collapse" aria-expanded="false" aria-controls="collapseExample">VAI</button>
                     </div>
                     <div>
                     </div>
@@ -39,20 +40,21 @@
             </div>
         </div>
         @endforeach
-        
+
         {{-- braintree che simula il pagamento della sponsorizzazione --}}
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="collapse" id="collapse">
-                        <div class="dropin-container"></div>
-                        <button type="submit" id="submit-button" class="btn btn-primary">INVIA</button>
-                    </div>
+                     <form action="{{route('admin.sponsors.store', $sponsor->id)}}" method="POST">
+                        @csrf
+                        <div class="collapse" id="collapse">
+                            <div class="dropin-container"></div>
+                            <button type="submit" id="submit-button" class="btn btn-info">INVIA</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        {{-- <form action="{{route('admin.sponsors.store')}}" method="POST">
-        </form> --}}
     </div>
 </div>
 @endsection
@@ -73,6 +75,7 @@
         instance.requestPaymentMethod(function (err, payload) {
           $.get('{{ route('payment.process') }}', {payload}, function (response) {
             if (response.success) {
+                console.log('pagamento ok');
               alert('Payment successfull!');
             } else {
               alert('Payment failed');
