@@ -4,6 +4,8 @@
     <div class="border border-light">
      <h1>{{flat.id}}</h1> 
       <h1>{{ flat.title }}</h1>
+      <!-- <img :src="flat.default_image" alt="immagine"> -->
+      <p>{{flat.default_image}}</p>
       <p>{{ flat.description }}</p>
       <!-- <h3>{{ flat.user.name }}</h3> -->
       <router-link
