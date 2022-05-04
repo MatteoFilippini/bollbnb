@@ -17,6 +17,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">ELIMINA</button>
+                        <a href="{{route('admin.sponsors.index', $flat->id)}}" class="btn btn-primary ml-3">SPONSORIZZA</a>
                     </form>
                 </div>
             </div>

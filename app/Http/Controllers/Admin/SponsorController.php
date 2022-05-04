@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Sponsor;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Sponsor;
 
 class SponsorController extends Controller
 {
@@ -14,7 +15,8 @@ class SponsorController extends Controller
      */
     public function index()
     {
-        //
+        $sponsors = Sponsor::all();
+        return view('admin.sponsors.index', compact('sponsors'));
     }
 
     /**
@@ -35,27 +37,26 @@ class SponsorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('admin.flats.show');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Sponsor  $sponsor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Sponsor $sponsor)
+    public function show($id)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Sponsor  $sponsor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sponsor $sponsor)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +65,10 @@ class SponsorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Sponsor  $sponsor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sponsor $sponsor)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +76,10 @@ class SponsorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Sponsor  $sponsor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sponsor $sponsor)
+    public function destroy($id)
     {
         //
     }
