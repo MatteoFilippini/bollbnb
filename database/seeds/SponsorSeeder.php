@@ -12,12 +12,13 @@ class SponsorSeeder extends Seeder
      */
     public function run()
     {
-        $sponsors=config('sponsors');
+        $sponsors = config('sponsors');
 
-        foreach($sponsors as $sponsor){
-            $new_sponsor=new Sponsor();
-            $new_sponsor->price=$sponsor['price'];
-            $new_sponsor->length=$sponsor['length'];
+        foreach ($sponsors as $sponsor) {
+            $new_sponsor = new Sponsor();
+            $new_sponsor->label = $sponsor['label'];
+            $new_sponsor->price = $sponsor['price'];
+            $new_sponsor->length = $sponsor['length'];
             $new_sponsor->save();
         }
     }
