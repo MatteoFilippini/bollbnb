@@ -37,7 +37,7 @@ class SponsorController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect()->route('admin.flats.show');
+        return redirect()->route('admin.flats.index');
     }
 
     /**
