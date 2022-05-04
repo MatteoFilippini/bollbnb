@@ -37,7 +37,7 @@ class SponsorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('admin.flats.show');
     }
 
     /**
@@ -48,7 +48,6 @@ class SponsorController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
