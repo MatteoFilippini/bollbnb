@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Flat;
+use App\User;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -14,8 +15,28 @@ class SearchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
+
+        $flats = [];
+        $address_flat = Address::with('flat')->get();
+        foreach ($address_flat as $a) {
+            $poi['name'] = $a->flat->title;
+            $address['freeformAddress'] = $a->address;
+            $position['lat'] = $a->latitude;
+            $position['lon'] = $a->longitude;
+            $flat = $a->flat->id;
+
+            // $user = User::find($flat->user_id);
+
+            // , 'flat' => $flat, 'user' => $user
+            $flats[] = ['poi' => $poi, 'address' => $address, 'position' => $position, 'id' => $flat];
+        }
+
+        return response()->json($flats);
+        // ['poi' => $poi, 'address' => $address, 'position' => $position]
+
+
         // [
         //     {
         //         "poi"=>{"name":"S Restaurant Toms"},
