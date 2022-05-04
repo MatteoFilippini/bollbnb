@@ -1,10 +1,11 @@
 <template>
   <div>
-    <!-- <h3>{{ flat.name || flat.user.name}}</h3> -->
+    
     <div class="border border-light">
+     <h1>{{flat.id}}</h1> 
       <h1>{{ flat.title }}</h1>
       <p>{{ flat.description }}</p>
-      <h3>{{ flat.user.name }}</h3>
+      <!-- <h3>{{ flat.user.name }}</h3> -->
       <router-link
         :to="{ name: 'detail', params: { slug: flat.slug } }"
         class="btn btn-secondary btn-sm"
