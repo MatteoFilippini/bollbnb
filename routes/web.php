@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+/* Route::get('/payment/process', 'PaymentsController@process')->name('payment.process'); */
+
 Route::middleware(
     'auth'
 )->prefix('admin')
@@ -29,6 +31,7 @@ Route::middleware(
     ->group(function () {
         // Route::get('flats/{slug}', 'FlatController@show')->name('flats.show');
         Route::resource('flats', 'FlatController');
+        Route::get('sponsors/{flat}', 'SponsorController@show');
         Route::resource('sponsors', 'SponsorController');
     });
 
@@ -37,7 +40,6 @@ Route::middleware(
 // home di quando SEI loggato
 Route::get('/admin', 'Admin\HomeController@index')->name('admin.home');
 
-Route::get('/payment/process', 'PaymentsController@process')->name('payment.process');
 
 // qualunque rotta non admin e non registrata |  '?' parametro opzionale
 Route::get('{any?}', function () {
