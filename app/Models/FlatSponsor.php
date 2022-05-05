@@ -15,4 +15,6 @@ class FlatSponsor extends Model
       {
           return $this->belongsTo('App\Models\Sponsor');
       }
+
+    //   protected $fillable = ['sponsor_id','flat_id'];
 }
