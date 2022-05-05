@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Sponsor;
 use App\Models\Flat;
+use App\Models\FlatSponsor;
+use Carbon\Carbon;
 
 class SponsorController extends Controller
 {
@@ -39,7 +41,22 @@ class SponsorController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        // prendo la data di oggi
+        $date=Carbon::now();
+        // dd($date);
+        $data= $request->all();
+
+        // date le ore calcolo quanti giorni aggiungere partendo dalla data di oggi
+        $d=1;     
+        if($data['sponsor_id'] == '72:00:00') $d=2;
+        else $d=3;     
+        $modifiedMutable = $date->add($d, 'day');
+
+        $flat_sponsor= new FlatSponsor();
+        $flat_sponsor->flat_id=$data['flat_id'];
+        $flat_sponsor->sponsor_id=$data['sponsor_id'];
+        $flat_sponsor->expiration=$modifiedMutable;
+        $flat_sponsor->save();
 
         return redirect()->route('admin.flats.index');
     }

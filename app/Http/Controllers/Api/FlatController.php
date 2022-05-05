@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\FlatSponsor;
 use App\Http\Controllers\Controller;
 use App\Models\Flat;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -18,10 +19,14 @@ class FlatController extends Controller
      */
     public function index()
     {
+        $date=Carbon::now();
         $flats_sponsor = [];
         $query = FlatSponsor::with('flat')->get();
         foreach ($query as $fs) {
-            array_push($flats_sponsor, $fs->flat);
+            // controllo se è scaduta
+            if($fs->expiration>$date){
+                array_push($flats_sponsor, $fs->flat);
+            }
         };
 
         // prendo gli ID degli appartamenti sponsorizzati
