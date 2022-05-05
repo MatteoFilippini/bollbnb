@@ -16,7 +16,7 @@
                                 @csrf
                                     <h6 class="card-title"> Prezzo: {{ $sponsor->price }} &euro; </h6>
                                     <input class="d-none" type="text" name="sponsor_id" value="{{ $sponsor->id }}" readonly id="sponsor_id">
-                                    <input class="d-none" type="text" name="flat_id" value="{{ $flat }}" readonly >
+                                    <input class="d-none" type="text" name="flat_id" value="{{ $flat->id }}" readonly >
                                     <h6 class="card-title"> Durata: {{ $sponsor->length }} ore </h6>
                                     <button type="submit" class="btn btn-success">Compra</button>
                                 </form>
