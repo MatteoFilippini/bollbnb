@@ -42,6 +42,9 @@ export default {
       addresses: [],
       positionCenter: {},
       a: [],
+      municipality: '',
+      streetName: '',
+      streetNumber: ''
     };
   },
   computed: {
@@ -51,9 +54,24 @@ export default {
     getEncodedQuery(){
       const encodedQuery = encodeURIComponent(this.$route.params.address);
       return encodedQuery;
-    }
+    },
   },
   methods: {
+    getEncodedStreetName(){
+      const splitted = this.$route.params.address.split(/(\s+)/);
+      if(splitted.length > 1){
+        this.municipality = encodeURIComponent(splitted[splitted.length-1]);
+        this.streetName = encodeURIComponent(splitted[2]);
+        this.streetNumber = encodeURIComponent(splitted[4]);
+        if(splitted.length = 7){
+          this.streetNumber = encodeURIComponent(splitted[4]);
+        } else if (splitted.length = 5){
+          this.streetName = encodeURIComponent(splitted[2]);
+        }
+      } else if(splitted.length = 1){
+        this.municipality = encodeURIComponent(splitted[splitted.length-1]);
+      }
+    },
     // PRENDERE TUTTE LE POSIZIONI
     getAllAddresses() {
       axios
@@ -95,9 +113,7 @@ export default {
       // console.log(address);
       axios
         .get(
-          "https://api.tomtom.com/search/2/geocode/" +
-            address +
-            ".json?key=pkCWDKdXKoZyvsUh2s53ebk9fAJvlUQ35&typeahead=true&countrySet=ITA"
+          `https://api.tomtom.com/search/2/structuredGeocode.json?key=WXZABuumQvx5kWf9tjXpgP4SmEQfzjNx&countryCode=IT&municipality=${this.municipality}&streetName=${this.streetName}&streetNumber=${this.streetNumber}`
         )
         .then((res) => {
           console.log(res.data);
@@ -149,6 +165,7 @@ export default {
     // ]
   },
   mounted() {
+    this.getEncodedStreetName();
     this.getAllAddresses();
     this.getSearchedFlats();
     this.getNearlyFlats();
