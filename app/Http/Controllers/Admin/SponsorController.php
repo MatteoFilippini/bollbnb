@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Sponsor;
+use App\Models\Flat;
 
 class SponsorController extends Controller
 {
@@ -15,8 +16,9 @@ class SponsorController extends Controller
      */
     public function index()
     {
+        $flat = Flat::all();
         $sponsors = Sponsor::all();
-        return view('admin.sponsors.index', compact('sponsors'));
+        return view('admin.sponsors.index', compact('sponsors', 'flat'));
     }
 
     /**
@@ -37,6 +39,8 @@ class SponsorController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
+
         return redirect()->route('admin.flats.index');
     }
 
