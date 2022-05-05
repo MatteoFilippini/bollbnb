@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 /* Route::get('/payment/process', 'PaymentsController@process')->name('payment.process'); */
-Route::get('admin/sponsors/{flat}', 'Admin/SponsorController@index');
 
 Route::middleware(
     'auth'
@@ -32,6 +31,7 @@ Route::middleware(
     ->group(function () {
         // Route::get('flats/{slug}', 'FlatController@show')->name('flats.show');
         Route::resource('flats', 'FlatController');
+        Route::get('sponsors/{flat}', 'SponsorController@show');
         Route::resource('sponsors', 'SponsorController');
     });
 

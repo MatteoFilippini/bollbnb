@@ -16,6 +16,7 @@
                                 @csrf
                                     <h6 class="card-title"> Prezzo: {{ $sponsor->price }} &euro; </h6>
                                     <input class="d-none" type="text" name="sponsor_id" value="{{ $sponsor->id }}" readonly id="sponsor_id">
+                                    <input class="d-none" type="text" name="length" value="{{ $sponsor->length }}" readonly id="length">
                                     <input class="d-none" type="text" name="flat_id" value="{{ $flat->id }}" readonly >
                                     <h6 class="card-title"> Durata: {{ $sponsor->length }} ore </h6>
                                     <button type="submit" class="btn btn-success">Compra</button>
@@ -58,13 +59,12 @@
                 const buttonCancel = document.querySelector('#cancel');
                 buttonCancel.classList.remove("d-none");
                 
-                setTimeout(() => {
-                    buttonPurchase.addEventListener("click", function(){
+                
+                buttonPurchase.addEventListener("click", function(){
                         element.submit();
                         confirm.classList.add("d-none");
                         bg_confirm.classList.add('d-none');
                     })
-                }, 2000);
                 buttonCancel.addEventListener("click", function(){
                     confirm.classList.add("d-none");
                     bg_confirm.classList.add('d-none');

@@ -16,9 +16,9 @@ class SponsorController extends Controller
      */
     public function index()
     {
-        $flat = Flat::all();
+        /* $flat = Flat::all();
         $sponsors = Sponsor::all();
-        return view('admin.sponsors.index', compact('sponsors', 'flat'));
+        return view('admin.sponsors.index', compact('sponsors', 'flat')); */
     }
 
     /**
@@ -50,8 +50,10 @@ class SponsorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Flat $flat)
     {
+        $sponsors = Sponsor::all();
+        return view('admin.sponsors.show', compact('sponsors', 'flat'));
     }
 
     /**
