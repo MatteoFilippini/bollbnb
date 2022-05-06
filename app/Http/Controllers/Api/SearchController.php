@@ -15,26 +15,57 @@ class SearchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($initialPosition)
     {
+        $initial = json_decode($initialPosition, true);
+        // dd($intial);
+        $fromLat = $initial['lat'];
+        $fromLon = $initial['lon'];
+        $flats = Flat::all();
+        $filteredFlats = [];
+        // $latitude1 = 45.14296;
+        //  $longitude1 = 10.01502;
+        function getDistance($latitude1, $longitude1, $latitude2, $longitude2) {
+            $earth_radius = 6371;
 
-        $flats = [];
-        $address_flat = Address::with('flat')->get();
-        foreach ($address_flat as $a) {
-            $poi['title'] = $a->flat->title;
-            $poi['default_image'] = $a->flat->default_image;
-            $address['freeformAddress'] = $a->address;
-            $position['lat'] = $a->latitude;
-            $position['lon'] = $a->longitude;
-            $flat_id = $a->flat->id;
+            $dLat = deg2rad($latitude2 - $latitude1);
+            $dLon = deg2rad($longitude2 - $longitude1);
 
-            // $user = User::find($flat->user_id);
+            $a = sin($dLat/2) * sin($dLat/2) + cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * sin($dLon/2) * sin($dLon/2);
+            $c = 2 * asin(sqrt($a));
+            $d = $earth_radius * $c;
 
-            // , 'flat' => $flat, 'user' => $user
-            $flats[] = ['poi' => $poi, 'address' => $address, 'position' => $position, 'id' => $flat_id];
+            return $d;
         }
 
-        return response()->json($flats);
+        // $d = getDistance($fromLat, $fromLon, $toLat, $toLon);
+
+
+        foreach($flats as $flat){
+            if(getDistance($fromLat, $fromLon, $flat->address->latitude, $flat->address->longitude) <= 20){
+                $flat['distance'] = getDistance($fromLat, $fromLon, $flat->address->latitude, $flat->address->longitude);
+                array_push($filteredFlats , $flat);
+            }
+                        //  array_push($filteredFlats,$flat->address->latitude);
+
+        }
+        // $flats = [];
+        // $address_flat = Address::with('flat')->get();
+        // foreach ($address_flat as $a) {
+        //     $poi['title'] = $a->flat->title;
+        //     $poi['default_image'] = $a->flat->default_image;
+        //     $address['freeformAddress'] = $a->address;
+        //     $position['lat'] = $a->latitude;
+        //     $position['lon'] = $a->longitude;
+        //     $flat_id = $a->flat->id;
+
+        //     // $user = User::find($flat->user_id);
+
+        //     // , 'flat' => $flat, 'user' => $user
+        //     $flats[] = ['poi' => $poi, 'address' => $address, 'position' => $position, 'id' => $flat_id];
+        // }
+
+        return response()->json($filteredFlats);
         // ['poi' => $poi, 'address' => $address, 'position' => $position]
 
 

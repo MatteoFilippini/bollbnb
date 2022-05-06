@@ -18,19 +18,19 @@
       {{ positionCenter.lon }}
     </h5>
     <h2>Posisioni tutti flats</h2>
-    <ul>
+    <!-- <ul>
       <li v-for="address in addresses" :key="address.id">
-        {{ address.poi.name }}
-        {{ address.address.freeformAddress }}
-        {{ address.position.lat }}
-        {{ address.position.lon }}
+        {{ address.title }}
+        {{ address.address.address }}
+        {{ address.address.latitude }}
+        {{ address.address.longitude }}
       </li>
-    </ul>
+    </ul> -->
 
     <h2>aaaaaaaaaaaaaaaaaaaaaaa</h2>
     <!-- <ul> -->
     <!-- <li v-for="adfg in a.results" :key="adfg.id"> -->
-    <ResearchFlatCard v-for="flat in a.results" :key="flat.id" :flat="flat" />
+    <ResearchFlatCard v-for="address in addresses" :key="address.id" :flat="address" />
     <!-- {{ adfg.poi.name }} -->
     <!-- </li> -->
     <!-- </ul> -->
@@ -47,7 +47,10 @@ export default {
   data() {
     return {
       addresses: [],
-      positionCenter: {},
+      positionCenter: {
+        lat: null,
+        lon: null
+      },
       a: [],
       servicies: [],
       municipality: '',
@@ -93,20 +96,23 @@ export default {
       }
     },
     // PRENDERE TUTTE LE POSIZIONI
-    getAllAddresses() {
-      axios
-        .get("http://localhost:8000/api/search")
-        .then((res) => {
-          this.addresses = res.data;
-          // console.log(this.addresses);
-        })
-        .catch((err) => {
-          console.log("errore");
-        })
-        .then((res) => {
-          console.log("api terminata");
-        });
-    },
+      getAllAddresses() {
+    setTimeout(() =>{
+        const encoded = encodeURIComponent(JSON.stringify({"lat":this.positionCenter.lat,"lon":this.positionCenter.lon}));
+        axios
+          .get("http://localhost:8000/api/search/" + encoded)
+          .then((res) => {
+            this.addresses = res.data;
+            console.log(this.addresses);
+          })
+          .catch((err) => {
+            console.log("errore");
+          })
+          .then((res) => {
+            console.log("api terminata");
+          });
+    }, 2000);
+      },
 
     // CREARE GLI SPAZI
     getAddress(str) {
@@ -138,7 +144,7 @@ export default {
         .then((res) => {
           console.log(res.data);
           this.positionCenter = res.data.results[0].position;
-          // console.log(this.positionCenter);
+          console.log(this.positionCenter);
         })
         .catch((err) => {
           console.log("errore");
@@ -187,10 +193,11 @@ export default {
   mounted() {
     this.getServicies();
     this.getEncodedStreetName();
-    this.getAllAddresses();
     this.getSearchedFlats();
-    this.getNearlyFlats();
+    this.getAllAddresses();    
+    // this.getNearlyFlats();
   },
+  
 };
 </script>
 
