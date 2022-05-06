@@ -129,9 +129,13 @@ class FlatController extends Controller
      */
     public function show(Flat $flat)
     {
-
-        $message = Message::where('flat_id', $flat->id)->get();
-        return view('admin.flats.show', compact('flat', 'message'));
+        $log=Auth::user()->id;
+        if($log == $flat->user_id){
+            $message = Message::where('flat_id', $flat->id)->get();
+            return view('admin.flats.show', compact('flat', 'message'));
+        }else{
+            return redirect('/admin');
+        }
     }
 
     /**
