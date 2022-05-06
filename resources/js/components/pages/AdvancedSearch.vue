@@ -1,5 +1,12 @@
 <template>
   <div>
+    <nav class="bg-white">
+      <ul class="d-flex list-unstyled justify-content-center">
+        <li v-for="service in servicies" :key="service.id" class="text-dark mx-2">
+          {{service.type}}
+        </li>
+      </ul>
+    </nav>
     Search
     <h1 class="text-primary">
       Query che passiamo:
@@ -42,6 +49,7 @@ export default {
       addresses: [],
       positionCenter: {},
       a: [],
+      servicies: [],
       municipality: '',
       streetName: '',
       streetNumber: ''
@@ -57,6 +65,18 @@ export default {
     },
   },
   methods: {
+    getServicies(){
+      axios.get('http://localhost:8000/api/services').then((res) => {
+          this.servicies = res.data;
+          // console.log(this.addresses);
+        })
+        .catch((err) => {
+          console.log("errore");
+        })
+        .then((res) => {
+          console.log("api terminata");
+        });
+    },
     getEncodedStreetName(){
       const splitted = this.$route.params.address.split(/(\s+)/);
       if(splitted.length > 1){
@@ -165,6 +185,7 @@ export default {
     // ]
   },
   mounted() {
+    this.getServicies();
     this.getEncodedStreetName();
     this.getAllAddresses();
     this.getSearchedFlats();
