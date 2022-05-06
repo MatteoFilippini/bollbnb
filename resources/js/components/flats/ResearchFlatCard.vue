@@ -8,7 +8,10 @@
       <h3>{{flat.address.address}}</h3>
       <p>{{ flat.description }}</p>
       <!-- <h3>{{ flat.user.name }}</h3> -->
-      
+      <h2>Servizi: </h2>
+      <ul>
+        <li v-for="service in flat.services" :key="service.id">{{service.type}}</li>
+      </ul>
     </div>
 </template>
 

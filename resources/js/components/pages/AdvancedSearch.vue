@@ -2,7 +2,7 @@
   <div>
     <nav class="bg-white">
       <ul class="d-flex list-unstyled justify-content-center">
-        <li v-for="service in servicies" :key="service.id" class="text-dark mx-2">
+        <li v-for="service in servicies" :key="service.id" class="text-dark mx-2" @click="getServicesCheck(service.id)">
           {{service.type}}
         </li>
       </ul>
@@ -17,7 +17,7 @@
       {{ positionCenter.lat }}
       {{ positionCenter.lon }}
     </h5>
-    <h2>Posisioni tutti flats</h2>
+    <!-- <h2>Posisioni tutti flats</h2> -->
     <!-- <ul>
       <li v-for="address in addresses" :key="address.id">
         {{ address.title }}
@@ -28,12 +28,12 @@
     </ul> -->
 
     <h2>aaaaaaaaaaaaaaaaaaaaaaa</h2>
-    <!-- <ul> -->
-    <!-- <li v-for="adfg in a.results" :key="adfg.id"> -->
-    <ResearchFlatCard v-for="address in addresses" :key="address.id" :flat="address" />
-    <!-- {{ adfg.poi.name }} -->
-    <!-- </li> -->
-    <!-- </ul> -->
+       <div v-if="!checkedServices.length">
+        <ResearchFlatCard v-for="address in addresses" :key="address.id" :flat="address"/>
+      </div>
+      <div v-else>
+        <ResearchFlatCard v-for="address in filteredFlats" :key="address.id" :flat="address"/>
+      </div> 
   </div>
 </template>
 
@@ -55,7 +55,10 @@ export default {
       servicies: [],
       municipality: '',
       streetName: '',
-      streetNumber: ''
+      streetNumber: '',
+      checkedServices:[], // array degli id selezionati dagli utenti
+
+      filteredFlats:[]
     };
   },
   computed: {
@@ -68,6 +71,34 @@ export default {
     },
   },
   methods: {
+    filterByServices(){
+      let res_array=[];
+      this.addresses.forEach(address => {
+        console.log("Serivizi di ogni flat "+address.service_ids);
+        let result =  this.checkedServices.every(function (element) {
+               return address.service_ids.includes(element);
+             });
+               if(result){
+                res_array.push(address);
+                console.log(result);
+               }
+               this.filteredFlats=res_array;
+               console.log(this.filteredFlats);
+      });
+    },
+    getServicesCheck(id_service){
+      console.log(this.checkedServices);
+      if(this.checkedServices.includes(id_service)){
+        let index=this.checkedServices.indexOf(id_service);
+        this.checkedServices.splice(index,1);
+      }   else{
+        this.checkedServices.push(id_service);
+      }
+      console.log('-------------------------');
+      console.log("Servizi selezionati "+this.checkedServices);
+
+       this.filterByServices();
+    },
     getServicies(){
       axios.get('http://localhost:8000/api/services').then((res) => {
           this.servicies = res.data;
