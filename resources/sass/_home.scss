@@ -1,0 +1,29 @@
+@import 'variables';
+
+#info {
+    background-color: $main;
+    height: 300px;
+}
+
+#example {
+    height: 800px;
+    background-image: url('http://www.nyhome.it/wp-content/uploads/2019/09/fullsizeoutput_31c6-835x467.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    #bottom-items {
+        p {
+            font-size: 5rem;
+            color: #fff;
+        }
+
+        .btn {
+            background-color: $main;
+            color: white;
+        }
+    }
+
+}
