@@ -19,7 +19,7 @@
                                     <input class="d-none" type="text" name="length" value="{{ $sponsor->length }}" readonly id="length">
                                     <input class="d-none" type="text" name="flat_id" value="{{ $flat->id }}" readonly >
                                     <h6 class="card-title"> Durata: {{ $sponsor->length }} ore </h6>
-                                    <button type="submit" class="btn btn-success">Compra</button>
+                                    <button type="submit" class="btn btn-success js-btn">Compra</button>
                                 </form>
                             </div>
                         </div>
@@ -44,8 +44,18 @@
 <script src="https://js.braintreegateway.com/web/dropin/1.32.1/js/dropin.min.js"></script>
 <script type="text/javascript">
         const confirmSponsor = document.querySelectorAll('.confirmSponsor');
+        const jsBtn = document.querySelectorAll('.js-btn');
+
+
             confirmSponsor.forEach(element => {
             element.addEventListener("submit", function(event){
+
+                // disattivo la possibilità di cliccare ancora
+                 jsBtn.forEach(btn => {
+                    btn.disabled = true;
+                });
+
+
                 //stoppa l'evento
                 event.preventDefault();
                 //apre il box di conferma
@@ -68,18 +78,23 @@
                 buttonCancel.addEventListener("click", function(){
                     confirm.classList.add("d-none");
                     bg_confirm.classList.add('d-none');
+                    jsBtn.forEach(btn => {
+                    btn.disabled = false;
+                });
                 })
             });
         });
-        var button = document.getElementById('purchase');
+
+        // simulazione reale del pagamento
+        let button = document.getElementById('purchase');
             braintree.dropin.create({
             authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
             selector: '#dropin-container'
             }, function (err, instance) {
-                button.addEventListener('click', function () {
-                    instance.requestPaymentMethod(function (err, payload) {
-                    // Submit payload.nonce to your server
-                    });
+                    button.addEventListener('click', function () {
+                        instance.requestPaymentMethod(function (err, payload) {
+                        // Submit payload.nonce to your server
+                        });
                 })
             });
     </script>
