@@ -216,6 +216,7 @@ class FlatController extends Controller
         $data['slug'] = Str::slug($request->title, '-');
         $flat->title = $data['title'];
         $flat->rooms = $data['rooms'];
+        $flat->description = $data['description'];
         $flat->beds = $data['beds'];
         $flat->bathrooms = $data['bathrooms'];
         $flat->square_meters = $data['square_meters'];
