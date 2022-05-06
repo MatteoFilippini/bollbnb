@@ -42,6 +42,7 @@
 
 @section('additional-scripts')
 <script src="https://js.braintreegateway.com/web/dropin/1.32.1/js/dropin.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
         const confirmSponsor = document.querySelectorAll('.confirmSponsor');
         const jsBtn = document.querySelectorAll('.js-btn');
@@ -58,23 +59,34 @@
 
                 //stoppa l'evento
                 event.preventDefault();
+
                 //apre il box di conferma
                 let confirm = document.querySelector('#dropin-container');
                 let bg_confirm = document.querySelector('#bg-braintree');
                 confirm.classList.remove("d-none");
                 bg_confirm.classList.remove('d-none');
+
                 //prende il valore dei bottoni del box di conferma
                 const buttonPurchase = document.querySelector('#purchase');
                 buttonPurchase.classList.remove("d-none");
                 const buttonCancel = document.querySelector('#cancel');
                 buttonCancel.classList.remove("d-none");
                 
-                
+                // clicco su conferma
                 buttonPurchase.addEventListener("click", function(){
-                        element.submit();
-                        confirm.classList.add("d-none");
-                        bg_confirm.classList.add('d-none');
-                    })
+                        setTimeout(() => {
+                            element.submit();
+                            confirm.classList.add("d-none");
+                            bg_confirm.classList.add('d-none');
+                        }, 3000);
+                        Swal.fire(
+                            'Pagamento andato a buon fine',
+                            'Verrai reindirizzato in un altra pagina',
+                            'success'
+                            )
+                        })
+
+                //clicco su cancella
                 buttonCancel.addEventListener("click", function(){
                     confirm.classList.add("d-none");
                     bg_confirm.classList.add('d-none');
