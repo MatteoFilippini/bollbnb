@@ -21,34 +21,58 @@ class SearchController extends Controller
         // dd($intial);
         $fromLat = $initial['lat'];
         $fromLon = $initial['lon'];
-        $flats = Flat::all();
+        $flats = Flat::with('user')->get();
+        
+        
+
+        
+        
         $filteredFlats = [];
         // $latitude1 = 45.14296;
         //  $longitude1 = 10.01502;
         function getDistance($latitude1, $longitude1, $latitude2, $longitude2) {
             $earth_radius = 6371;
-
+            
             $dLat = deg2rad($latitude2 - $latitude1);
             $dLon = deg2rad($longitude2 - $longitude1);
-
+            
             $a = sin($dLat/2) * sin($dLat/2) + cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * sin($dLon/2) * sin($dLon/2);
             $c = 2 * asin(sqrt($a));
             $d = $earth_radius * $c;
-
+            
             return $d;
         }
 
         // $d = getDistance($fromLat, $fromLon, $toLat, $toLon);
 
+        
 
         foreach($flats as $flat){
             if(getDistance($fromLat, $fromLon, $flat->address->latitude, $flat->address->longitude) <= 20){
                 $flat['distance'] = getDistance($fromLat, $fromLon, $flat->address->latitude, $flat->address->longitude);
+                // prendo gli id dei servizi diogni appartamento
+                $service_ids=[];
+                foreach ($flat->services as $service){
+                    array_push($service_ids,$service->id);
+                }
+                $flat['service_ids']=$service_ids;
                 array_push($filteredFlats , $flat);
             }
-                        //  array_push($filteredFlats,$flat->address->latitude);
-
+            //  array_push($filteredFlats,$flat->address->latitude);
+            
         }
+
+        // $services_ids=[];
+        // foreach ($filteredFlats as $flat){
+        //     foreach ($flat->services as $service){
+        //         array_push($services_ids,$service->id);
+        //     }
+        //     $flat->service_ids=$services_ids;
+        // }
+
+
+
+
         // $flats = [];
         // $address_flat = Address::with('flat')->get();
         // foreach ($address_flat as $a) {
@@ -60,7 +84,7 @@ class SearchController extends Controller
         //     $flat_id = $a->flat->id;
 
         //     // $user = User::find($flat->user_id);
-
+        
         //     // , 'flat' => $flat, 'user' => $user
         //     $flats[] = ['poi' => $poi, 'address' => $address, 'position' => $position, 'id' => $flat_id];
         // }
