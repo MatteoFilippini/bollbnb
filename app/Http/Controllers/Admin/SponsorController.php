@@ -58,7 +58,7 @@ class SponsorController extends Controller
         $flat_sponsor->expiration = $modifiedMutable;
         $flat_sponsor->save();
 
-        return redirect()->route('admin.flats.index');
+        return redirect('/');
     }
 
     /**

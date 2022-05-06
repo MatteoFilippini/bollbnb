@@ -82,6 +82,9 @@ export default {
     },
   },
   methods: {
+    showAlert() {
+      this.$swal("Messaggio mandato");
+    },
     getId() {
       this.form.id = this.$route.params.id;
     },
@@ -97,6 +100,7 @@ export default {
     },
     sendMessage() {
       // validazione FRONT-END
+      this.showAlert();
       this.checkForm();
       if (!this.hasErrors) {
         axios

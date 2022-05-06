@@ -26,6 +26,8 @@
     "dependencies": {
         "braintree": "^3.11.0",
         "jquery-validation": "^1.19.3",
-        "vue-router": "^3.5.3"
+        "sweetalert2": "^11.4.10",
+        "vue-router": "^3.5.3",
+        "vue-sweetalert2": "^5.0.2"
     }
 }
