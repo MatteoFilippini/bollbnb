@@ -12,6 +12,7 @@
       <ul>
         <li v-for="service in flat.services" :key="service.id">{{service.type}}</li>
       </ul>
+      
     </div>
 </template>
 
