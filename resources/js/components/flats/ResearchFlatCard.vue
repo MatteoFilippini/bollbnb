@@ -16,7 +16,7 @@
           </div>
     </div>  
       <!-- <h3>{{ flat.user.name }}</h3> -->
-  </div>
+
 </template>
 
 <script>

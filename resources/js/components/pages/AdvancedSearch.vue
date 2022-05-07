@@ -2,7 +2,7 @@
   <div>
     <nav class="bg-white">
       <ul class="d-flex list-unstyled justify-content-center">
-        <li v-for="service in servicies" :key="service.id" class="text-dark mx-2" @click="getServicesCheck(service.id)">
+        <li :id="service.id" v-for="service in servicies" :key="service.id" class="text-dark mx-2" @click="getServicesCheck(service.id)">
           {{service.type}}
         </li>
       </ul>
@@ -29,20 +29,20 @@
 
     <h2>aaaaaaaaaaaaaaaaaaaaaaa</h2>
        <div v-if="!checkedServices.length">
-        <ResearchFlatCard v-for="address in addresses" :key="address.id" :flat="address"/>
+        <FlatCard v-for="address in addresses" :key="address.id" :flat="address" :isSearch="true"/>
       </div>
       <div v-else>
-        <ResearchFlatCard v-for="address in filteredFlats" :key="address.id" :flat="address"/>
+        <FlatCard v-for="address in filteredFlats" :key="address.id" :flat="address" :isSearch="true"/>
       </div> 
   </div>
 </template>
 
 <script>
-import ResearchFlatCard from "../flats/ResearchFlatCard.vue";
+import FlatCard from "../flats/FlatCard.vue";
 export default {
   name: "Advancedsearch",
   components: {
-    ResearchFlatCard,
+    FlatCard,
   },
   data() {
     return {
@@ -71,6 +71,7 @@ export default {
     },
   },
   methods: {
+    // CONFRONTA GLI ID DEI SERVIZI SELEZIONATI E GLI ID DEI SERVIZI DEL FLAT 
     filterByServices(){
       let res_array=[];
       this.addresses.forEach(address => {
@@ -86,7 +87,10 @@ export default {
                console.log(this.filteredFlats);
       });
     },
+    // PRENDE GLI ID SEI SERVIZI SELEZIONATI
     getServicesCheck(id_service){
+      let $selezionato=document.getElementById(id_service);
+      $selezionato.classList.toggle("style");
       console.log(this.checkedServices);
       if(this.checkedServices.includes(id_service)){
         let index=this.checkedServices.indexOf(id_service);
@@ -99,6 +103,7 @@ export default {
 
        this.filterByServices();
     },
+    // PRENDE TUTTI I SERVIZI
     getServicies(){
       axios.get('http://localhost:8000/api/services').then((res) => {
           this.servicies = res.data;
@@ -144,7 +149,6 @@ export default {
           });
     }, 2000);
       },
-
     // CREARE GLI SPAZI
     getAddress(str) {
       str = str.replace(/^\s+|\s+$/g, ""); // trim
@@ -232,5 +236,12 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+li{
+  border: 1px solid black;
+  cursor: pointer;
+  &.style{
+    border: 3px solid red;
+  }
+}
 </style>
