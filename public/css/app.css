@@ -1,27 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
-#info {
-  background-color: #63F0C1;
-  height: 300px;
-}
-
-#example {
-  height: 800px;
-  background-image: url("http://www.nyhome.it/wp-content/uploads/2019/09/fullsizeoutput_31c6-835x467.jpeg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-#example #bottom-items p {
-  font-size: 5rem;
-  color: #fff;
-}
-#example #bottom-items .btn {
-  background-color: #63F0C1;
-  color: white;
-}
-
 /*!
  * Bootstrap v4.6.1 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -10044,5 +10021,4 @@ h3 {
 }
 body {
   background-color: #000;
-  color: #fff;
 }

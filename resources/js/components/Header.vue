@@ -1,6 +1,12 @@
 <template>
-  <div class="container mt-3">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <a class="navbar-brand" href="/">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSu9r0YU-OAYPKyS-OakXtdXa1caFSRQEFE_g&usqp=CAU"
+          alt="logo"
+        />
+      </a>
       <a class="navbar-brand" href="/admin">Diventa un HOST</a>
       <button
         class="navbar-toggler"
@@ -59,7 +65,18 @@ export default {
 
 <style scoped lang='scss'>
 nav {
-  display: flex;
-  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+
+  a {
+    color: #63f0c1;
+  }
+
+  img {
+    height: 45px;
+  }
 }
 </style>
