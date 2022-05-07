@@ -17,6 +17,10 @@
     <!-- sezione "consigliati" -->
     <Locations />
 
+    <!-- ancora sfondo bianco, altre cards con i migliori appartamenti -->
+    <!-- si può pensare di mettere qua alcuni appartamenti sponsorizzati -->
+    <BestFlats />
+
     <!-- SECONDO ME QUESTA SEZIONE -->
     <!-- NON VA' QUI, MA SI DOVREBBE FARE UN ALTRO COMPONENTE -->
     <h2 class="text-center">Appartamenti Sponsor</h2>
@@ -39,6 +43,7 @@ import Jumbotron from "../Jumbotron.vue";
 import Cards from "../Cards.vue";
 import JumboLost from "../JumboLost.vue";
 import Locations from "../Locations.vue";
+import BestFlats from "../BestFlats.vue";
 
 export default {
   name: "HomePage",
@@ -50,6 +55,7 @@ export default {
     Cards,
     JumboLost,
     Locations,
+    BestFlats,
   },
   data() {
     return {
