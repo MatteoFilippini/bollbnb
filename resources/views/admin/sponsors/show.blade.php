@@ -2,30 +2,32 @@
 
 @section('content')
 <div class="container">
-     <section id="sponsor-section">
+    <section id="sponsor-section">
         <a href="{{route('admin.flats.index')}}" class="btn btn-success ml-3 my-5">TORNA INDIETRO</a>
         <div class="container-fluid">
             <div class="row">
-                @forelse ($sponsors as $sponsor)  
-                    <div class="col-12 col-md-4">
-                        <div class="card text-dark mb-3">
-                            <div class="card-header"><h3>{{ $sponsor->label }}</h3></div>
-                            <div class="card-body">
+                @forelse ($sponsors as $sponsor)
+                <div class="col-12 col-md-4">
+                    <div class="card text-dark mb-3">
+                        <div class="card-header">
+                            <h3>{{ $sponsor->label }}</h3>
+                        </div>
+                        <div class="card-body">
 
-                                <form action="{{ route('admin.sponsors.store')}}"  method="POST" class="confirmSponsor">
+                            <form action="{{ route('admin.sponsors.store')}}" method="POST" class="confirmSponsor">
                                 @csrf
-                                    <h6 class="card-title"> Prezzo: {{ $sponsor->price }} &euro; </h6>
-                                    <input class="d-none" type="text" name="sponsor_id" value="{{ $sponsor->id }}" readonly id="sponsor_id">
-                                    <input class="d-none" type="text" name="length" value="{{ $sponsor->length }}" readonly id="length">
-                                    <input class="d-none" type="text" name="flat_id" value="{{ $flat->id }}" readonly >
-                                    <h6 class="card-title"> Durata: {{ $sponsor->length }} ore </h6>
-                                    <button type="submit" class="btn btn-success js-btn">Compra</button>
-                                </form>
-                            </div>
+                                <h6 class="card-title"> Prezzo: {{ $sponsor->price }} &euro; </h6>
+                                <input class="d-none" type="text" name="sponsor_id" value="{{ $sponsor->id }}" readonly id="sponsor_id">
+                                <input class="d-none" type="text" name="length" value="{{ $sponsor->length }}" readonly id="length">
+                                <input class="d-none" type="text" name="flat_id" value="{{ $flat->id }}" readonly>
+                                <h6 class="card-title"> Durata: {{ $sponsor->length }} ore </h6>
+                                <button type="submit" class="btn btn-success js-btn">Compra</button>
+                            </form>
                         </div>
                     </div>
+                </div>
                 @empty
-                    <h3>Non ci sono sponsor al momento</h3>
+                <h3>Non ci sono sponsor al momento</h3>
                 @endforelse
             </div>
 
@@ -38,21 +40,21 @@
             </div>
         </div>
     </section>
-@endsection
+    @endsection
 
-@section('additional-scripts')
-<script src="https://js.braintreegateway.com/web/dropin/1.32.1/js/dropin.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script type="text/javascript">
+    @section('additional-scripts')
+    <script src="https://js.braintreegateway.com/web/dropin/1.32.1/js/dropin.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
         const confirmSponsor = document.querySelectorAll('.confirmSponsor');
         const jsBtn = document.querySelectorAll('.js-btn');
 
 
-            confirmSponsor.forEach(element => {
-            element.addEventListener("submit", function(event){
+        confirmSponsor.forEach(element => {
+            element.addEventListener("submit", function(event) {
 
                 // disattivo la possibilità di cliccare ancora
-                 jsBtn.forEach(btn => {
+                jsBtn.forEach(btn => {
                     btn.disabled = true;
                 });
 
@@ -71,43 +73,50 @@
                 buttonPurchase.classList.remove("d-none");
                 const buttonCancel = document.querySelector('#cancel');
                 buttonCancel.classList.remove("d-none");
-                
+
                 // clicco su conferma
-                buttonPurchase.addEventListener("click", function(){
-                        setTimeout(() => {
-                            element.submit();
-                            confirm.classList.add("d-none");
-                            bg_confirm.classList.add('d-none');
-                        }, 3000);
-                        Swal.fire(
-                            'Pagamento andato a buon fine',
-                            'Verrai reindirizzato in un altra pagina',
-                            'success'
-                            )
-                        })
+                // buttonPurchase.addEventListener("click", function(){
+                //         setTimeout(() => {
+                //             element.submit();
+                //             confirm.classList.add("d-none");
+                //             bg_confirm.classList.add('d-none');
+                //         }, 3000);
+                //         Swal.fire(
+                //             'Pagamento andato a buon fine',
+                //             'Verrai reindirizzato in un altra pagina',
+                //             'success'
+                //             )
+                //         })
 
                 //clicco su cancella
-                buttonCancel.addEventListener("click", function(){
+                buttonCancel.addEventListener("click", function() {
                     confirm.classList.add("d-none");
                     bg_confirm.classList.add('d-none');
                     jsBtn.forEach(btn => {
-                    btn.disabled = false;
-                });
+                        btn.disabled = false;
+                    });
                 })
             });
         });
 
         // simulazione reale del pagamento
         let button = document.getElementById('purchase');
-            braintree.dropin.create({
+        braintree.dropin.create({
             authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
             selector: '#dropin-container'
-            }, function (err, instance) {
-                    button.addEventListener('click', function () {
-                        instance.requestPaymentMethod(function (err, payload) {
-                        // Submit payload.nonce to your server
-                        });
-                })
-            });
+        }, function(err, instance) {
+            button.addEventListener('click', function() {
+                instance.requestPaymentMethod(function(err, payload) {
+                    // Submit payload.nonce to your server
+                    if (!err) {
+                        Swal.fire(
+                            'Pagamento andato a buon fine',
+                            'Verrai reindirizzato in un altra pagina',
+                            'success'
+                        )
+                    }
+                });
+            })
+        });
     </script>
-@endsection
+    @endsection

@@ -100,7 +100,7 @@ export default {
     },
     sendMessage() {
       // validazione FRONT-END
-      this.showAlert();
+      
       this.checkForm();
       if (!this.hasErrors) {
         axios
@@ -119,6 +119,7 @@ export default {
               if (name) errors.name = name[0];
               this.errors = errors;
             } else {
+this.showAlert();
               this.form.email = "";
               this.form.content = "";
               this.form.name = "";
