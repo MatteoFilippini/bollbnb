@@ -12,7 +12,9 @@
     </div>
     <Loader v-if="isLoading" />
     <h2 class="text-center">Tutti gli Appartamenti</h2>
-    <FlatCard v-for="flat in flats" :key="flat.id" :flat="flat" />
+    <div class="row">
+      <FlatCard v-for="flat in flats" :key="flat.id" :flat="flat" />
+    </div>
   </div>
 </template>
 
