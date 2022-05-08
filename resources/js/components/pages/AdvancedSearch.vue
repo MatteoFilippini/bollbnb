@@ -261,7 +261,7 @@ export default {
 
 .nav-service{
   position: fixed;
-  top: 70px;
+  top: 50px;
   width: calc(100vw - 17px);
   z-index: 6;
   height:90px;
