@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <nav class="bg-white">
       <ul class="d-flex list-unstyled justify-content-center">
         <li :id="service.id" v-for="service in servicies" :key="service.id" class="text-dark mx-2" @click="getServicesCheck(service.id)">
@@ -17,6 +17,16 @@
       {{ positionCenter.lat }}
       {{ positionCenter.lon }}
     </h5>
+    <div class="row justify-content-between">
+      <div class="col">
+        <h1>
+          Ecco gli appartamenti disponibili sul nostro sito
+        </h1>
+      </div>
+      <div class="col-6">
+                <div id="map" style="width: 300px; height: 200px;"></div>
+            </div>
+    </div>
     <!-- <h2>Posisioni tutti flats</h2> -->
     <!-- <ul>
       <li v-for="address in addresses" :key="address.id">
@@ -39,6 +49,7 @@
 
 <script>
 import FlatCard from "../flats/FlatCard.vue";
+import tt from '@tomtom-international/web-sdk-maps';
 export default {
   name: "Advancedsearch",
   components: {
@@ -139,6 +150,21 @@ export default {
           .get("http://localhost:8000/api/search/" + encoded)
           .then((res) => {
             this.addresses = res.data;
+              let center = [this.positionCenter.lon, this.positionCenter.lat];
+                const map = tt.map({
+                    key: "Mkf8SDlv7IXjC285PFjO8O6lFhDYeFdx",
+                    container: "map",
+                    center: center,
+                    zoom: 10
+                });
+
+             this.addresses.forEach((address) => {
+
+                map.on('load', () => {
+    new tt.Marker().setLngLat( {lon:address.address.longitude, lat:address.address.latitude}).addTo(map)
+});
+              
+            });
             console.log(this.addresses);
           })
           .catch((err) => {
@@ -237,6 +263,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../../../node_modules/@tomtom-international/web-sdk-maps/dist/maps.css';
+
 li{
   border: 1px solid black;
   cursor: pointer;
@@ -244,4 +272,5 @@ li{
     border: 3px solid red;
   }
 }
+
 </style>

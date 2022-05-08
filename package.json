@@ -24,6 +24,8 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@tomtom-international/web-sdk-maps": "^6.18.0",
+        "@tomtom-international/web-sdk-services": "^6.18.0",
         "braintree": "^3.11.0",
         "jquery-validation": "^1.19.3",
         "sweetalert2": "^11.4.10",
