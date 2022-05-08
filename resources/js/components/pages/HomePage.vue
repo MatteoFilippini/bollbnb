@@ -1,33 +1,32 @@
 <template>
   <div class="">
-    <div class="container-fluid">
+    <div>
       <!-- sezione di benvenuto -->
       <Welcome />
 
       <!-- sezione con immagine esempio più link ad eventuale registrazione -->
-      <Jumbotron />
+      <div class="container-fluid py-3">
+        <Jumbotron />
+      </div>
 
-      <!-- sezione Cards - esempio di quello che offriamo -->
-      <Cards />
+      <!-- ancora sfondo bianco, altre cards con i migliori appartamenti -->
+      <!-- si può pensare di mettere qua alcuni appartamenti sponsorizzati -->
+      <BestFlats />
 
       <!-- sezione con un altro jumbotron -->
-      <JumboLost />
-    </div>
-    <!-- cambio sfondo in bianco - risalto le prossime cards -->
-    <!-- sezione "consigliati" -->
-    <Locations />
+      <div class="container-fluid py-3">
+        <JumboLost />
+      </div>
 
-    <!-- SECONDO ME QUESTA SEZIONE -->
-    <!-- NON VA' QUI, MA SI DOVREBBE FARE UN ALTRO COMPONENTE -->
-    <h2 class="text-center">Appartamenti Sponsor</h2>
-    <FlatCard
-      v-for="flat_sponsor in flats_sponsor"
-      :key="flat_sponsor.id"
-      :flat="flat_sponsor"
-    />
-    <Loader v-if="isLoading" />
-    <h2 class="text-center">Tutti gli Appartamenti</h2>
-    <FlatCard v-for="flat in flats" :key="flat.id" :flat="flat" />
+      <!-- cambio sfondo in bianco - risalto le prossime cards -->
+      <!-- sezione "consigliati" -->
+      <Locations />
+
+      <!-- Jumbotron in cui proponiamo di diventare Host -->
+      <div class="container-fluid py-3">
+        <Host />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -36,9 +35,10 @@ import FlatCard from "../flats/FlatCard.vue";
 import Loader from "../Loader.vue";
 import Welcome from "../Welcome.vue";
 import Jumbotron from "../Jumbotron.vue";
-import Cards from "../Cards.vue";
 import JumboLost from "../JumboLost.vue";
 import Locations from "../Locations.vue";
+import BestFlats from "../BestFlats.vue";
+import Host from "../Host.vue";
 
 export default {
   name: "HomePage",
@@ -47,9 +47,10 @@ export default {
     Loader,
     Welcome,
     Jumbotron,
-    Cards,
     JumboLost,
     Locations,
+    BestFlats,
+    Host,
   },
   data() {
     return {

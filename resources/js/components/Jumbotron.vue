@@ -1,9 +1,11 @@
 <template>
   <section id="example">
-    <div class="mb-4">
-      <div id="bottom-items" class="text-center">
-        <p>Vivi la tua esperienza</p>
-        <a href="#" class="btn">PROVA</a>
+    <div class="container-fluid">
+      <div class="mb-4">
+        <div id="" class="text-center bottom-items">
+          <p>Vivi la tua esperienza</p>
+          <a href="#" class="btn">PROVA</a>
+        </div>
       </div>
     </div>
   </section>
@@ -27,7 +29,7 @@ export default {
   justify-content: center;
   align-items: flex-end;
 
-  #bottom-items {
+  .bottom-items {
     p {
       font-size: 2rem;
       color: #fff;
