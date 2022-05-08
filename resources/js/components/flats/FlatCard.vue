@@ -32,7 +32,7 @@
         </ul>
       </div>
     </div>
-
+       
     <!-- SE SIAMO INVECE NEL DETTAGLIO VEDIAMO QUESTI BOTTONI -->
     <div v-if="isShow">
       <button class="btn btn-danger btn-sm" onClick="window.history.back()">
@@ -61,9 +61,10 @@ export default {
 };
 </script>
 
+
 <style scoped lang="scss">
 #image-wrapper {
   height: 400px;
   width: 400px;
-}
+  }
 </style>
