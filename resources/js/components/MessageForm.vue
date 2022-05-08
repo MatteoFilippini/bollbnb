@@ -1,44 +1,45 @@
 <template>
   <div class="container">
-    <form>
-      <div class="form-group mt-3 mb-1">
-        <!-- NAME -->
-        <label for="exampleName">Nome</label>
+      <div class="form-group mt-3 mb-1 form-mes d-flex justify-content-center">
+        <div class="col-5 fs-3 contact">
+          CONTATTA L'HOST
+        </div>
+        <div class="col-5">
+          <!-- NAME -->
+          <div>
         <input
           class="form-control"
           type="text"
           id="exampleName"
-          placeholder="Default input"
           v-model="form.name"
           :class="{ 'is-invalid': errors.name }"
         />
         <!-- mes errore FUTURO COMPONENTE-->
-        <div v-if="errors.name" class="invalid-feedback">
+        <div v-if="errors.name" class="invalid-feedback err">
           {{ errors.name }}
         </div>
-        <small v-else class="form-text text-muted"
+        <small v-else class="form-text "
           >Inserisci il tuo nome e cognome</small
-        >
+        >    
+          </div>
         <!-- EMAIL -->
-        <label for="exampleFormControlInput1">Email address</label>
+        <div>
         <input
           type="text"
           class="form-control"
           id="exampleFormControlInput1"
-          placeholder="name@example.com"
           v-model="form.email"
           :class="{ 'is-invalid': errors.email }"
         />
-        <div v-if="errors.email" class="invalid-feedback">
+        <div v-if="errors.email" class="invalid-feedback err">
           {{ errors.email }}
         </div>
-        <small v-else class="form-text text-muted"
+        <small v-else class="form-text "
           >Inserisci la tua email e sarai ricontattato</small
         >
-      </div>
+        </div>   
       <!-- DESCRIPTION- CONTENT -->
       <div class="form-group">
-        <label for="exampleFormControlTextarea1">Example textarea</label>
         <textarea
           class="form-control"
           id="exampleFormControlTextarea1"
@@ -46,18 +47,23 @@
           v-model="form.content"
           :class="{ 'is-invalid': errors.content }"
         ></textarea>
-        <div v-if="errors.content" class="invalid-feedback">
+        <div v-if="errors.content" class="invalid-feedback err">
           {{ errors.content }}
         </div>
-        <small v-else class="form-text text-muted"
+        <small v-else class="form-text "
           >Chiedi i tuoi dubbi all'host</small
         >
       </div>
-    </form>
-    <button @click="sendMessage">Invia</button>
-    <router-link :to="{ name: 'detail' }" class="btn btn-danger btn-sm"
+
+  <div class="d-flex justify-content-end align-items-center">
+
+    <router-link :to="{ name: 'detail' }" class="actions mr-4"
       >Indietro</router-link
     >
+    <div class="actions a" @click="sendMessage">Invia</div>
+  </div>
+        </div>    
+    </div>
   </div>
 </template>
 
@@ -119,7 +125,7 @@ export default {
               if (name) errors.name = name[0];
               this.errors = errors;
             } else {
-this.showAlert();
+              this.showAlert();
               this.form.email = "";
               this.form.content = "";
               this.form.name = "";
@@ -139,5 +145,36 @@ this.showAlert();
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.form-mes{
+  position:relative;
+  top:80px;
+  border:1px solid white;
+  background-color:rgba(42,42,42);
+  padding:40px 0;
+  border-radius:20px;
+  .contact{
+    font-size:40px;
+    color: #FF385C;
+    font-weight: 600;
+  }
+  small{
+    color: white;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+  }
+  .err{
+    margin-bottom: 30px;
+        font-size: 1rem;
+
+  }
+  .actions{
+    color: #FF385C;
+    font-weight: 400;
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+}
 </style>
