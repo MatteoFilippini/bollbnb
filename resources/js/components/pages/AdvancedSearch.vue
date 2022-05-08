@@ -1,22 +1,41 @@
 <template>
   <div>
-    <nav class="bg-white">
+    <Loader v-if="isLoading"/>
+    <div v-else>
+
+    <nav class="nav-service">
       <ul class="d-flex list-unstyled justify-content-center">
-        <li :id="service.id" v-for="service in servicies" :key="service.id" class="text-dark mx-2" @click="getServicesCheck(service.id)">
+        <li :id="service.id" v-for="service in servicies" :key="service.id" class="mx-2" @click="getServicesCheck(service.id)">
           {{service.type}}
         </li>
       </ul>
     </nav>
-    Search
-    <h1 class="text-primary">
+    <div class="search container-fluid"> 
+      <div class="row d-flex flex-direction-column">
+        <div class="col-6 apartment">
+          <h3>Ecco gli appartamenti nella zona cercata</h3>
+    <div v-if="!checkedServices.length">
+        <FlatCard v-for="address in addresses" :key="address.id" :flat="address" :isSearch="true"/>
+      </div>
+      <div v-else>
+        <FlatCard v-for="address in filteredFlats" :key="address.id" :flat="address" :isSearch="true"/>
+      </div> 
+        </div>
+        <div class="col-6 map bg-primary">MAPPA</div>
+      </div>
+    </div>
+    </div>
+  </div>
+</template>
+    <!-- <h1 class="text-primary">
       Query che passiamo:
       {{ fixAddress }}
-    </h1>
-    <h3>Posizione centrale app</h3>
+    </h1> -->
+    <!-- <h3>Posizione centrale app</h3>
     <h5>
       {{ positionCenter.lat }}
       {{ positionCenter.lon }}
-    </h5>
+    </h5> -->
     <!-- <h2>Posisioni tutti flats</h2> -->
     <!-- <ul>
       <li v-for="address in addresses" :key="address.id">
@@ -27,25 +46,24 @@
       </li>
     </ul> -->
 
-    <h2>aaaaaaaaaaaaaaaaaaaaaaa</h2>
-       <div v-if="!checkedServices.length">
-        <FlatCard v-for="address in addresses" :key="address.id" :flat="address" :isSearch="true"/>
-      </div>
-      <div v-else>
-        <FlatCard v-for="address in filteredFlats" :key="address.id" :flat="address" :isSearch="true"/>
-      </div> 
-  </div>
-</template>
+    <!-- <h2>aaaaaaaaaaaaaaaaaaaaaaa</h2>
+       
+      </div> -->
+  
 
 <script>
+import Loader from "../Loader.vue";
 import FlatCard from "../flats/FlatCard.vue";
 export default {
   name: "Advancedsearch",
   components: {
     FlatCard,
+    Loader
   },
   data() {
     return {
+    isLoading: false,
+
       addresses: [],
       positionCenter: {
         lat: null,
@@ -133,6 +151,7 @@ export default {
     },
     // PRENDERE TUTTE LE POSIZIONI
       getAllAddresses() {
+        this.isLoading = true;
     setTimeout(() =>{
         const encoded = encodeURIComponent(JSON.stringify({"lat":this.positionCenter.lat,"lon":this.positionCenter.lon}));
         axios
@@ -145,6 +164,7 @@ export default {
             console.log("errore");
           })
           .then((res) => {
+            this.isLoading = false;
             console.log("api terminata");
           });
     }, 2000);
@@ -190,6 +210,7 @@ export default {
     },
     // CERCA VICINI APPARTAMENTI
     getNearlyFlats() {
+      
       setTimeout(() => {
         console.log(this.addresses);
         const url = JSON.stringify(this.addresses);
@@ -237,11 +258,43 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-li{
-  border: 1px solid black;
+
+.nav-service{
+  position: fixed;
+  top: 70px;
+  width: calc(100vw - 17px);
+  z-index: 6;
+  height:90px;
+  background-color:white;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid lightgray;
+  ul{
+    margin:0;
+    li{
+  display:flex;
+  justify-content:center;
+  min-width: 80px;
+  padding: 7px;
+  border-radius: 19px;
+  color:black;
   cursor: pointer;
+  border: 1px solid lightgray;
   &.style{
-    border: 3px solid red;
+    border: 1px solid black;
+  }
+    }
+  }
+}
+.search{
+  position: relative;
+  top: 180px;
+  .map{
+    position: fixed;
+    right: 0;
+    height:100vh;
+    border: 1px solid black;
   }
 }
 </style>
