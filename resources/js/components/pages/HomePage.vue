@@ -21,19 +21,12 @@
       <!-- cambio sfondo in bianco - risalto le prossime cards -->
       <!-- sezione "consigliati" -->
       <Locations />
-    </div>
 
-    <!-- SECONDO ME QUESTA SEZIONE -->
-    <!-- NON VA' QUI, MA SI DOVREBBE FARE UN ALTRO COMPONENTE -->
-    <h2 class="text-center">Appartamenti Sponsor</h2>
-    <FlatCard
-      v-for="flat_sponsor in flats_sponsor"
-      :key="flat_sponsor.id"
-      :flat="flat_sponsor"
-    />
-    <Loader v-if="isLoading" />
-    <h2 class="text-center">Tutti gli Appartamenti</h2>
-    <FlatCard v-for="flat in flats" :key="flat.id" :flat="flat" />
+      <!-- Jumbotron in cui proponiamo di diventare Host -->
+      <div class="container-fluid py-3">
+        <Host />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -45,6 +38,7 @@ import Jumbotron from "../Jumbotron.vue";
 import JumboLost from "../JumboLost.vue";
 import Locations from "../Locations.vue";
 import BestFlats from "../BestFlats.vue";
+import Host from "../Host.vue";
 
 export default {
   name: "HomePage",
@@ -56,6 +50,7 @@ export default {
     JumboLost,
     Locations,
     BestFlats,
+    Host,
   },
   data() {
     return {

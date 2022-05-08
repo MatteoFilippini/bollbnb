@@ -10,6 +10,7 @@ import NotFoundPage from "./components/pages/NotFoundPage";
 import DetailFlat from "./components/flats/DetailFlat";
 import MessageForm from "./components/MessageForm";
 import AdvancedSearch from "./components/pages/AdvancedSearch";
+import IndexFlats from "./components/IndexFlats";
 
 const router = new VueRouter({
     mode: 'history',
@@ -19,6 +20,7 @@ const router = new VueRouter({
         { path: "/search/:address", component: AdvancedSearch, name: 'searchString' },
         { path: "/flats/:slug", component: DetailFlat, name: 'detail' },
         { path: "/message/:slug", component: MessageForm, name: 'messageForm' },
+        { path: "/flats", component: IndexFlats, name: 'index' },
         { path: '*', component: NotFoundPage, name: '404' }
     ]
 });

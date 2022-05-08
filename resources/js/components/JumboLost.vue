@@ -1,9 +1,11 @@
 <template>
   <section id="lost" class="container-fluid">
     <div class="mb-4">
-      <div id="bottom-items" class="text-center">
+      <div class="text-center bottom-items">
         <p>Non sai dove andare?</p>
-        <a href="#" class="btn">PROVA</a>
+        <router-link :to="{ name: 'index' }" class="btn"
+          >LOSE YOURSELF</router-link
+        >
       </div>
     </div>
   </section>
@@ -26,7 +28,7 @@ export default {
   justify-content: center;
   align-items: center;
 
-  #bottom-items {
+  .bottom-items {
     p {
       font-size: 2rem;
       color: #fff;

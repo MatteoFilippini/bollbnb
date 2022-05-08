@@ -5,7 +5,9 @@
         <div class="col-12 my-5 text-center">
           <h3>I nostri migliori appartamenti</h3>
         </div>
-        <div class="col-sm-12 col-md-3 col-lg-4 py-4">
+        <div
+          class="col-sm-12 col-md-3 col-lg-4 py-4 d-none d-sm-none d-lg-block"
+        >
           <div class="card-wrapper">
             <div class="card position-relative bounce-top">
               <div class="featured lh-lg">
@@ -33,7 +35,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-3 col-lg-4 py-4">
+        <div class="col-sm-12 col-md-12 col-lg-4 py-4 mb-4">
           <div class="card-wrapper">
             <div class="card position-relative bounce-top">
               <div class="featured lh-lg">
@@ -61,7 +63,9 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-3 col-lg-4 py-4">
+        <div
+          class="col-sm-12 col-md-3 col-lg-4 py-4 d-none d-sm-none d-lg-block"
+        >
           <div class="card-wrapper">
             <div class="card position-relative bounce-top">
               <div class="featured lh-lg">
