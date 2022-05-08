@@ -1,5 +1,5 @@
 <template>
-  <section id="lost">
+  <section id="lost" class="container-fluid">
     <div class="mb-4">
       <div id="bottom-items" class="text-center">
         <p>Non sai dove andare?</p>

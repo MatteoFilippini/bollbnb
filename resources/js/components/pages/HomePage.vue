@@ -1,25 +1,27 @@
 <template>
   <div class="">
-    <div class="container-fluid">
+    <div>
       <!-- sezione di benvenuto -->
       <Welcome />
 
       <!-- sezione con immagine esempio più link ad eventuale registrazione -->
-      <Jumbotron />
+      <div class="container-fluid py-3">
+        <Jumbotron />
+      </div>
 
-      <!-- sezione Cards - esempio di quello che offriamo -->
-      <Cards />
+      <!-- ancora sfondo bianco, altre cards con i migliori appartamenti -->
+      <!-- si può pensare di mettere qua alcuni appartamenti sponsorizzati -->
+      <BestFlats />
 
       <!-- sezione con un altro jumbotron -->
-      <JumboLost />
-    </div>
-    <!-- cambio sfondo in bianco - risalto le prossime cards -->
-    <!-- sezione "consigliati" -->
-    <Locations />
+      <div class="container-fluid py-3">
+        <JumboLost />
+      </div>
 
-    <!-- ancora sfondo bianco, altre cards con i migliori appartamenti -->
-    <!-- si può pensare di mettere qua alcuni appartamenti sponsorizzati -->
-    <BestFlats />
+      <!-- cambio sfondo in bianco - risalto le prossime cards -->
+      <!-- sezione "consigliati" -->
+      <Locations />
+    </div>
 
     <!-- SECONDO ME QUESTA SEZIONE -->
     <!-- NON VA' QUI, MA SI DOVREBBE FARE UN ALTRO COMPONENTE -->
@@ -40,7 +42,6 @@ import FlatCard from "../flats/FlatCard.vue";
 import Loader from "../Loader.vue";
 import Welcome from "../Welcome.vue";
 import Jumbotron from "../Jumbotron.vue";
-import Cards from "../Cards.vue";
 import JumboLost from "../JumboLost.vue";
 import Locations from "../Locations.vue";
 import BestFlats from "../BestFlats.vue";
@@ -52,7 +53,6 @@ export default {
     Loader,
     Welcome,
     Jumbotron,
-    Cards,
     JumboLost,
     Locations,
     BestFlats,
