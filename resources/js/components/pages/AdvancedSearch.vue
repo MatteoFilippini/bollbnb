@@ -4,55 +4,50 @@
    <!-- Header Search  -->
 
    <div class="container-fluid mt-3">
-                      <div class="row header-nav">
-                        <nav class="navbar navbar-expand-lg navbar-light bg-light col-12">
-                         <a class="logo" href="/">
-                          BoolBnb
-                            <!-- <img
-                              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSu9r0YU-OAYPKyS-OakXtdXa1caFSRQEFE_g&usqp=CAU"
-                              alt="logo"
-                            /> -->
-                          </a>
-                          
-                          <button
-                            class="navbar-toggler"
-                            type="button"
-                            data-toggle="collapse"
-                            data-target="#navbarNav"
-                            aria-controls="navbarNav"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation"
-                          >
-                            <span class="navbar-toggler-icon"></span>
-                          </button>
-                          <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav">
-                              <li class="nav-item active">
-                                <!-- FORM SEARCH -->
-                                  <input
-                                    class="form-control mr-sm-2"
-                                    type="search"
-                                    placeholder="Search"
-                                    aria-label="Search"
-                                    v-model="newSearchString"
-                                  />
-                                  <button
-                                    class="btn btn-primary"
-                                    @click="newRunAll()"
-                                    >Search</button
-                                  >
-                                  <!-- <button
-                                    class="btn btn-outline-success my-2 my-sm-0"
-                                    type="submit"
-                                  >
-                                    Search
-                                  </button> -->
-                                <!-- FINE FORM -->
-                              </li>
-                            </ul>
-                          </div>
-                          <a class="host" href="/admin">Diventa un HOST</a>
-                        </nav>
+                      
+                        <div class="aaaa">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white d-flex justify-content-between align-items-center">
+      <a class="logo" href="/">
+      BoolBnb
+      </a>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+        <ul class="navbar-nav d-flex justify-content center">
+          <li class="nav-item active">
+            <!-- FORM SEARCH -->
+            <form class="form-inline my-2 my-lg-0 d-flex justify-content-center">
+              <input
+                class="form-control ml-2"
+                type="search"
+                placeholder="Dove vuoi andare?"
+                aria-label="Search"
+                v-model="searched"
+              />
+              <router-link
+                :to="{ name: 'searchString', params: { address: searched } }"
+                class="search-button"
+                >Search</router-link
+              >
+            </form>
+            <!-- FINE FORM -->
+          </li>
+        </ul>
+        <div class="d-flex justify-content-center">
+      <a class="host" href="/admin">DIVENTA UN HOST</a>
+        </div>
+      </div>
+    </nav>
 
                         
                             <nav class="nav-service col-12">
@@ -62,16 +57,15 @@
                                 </li>
                               </ul>
                             </nav>
-                          </div>
+  </div>
+                      
                         
 
                       <Loader v-if="isLoading"/>
-                      <!-- <div v-else> -->
-
-    
+                      <div v-else> 
                         <div class="row d-flex flex-direction-column corpo">
-                            <div class="col-6 apartment">
-                              <h3>Ecco gli appartamenti nella zona cercata</h3>
+                            <div class="col-xl-6 col-lg-12 apartment">
+                              <h3 class="text-white text-uppercase">Ecco gli appartamenti nella zona cercata</h3>
                                   <div v-if="!checkedServices.length">
                                     <FlatCard v-for="address in addresses" :key="address.id" :flat="address" :isSearch="true"/>
                                   </div>
@@ -79,53 +73,13 @@
                                     <FlatCard v-for="address in filteredFlats" :key="address.id" :flat="address" :isSearch="true"/>
                                   </div> 
                             </div>
-                            <div class="col-6 map bg-primary">
-                                  <div id="map" style="width: 300px; height: 200px;"></div>
+                            <div class="col-6 map">
+                                  <div id="map" class="d-none d-xl-block" style="width: 100%; height: 720px;"></div>
                             </div>
                         </div>
+                      </div>
   </div>
     
-    <!-- <h1 class="text-primary">
-      Query che passiamo:
-      {{ fixAddress }}
-    </h1> -->
-    <!-- <h3>Posizione centrale app</h3>
-    <h5>
-      {{ positionCenter.lat }}
-      {{ positionCenter.lon }}
-
-    </h5>
-    <div class="row justify-content-between">
-      <div class="col">
-        <h1>
-          Ecco gli appartamenti disponibili sul nostro sito
-        </h1>
-      </div>
-      <div class="col-6">
-                <div id="map" style="width: 300px; height: 200px;"></div>
-            </div>
-    </div>
-
-    <!-- <h2>Posisioni tutti flats</h2> -->
-    <!-- <ul>
-      <li v-for="address in addresses" :key="address.id">
-        {{ address.title }}
-        {{ address.address.address }}
-        {{ address.address.latitude }}
-        {{ address.address.longitude }}
-      </li>
-    </ul> -->
-
-
-    <!-- <h2>aaaaaaaaaaaaaaaaaaaaaaa</h2>
-       <div v-if="!checkedServices.length">
-        <FlatCard v-for="address in addresses" :key="address.id" :flat="address" :isSearch="true"/>
-      </div>
-      <div v-else>
-        <FlatCard v-for="address in filteredFlats" :key="address.id" :flat="address" :isSearch="true"/>
-      </div> 
-            <Loader v-if="isLoading" />
-  </div> -->
 </template>
 
 
@@ -143,7 +97,7 @@ export default {
   },
   data() {
     return {
-    isLoading: false,
+      isLoading: false,
 
       addresses: [],
       positionCenter: {
@@ -399,13 +353,15 @@ export default {
  .corpo{
    padding-top: 200px;
  }
-
- .header-nav{
+.aaaa{
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 5;
+}
+nav {
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.3);
   a {
     color: #63f0c1;
     &.logo{
@@ -424,14 +380,24 @@ export default {
       align-items: center;
       font-size: 1.1rem;
       text-decoration: none;
+      max-width: 200px;
     }
   }
- }
+
+}
+.search-button{
+  border-radius: 5px;
+  padding: 5px 15px;
+  border: 1px solid black;
+  background-color:white;
+  color: black;
+  margin-left: 5px;
+    text-decoration: none;
+  
+}
+ 
 .nav-service{
-  // position: fixed;
-  // top: 50px;
   width: calc(100vw - 17px);
-  // z-index: 6;
   height:90px;
   background-color:white;
   display:flex;
@@ -459,12 +425,10 @@ export default {
 .search{
   position: relative;
   top: 180px;
+}
   .map{
     position: fixed;
     right: 0;
-    height:100vh;
-    border: 1px solid black;
   }
-}
 
 </style>

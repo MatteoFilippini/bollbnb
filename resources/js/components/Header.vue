@@ -3,10 +3,6 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white d-flex justify-content-between align-items-center">
       <a class="logo" href="/">
       BoolBnb
-        <!-- <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSu9r0YU-OAYPKyS-OakXtdXa1caFSRQEFE_g&usqp=CAU"
-          alt="logo"
-        /> -->
       </a>
 
       <button
@@ -37,12 +33,6 @@
                 class="search-button"
                 >Search</router-link
               >
-              <!-- <button
-                class="btn btn-outline-success my-2 my-sm-0"
-                type="submit"
-              >
-                Search
-              </button> -->
             </form>
             <!-- FINE FORM -->
           </li>
@@ -74,7 +64,7 @@ nav {
   left: 0;
   right: 0;
   z-index: 5;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.3);
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.3);
   a {
     color: #63f0c1;
     &.logo{

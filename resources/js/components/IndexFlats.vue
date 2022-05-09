@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid" id="index-flats">
+    <Header />
     <h2 class="text-center">Appartamenti Sponsor</h2>
     <div class="row">
       <div class="col-sm-12 col-md-3 col-lg-3 py-4">
@@ -22,12 +23,14 @@
 import FlatCard from "./flats/FlatCard.vue";
 import Loader from "./Loader.vue";
 import BestFlat from "./BestFlat.vue";
+import Header from "./Header";
 
 export default {
   components: {
     Loader,
     FlatCard,
     BestFlat,
+    Header,
   },
   name: "IndexFlats",
   data() {
