@@ -20,21 +20,21 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+      <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+        <ul class="navbar-nav d-flex justify-content center">
           <li class="nav-item active">
             <!-- FORM SEARCH -->
-            <form class="form-inline my-2 my-lg-0">
+            <form class="form-inline my-2 my-lg-0 d-flex justify-content-center">
               <input
-                class="form-control mr-sm-2"
+                class="form-control ml-2"
                 type="search"
-                placeholder="Search"
+                placeholder="Dove vuoi andare?"
                 aria-label="Search"
                 v-model="searched"
               />
               <router-link
                 :to="{ name: 'searchString', params: { address: searched } }"
-                class="btn btn-primary"
+                class="search-button"
                 >Search</router-link
               >
               <!-- <button
@@ -47,8 +47,10 @@
             <!-- FINE FORM -->
           </li>
         </ul>
+        <div class="d-flex justify-content-center">
+      <a class="host" href="/admin">DIVENTA UN HOST</a>
+        </div>
       </div>
-      <a class="host" href="/admin">Diventa un HOST</a>
     </nav>
   </div>
 </template>
@@ -72,6 +74,7 @@ nav {
   left: 0;
   right: 0;
   z-index: 5;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.3);
   a {
     color: #63f0c1;
     &.logo{
@@ -90,11 +93,22 @@ nav {
       align-items: center;
       font-size: 1.1rem;
       text-decoration: none;
+      max-width: 200px;
     }
   }
 
   img {
     height: 45px;
   }
+}
+.search-button{
+  border-radius: 5px;
+  padding: 5px 15px;
+  border: 1px solid black;
+  background-color:white;
+  color: black;
+  margin-left: 5px;
+    text-decoration: none;
+  
 }
 </style>
