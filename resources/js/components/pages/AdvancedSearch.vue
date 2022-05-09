@@ -26,20 +26,20 @@
         <ul class="navbar-nav d-flex justify-content center">
           <li class="nav-item active">
             <!-- FORM SEARCH -->
-            <form class="form-inline my-2 my-lg-0 d-flex justify-content-center">
+            <div class="form-inline my-2 my-lg-0 d-flex justify-content-center">
               <input
                 class="form-control ml-2"
                 type="search"
                 placeholder="Dove vuoi andare?"
                 aria-label="Search"
-                v-model="searched"
+                v-model="newSearchString"
               />
-              <router-link
-                :to="{ name: 'searchString', params: { address: searched } }"
+              <button
                 class="search-button"
-                >Search</router-link
+                @click="newRunAll()"
+                >Search</button
               >
-            </form>
+            </div>
             <!-- FINE FORM -->
           </li>
         </ul>
@@ -61,11 +61,11 @@
                       
                         
 
-                      <Loader v-if="isLoading"/>
-                      <div v-else> 
+                      <div> 
                         <div class="row d-flex flex-direction-column corpo">
+                      <Loader v-if="isLoading"/>
                             <div class="col-xl-6 col-lg-12 apartment">
-                              <h3 class="text-white text-uppercase">Ecco gli appartamenti nella zona cercata</h3>
+                              <h3 class="text-white text-uppercase mt-4">Ecco gli appartamenti nella zona cercata</h3>
                                   <div v-if="!checkedServices.length">
                                     <FlatCard v-for="address in addresses" :key="address.id" :flat="address" :isSearch="true"/>
                                   </div>
@@ -98,13 +98,12 @@ export default {
   data() {
     return {
       isLoading: false,
-
+      newSearchString: '',
       addresses: [],
       positionCenter: {
         lat: null,
         lon: null
       },
-            isLoading: false,
       a: [],
       servicies: [],
       municipality: '',
@@ -325,20 +324,20 @@ export default {
       this.getAllAddresses();    
     },
     newRunAll(){
-            this.isLoading = true;
+            // this.isLoading = true;
 
       this.$route.params.address = '';
       this.runAll();
-            this.isLoading = false;
+            // this.isLoading = false;
 
     }
   },
   mounted() {
     // this.getNearlyFlats();
-          this.isLoading = true;
+          // this.isLoading = true;
 
     this.runAll();
-          this.isLoading = false;
+          // this.isLoading = false;
 
   },
   
@@ -351,7 +350,7 @@ export default {
 
  
  .corpo{
-   padding-top: 200px;
+   padding-top: 85px;
  }
 .aaaa{
   position: fixed;
@@ -397,8 +396,9 @@ nav {
 }
  
 .nav-service{
-  width: calc(100vw - 17px);
-  height:90px;
+  width: calc(100vw);
+  // height:90px;
+  padding: 10px 0 10px 0;
   background-color:white;
   display:flex;
   align-items: center;
