@@ -1,65 +1,86 @@
 <template>
-  <div class="container">
+
+
    <!-- Header Search  -->
 
-   <div class="container mt-3">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/admin">Diventa un HOST</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <!-- FORM SEARCH -->
-              <input
-                class="form-control mr-sm-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                v-model="newSearchString"
-              />
-              <button
-                class="btn btn-primary"
-                @click="newRunAll()"
-                >Search</button
-              >
-              <!-- <button
-                class="btn btn-outline-success my-2 my-sm-0"
-                type="submit"
-              >
-                Search
-              </button> -->
-            <!-- FINE FORM -->
-          </li>
-        </ul>
-      </div>
-    </nav>
+   <div class="container-fluid mt-3">
+                        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                          <a class="navbar-brand" href="/admin">Diventa un HOST</a>
+                          <button
+                            class="navbar-toggler"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#navbarNav"
+                            aria-controls="navbarNav"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation"
+                          >
+                            <span class="navbar-toggler-icon"></span>
+                          </button>
+                          <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
+                              <li class="nav-item active">
+                                <!-- FORM SEARCH -->
+                                  <input
+                                    class="form-control mr-sm-2"
+                                    type="search"
+                                    placeholder="Search"
+                                    aria-label="Search"
+                                    v-model="newSearchString"
+                                  />
+                                  <button
+                                    class="btn btn-primary"
+                                    @click="newRunAll()"
+                                    >Search</button
+                                  >
+                                  <!-- <button
+                                    class="btn btn-outline-success my-2 my-sm-0"
+                                    type="submit"
+                                  >
+                                    Search
+                                  </button> -->
+                                <!-- FINE FORM -->
+                              </li>
+                            </ul>
+                          </div>
+                        </nav>
+
+                      <Loader v-if="isLoading"/>
+                      <!-- <div v-else> -->
+
+                        <nav class="nav-service">
+                          <ul class="d-flex list-unstyled justify-content-center">
+                            <li :id="service.id" v-for="service in servicies" :key="service.id" class="mx-2" @click="getServicesCheck(service.id)">
+                              {{service.type}}
+                            </li>
+                          </ul>
+                        </nav>
+    
+                        <div class="row d-flex flex-direction-column">
+                            <div class="col-6 apartment">
+                              <h3>Ecco gli appartamenti nella zona cercata</h3>
+                                  <div v-if="!checkedServices.length">
+                                    <FlatCard v-for="address in addresses" :key="address.id" :flat="address" :isSearch="true"/>
+                                  </div>
+                                  <div v-else>
+                                    <FlatCard v-for="address in filteredFlats" :key="address.id" :flat="address" :isSearch="true"/>
+                                  </div> 
+                            </div>
+                            <div class="col-6 map bg-primary">
+                                  <div id="map" style="width: 300px; height: 200px;"></div>
+                            </div>
+                        </div>
   </div>
-    <nav class="bg-white">
-      <ul class="d-flex list-unstyled justify-content-center">
-        <li :id="service.id" v-for="service in servicies" :key="service.id" class="text-dark mx-2" @click="getServicesCheck(service.id)">
-          {{service.type}}
-        </li>
-      </ul>
-    </nav>
-    Search
-    <h1 class="text-primary">
+    
+    <!-- <h1 class="text-primary">
       Query che passiamo:
       {{ fixAddress }}
-    </h1>
-    <h3>Posizione centrale app</h3>
+    </h1> -->
+    <!-- <h3>Posizione centrale app</h3>
     <h5>
       {{ positionCenter.lat }}
       {{ positionCenter.lon }}
+
     </h5>
     <div class="row justify-content-between">
       <div class="col">
@@ -71,6 +92,7 @@
                 <div id="map" style="width: 300px; height: 200px;"></div>
             </div>
     </div>
+
     <!-- <h2>Posisioni tutti flats</h2> -->
     <!-- <ul>
       <li v-for="address in addresses" :key="address.id">
@@ -81,7 +103,8 @@
       </li>
     </ul> -->
 
-    <h2>aaaaaaaaaaaaaaaaaaaaaaa</h2>
+
+    <!-- <h2>aaaaaaaaaaaaaaaaaaaaaaa</h2>
        <div v-if="!checkedServices.length">
         <FlatCard v-for="address in addresses" :key="address.id" :flat="address" :isSearch="true"/>
       </div>
@@ -89,8 +112,10 @@
         <FlatCard v-for="address in filteredFlats" :key="address.id" :flat="address" :isSearch="true"/>
       </div> 
             <Loader v-if="isLoading" />
-  </div>
+  </div> -->
 </template>
+
+
 
 <script>
 import FlatCard from "../flats/FlatCard.vue";
@@ -105,6 +130,8 @@ export default {
   },
   data() {
     return {
+    isLoading: false,
+
       addresses: [],
       positionCenter: {
         lat: null,
@@ -210,6 +237,7 @@ export default {
     },
     // PRENDERE TUTTE LE POSIZIONI
       getAllAddresses() {
+        this.isLoading = true;
     setTimeout(() =>{
         const encoded = encodeURIComponent(JSON.stringify({"lat":this.positionCenter.lat,"lon":this.positionCenter.lon}));
         axios
@@ -237,6 +265,7 @@ export default {
             console.log("errore");
           })
           .then((res) => {
+            this.isLoading = false;
             console.log("api terminata");
           });
     }, 2000);
@@ -287,6 +316,7 @@ export default {
     },
     // CERCA VICINI APPARTAMENTI
     getNearlyFlats() {
+      
       setTimeout(() => {
         console.log(this.addresses);
         const url = JSON.stringify(this.addresses);
@@ -349,13 +379,47 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 @import '../../../../node_modules/@tomtom-international/web-sdk-maps/dist/maps.css';
 
-li{
-  border: 1px solid black;
+
+
+.nav-service{
+  position: fixed;
+  top: 50px;
+  width: calc(100vw - 17px);
+  z-index: 6;
+  height:90px;
+  background-color:white;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid lightgray;
+  ul{
+    margin:0;
+    li{
+  display:flex;
+  justify-content:center;
+  min-width: 80px;
+  padding: 7px;
+  border-radius: 19px;
+  color:black;
   cursor: pointer;
+  border: 1px solid lightgray;
   &.style{
-    border: 3px solid red;
+    border: 1px solid black;
+  }
+    }
+  }
+}
+.search{
+  position: relative;
+  top: 180px;
+  .map{
+    position: fixed;
+    right: 0;
+    height:100vh;
+    border: 1px solid black;
   }
 }
 
