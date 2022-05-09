@@ -1,19 +1,24 @@
 <template>
   <div>
-    <h1>dettaglio</h1>
     <Loader v-if="isLoading" />
-    <FlatCard :flat="flat" :isShow="true" />
+    <Header />
+    <div class="container detail"> 
+     <FlatCard :flat="flat" :isShow="true" />
+    </div>
   </div>
 </template>
 
 <script>
 import FlatCard from "./FlatCard.vue";
 import Loader from "../Loader.vue";
+import Header from "../Header";
+
 export default {
   name: "DetailFlat",
   components: {
     FlatCard,
     Loader,
+    Header
   },
   data() {
     return {
@@ -22,6 +27,7 @@ export default {
     };
   },
   methods: {
+    // FARE UNA CHIAMATA API CHE PRENDE L INDIRIZZO DELL APPARTAMENTO
     getFlat() {
       this.isLoading = true;
       axios
@@ -44,5 +50,9 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.detail{
+  padding: 85px 0;
+  color: white;
+}
 </style>

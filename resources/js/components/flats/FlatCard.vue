@@ -1,5 +1,6 @@
 <template>
   <div v-if="flat">
+    <!-- FLAT PAGINA SEARCH -->
     <div v-if="isSearch" class="flat-search">
       <div class="row">
         <div class="col-5 image-flat">
@@ -34,9 +35,40 @@
         </div>
       </div>
     </div>
+    <!-- FLAT PAGINA SHOW -->
+    <div v-if="isShow">
+      <div class="flat-show">
+      <h1>{{flat.title}}</h1>
+      <h3>INDIRIZZO</h3> 
+      <div class="row border border-light mb-5">
+        <div class="col-sm-12 col-lg-6 main border border-primary">DEAFULT IMAGE</div>
+        <div class="col-xs-6 col-sm-6 col-lg-3 images border border-success">SE CE ALTRA IMMAGINE</div>
+        <div class="col-xs-6 col-sm-6 col-lg-3 images border border-success">SE CE ALTRA IMMAGINE</div>
+      </div>
+      <h3>Host: {{flat.user.name}}</h3>
+      <h5>{{flat.description}}</h5>
+      <p class="text-muted">{{flat.beds}} ospiti-{{flat.rooms}} stanze-{{flat.bathrooms}} bagni-{{flat.sqare_meters}} metri</p>
+      <hr class="border border-light w-20"/>
+      <h3>Cosa troverai:</h3>
+      QUI METTEREMO LA LISTA DEI SERVIZI 
+      <div class="buttons">
+      <router-link
+          :to="{ name: 'home' }"
+          class="button-b"
+        >
+          Indietro
+        </router-link>
+      <router-link
+          :to="{ name: 'messageForm', params: { id: flat.id } }"
+          class="message"
+        >
+          Contatta l'host
+        </router-link>
+      </div>
+    </div>
 
   </div>
-
+</div>
     <!-- <div v-if="isSearch">
         SEARCH
     </div>
@@ -108,6 +140,7 @@ export default {
   width: 250px;
 }
 
+// search
 .flat-search{
   padding:30px;
   border-bottom: 1px solid white;
@@ -123,6 +156,52 @@ export default {
     position: absolute;
     right: 0;
     bottom: 0;
+  }
+}
+
+// show
+.flat-show{
+  position: relative;
+  .main{
+    height: 400px;
+  }
+  .images{
+    height:200px;
+  }
+  p{
+    font-size:20px;
+  }
+  h3{
+    font-weight: 600;
+    margin-bottom:20px;
+  }
+  .w-20{
+    width:20%;
+  }
+  .buttons{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    .button-b{
+      font-size:1rem;
+      margin-right: 17px;
+    }
+    .message{
+        border: 1px solid #fff;
+        background-color: black;
+        color: white;
+        padding:7px 15px;
+        border-radius:10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        font-size: 1.1rem;
+        max-width: 200px;
+    }
   }
 }
 </style>
