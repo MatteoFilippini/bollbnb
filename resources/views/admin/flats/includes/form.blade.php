@@ -152,8 +152,40 @@
         let str = $("#address").val();
 
         console.log(str);
+        let municipality = '';
+        let streetName= '';
+        let streetNumber='';
         //Per passare il valore della stringa e avere la posizione da TOM TOM devo encodare la stringa 
         //che mi arriva dall'input
+        function  getEncodedUrl () {
+            if(str){
+        const splitted = str.split(/(\s+)/);
+        console.log(splitted.length);
+        if(splitted.length > 1){
+          municipality = encodeURIComponent(splitted[splitted.length-1]);
+          streetName = encodeURIComponent(splitted[2]);
+          streetNumber = encodeURIComponent(splitted[4]);
+          if(splitted.length >= 9){
+              streetName = encodeURIComponent(splitted[4]);
+              streetNumber = encodeURIComponent(splitted[6]);
+            }
+              else if(splitted.length = 7){
+                streetNumber = encodeURIComponent(splitted[4]);
+            } else if (splitted.length = 5){
+                streetName = encodeURIComponent(splitted[2]);
+            } else if(splitted.length > 9 ){
+                streetName = encodeURIComponent(splitted[4]);
+              streetNumber = encodeURIComponent(splitted[6]);
+            }
+        } else if(splitted.length = 1){
+          municipality = encodeURIComponent(splitted[splitted.length-1]);
+        }
+      }
+    }
+    getEncodedUrl();
+
+//     https://{baseURL}/search/{versionNumber}/structuredGeocode.{ext}?key={Your_API_Key}&countryCode={countryCode}&limit={limit}&ofss={ofss}&streetNumber={streetNumber}&streetName={streetName}&crossStreet={crossStreet}&municipality={municipality}&municipalitySubdivision={municipalitySubdivision}&countryTertiarySubdivision={countryTertiarySubdivision}
+// &countrySecondarySubdivision={countrySecondarySubdivision}&countrySubdivision={countrySubdivision}&postalCode={postalCode}&language={language}&extendedPostalCodesFor={extendedPostalCodesFor}&view={view}&mapcodes={mapcodes}&entityTypeSet={entityTypeSet}
         const encodedUrl = encodeURIComponent(str);
         console.log(encodedUrl);
         data = {
@@ -163,7 +195,7 @@
         //Faccio la chiamata API classica con headers 'Content-Type': 'application/json'
         $.ajax({
             type: 'GET',
-            url: `https://api.tomtom.com/search/2/geocode/${encodedUrl}.json?key=pkCWDKdXKoZyvsUh2s53ebk9fAJvlUQ3`,
+             url: `https://api.tomtom.com/search/2/structuredGeocode.json?key=WXZABuumQvx5kWf9tjXpgP4SmEQfzjNx&countryCode=IT&municipality=${municipality}&streetName=${streetName}&streetNumber=${streetNumber}`,
             cache: 'false',
             contentType: 'application/json',
             headers: {
