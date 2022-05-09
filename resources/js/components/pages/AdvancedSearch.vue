@@ -4,8 +4,16 @@
    <!-- Header Search  -->
 
    <div class="container-fluid mt-3">
-                        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                          <a class="navbar-brand" href="/admin">Diventa un HOST</a>
+                      <div class="row header-nav">
+                        <nav class="navbar navbar-expand-lg navbar-light bg-light col-12">
+                         <a class="logo" href="/">
+                          BoolBnb
+                            <!-- <img
+                              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSu9r0YU-OAYPKyS-OakXtdXa1caFSRQEFE_g&usqp=CAU"
+                              alt="logo"
+                            /> -->
+                          </a>
+                          
                           <button
                             class="navbar-toggler"
                             type="button"
@@ -43,20 +51,25 @@
                               </li>
                             </ul>
                           </div>
+                          <a class="host" href="/admin">Diventa un HOST</a>
                         </nav>
+
+                        
+                            <nav class="nav-service col-12">
+                              <ul class="d-flex list-unstyled justify-content-center">
+                                <li :id="service.id" v-for="service in servicies" :key="service.id" class="mx-2" @click="getServicesCheck(service.id)">
+                                  {{service.type}}
+                                </li>
+                              </ul>
+                            </nav>
+                          </div>
+                        
 
                       <Loader v-if="isLoading"/>
                       <!-- <div v-else> -->
 
-                        <nav class="nav-service">
-                          <ul class="d-flex list-unstyled justify-content-center">
-                            <li :id="service.id" v-for="service in servicies" :key="service.id" class="mx-2" @click="getServicesCheck(service.id)">
-                              {{service.type}}
-                            </li>
-                          </ul>
-                        </nav>
     
-                        <div class="row d-flex flex-direction-column">
+                        <div class="row d-flex flex-direction-column corpo">
                             <div class="col-6 apartment">
                               <h3>Ecco gli appartamenti nella zona cercata</h3>
                                   <div v-if="!checkedServices.length">
@@ -382,13 +395,43 @@ export default {
 
 @import '../../../../node_modules/@tomtom-international/web-sdk-maps/dist/maps.css';
 
+ 
+ .corpo{
+   padding-top: 200px;
+ }
 
-
-.nav-service{
+ .header-nav{
   position: fixed;
-  top: 50px;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  a {
+    color: #63f0c1;
+    &.logo{
+      color: #FF385C;
+      font-size: 1.7rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    &.host{
+      background-color: black;
+      color: white;
+      padding:7px 15px;
+      border-radius:20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.1rem;
+      text-decoration: none;
+    }
+  }
+ }
+.nav-service{
+  // position: fixed;
+  // top: 50px;
   width: calc(100vw - 17px);
-  z-index: 6;
+  // z-index: 6;
   height:90px;
   background-color:white;
   display:flex;
@@ -396,6 +439,7 @@ export default {
   justify-content: center;
   border-bottom: 1px solid lightgray;
   ul{
+    flex-wrap: wrap;
     margin:0;
     li{
   display:flex;
