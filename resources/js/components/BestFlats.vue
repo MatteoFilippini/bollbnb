@@ -5,8 +5,12 @@
         <div class="col-12 my-5 text-center">
           <h3>I nostri migliori appartamenti</h3>
         </div>
+        </div>
+        <div class="row justify-content-center">
+
+       
         <div
-          class="col-sm-12 col-md-3 col-lg-4 py-4 d-none d-sm-none d-lg-block"
+          class="col-sm-12 col-md-6 col-lg-4 py-4"
         >
           <div class="card-wrapper">
             <div class="card position-relative bounce-top">
@@ -35,7 +39,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-4 py-4 mb-4">
+        <div class="col-sm-12 col-md-6 col-lg-4 py-4 mb-4">
           <div class="card-wrapper">
             <div class="card position-relative bounce-top">
               <div class="featured lh-lg">
@@ -64,7 +68,7 @@
           </div>
         </div>
         <div
-          class="col-sm-12 col-md-3 col-lg-4 py-4 d-none d-sm-none d-lg-block"
+          class="col-sm-12 col-md-6 col-lg-4 py-4 "
         >
           <div class="card-wrapper">
             <div class="card position-relative bounce-top">
@@ -93,7 +97,7 @@
             </div>
           </div>
         </div>
-      </div>
+       </div>
     </div>
   </div>
 </template>
@@ -106,7 +110,6 @@ export default {
 
 <style scoped lang="scss">
 #best-flats {
-  height: 900px;
   background-color: #fff;
   .card {
     a {
@@ -130,7 +133,7 @@ export default {
       border-radius: 0.5rem 0.5rem 0 0;
       width: 100%;
       mix-blend-mode: var(--card-blend-mode);
-
+      max-height: 235px;
       ~ * {
         margin-left: 1rem;
         margin-right: 1rem;

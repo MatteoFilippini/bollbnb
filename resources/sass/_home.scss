@@ -1,14 +1,317 @@
 @import 'variables';
 
-.add-flat{
-    margin-right: 110px;
+h1,
+h2 {
+    color: #63F0C1;
 }
-.sfondo{
-   background-color: white;
-   border-radius: 10px;
-   padding-top: 50px;
-   font-family: 'Plus Jakarta Sans', sans-serif;
-   box-shadow: 0 0px 10px rgba(255, 255, 255, 0.6);
-   padding-left: 50px;
-   padding-right: 50px;
+
+#stay {
+    height: 100vh;
+    background-image: url('https://stayinn-apc.herokuapp.com/img/2.e8f5de74.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    p {
+        color: white;
+        font-size: 2rem;
+    }
+}
+
+#about {
+    height: 500px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    h2 {
+        color: black;
+    }
+
+    .card-gold {
+        position: relative;
+        width: 300px;
+        height: 350px;
+        margin: 20px;
+        border-radius: 30px;
+        transition: 0.5s;
+        transition-delay: 0.5s;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        &:hover {
+            width: 400px;
+            transition-delay: 0s;
+        }
+
+        .circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 30px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    }
+
+    .card-gold .circle::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #FFED4A;
+        clip-path: circle(120px at center);
+        transition: 0.5s;
+    }
+
+    .card-gold:hover .circle::before {
+        clip-path: circle(400px at center);
+    }
+
+    .card-gold .circle .sponsor {
+        position: relative;
+        width: 200px;
+        transition: 0s;
+        transition-delay: 0.5s;
+        display: flex;
+        justify-content: center;
+    }
+
+    .card-gold:hover .circle .sponsor {
+        transform: scale(0);
+        transition-delay: 0.5s;
+    }
+
+    .sponsor {
+        h2 {
+            color: black;
+            text-transform: uppercase;
+            font-size: 2.5em;
+            line-height: 1em;
+        }
+    }
+
+    .content {
+        position: relative;
+        width: 50%;
+        left: 20%;
+        padding: 20px 20px 20px 40px;
+        opacity: 0;
+        transition: 0.5s;
+        visibility: hidden;
+        display: flex;
+        justify-content: center;
+    }
+
+    .card-gold:hover .content {
+        left: 0;
+        opacity: 1;
+        visibility: visible;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        transition-delay: 0.5s;
+    }
+
+    .card-silver {
+        position: relative;
+        width: 300px;
+        height: 350px;
+        margin: 20px;
+        border-radius: 30px;
+        transition: 0.5s;
+        transition-delay: 0.5s;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        &:hover {
+            width: 400px;
+            transition-delay: 0s;
+        }
+
+        .circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 30px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    }
+
+    .card-silver .circle::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #697179;
+        clip-path: circle(120px at center);
+        transition: 0.5s;
+    }
+
+    .card-silver:hover .circle::before {
+        clip-path: circle(400px at center);
+    }
+
+    .card-silver .circle .sponsor {
+        position: relative;
+        width: 200px;
+        transition: 0s;
+        transition-delay: 0.5s;
+        display: flex;
+        justify-content: center;
+    }
+
+    .card-silver:hover .circle .sponsor {
+        transform: scale(0);
+        transition-delay: 0.5s;
+    }
+
+    .sponsor {
+        h2 {
+            color: black;
+            text-transform: uppercase;
+            font-size: 2.5em;
+            line-height: 1em;
+        }
+    }
+
+    .content {
+        position: relative;
+        width: 50%;
+        left: 20%;
+        padding: 20px 20px 20px 40px;
+        opacity: 0;
+        transition: 0.5s;
+        visibility: hidden;
+        display: flex;
+        justify-content: center;
+    }
+
+    .card-silver:hover .content {
+        left: 0;
+        opacity: 1;
+        visibility: visible;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        transition-delay: 0.5s;
+    }
+
+    .card-platinum {
+        position: relative;
+        width: 300px;
+        height: 350px;
+        margin: 20px;
+        border-radius: 30px;
+        transition: 0.5s;
+        transition-delay: 0.5s;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        &:hover {
+            width: 400px;
+            transition-delay: 0s;
+        }
+
+        .circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 30px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    }
+
+    .card-platinum .circle::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #F8F9FA;
+        clip-path: circle(120px at center);
+        transition: 0.5s;
+    }
+
+    .card-platinum:hover .circle::before {
+        clip-path: circle(400px at center);
+    }
+
+    .card-platinum .circle .sponsor {
+        position: relative;
+        width: 200px;
+        transition: 0s;
+        transition-delay: 0.5s;
+        display: flex;
+        justify-content: center;
+    }
+
+    .card-platinum:hover .circle .sponsor {
+        transform: scale(0);
+        transition-delay: 0.5s;
+    }
+
+    .sponsor {
+        h2 {
+            color: black;
+            text-transform: uppercase;
+            font-size: 2.5em;
+            line-height: 1em;
+        }
+    }
+
+    .content {
+        position: relative;
+        width: 50%;
+        left: 20%;
+        padding: 20px 20px 20px 40px;
+        opacity: 0;
+        transition: 0.5s;
+        visibility: hidden;
+        display: flex;
+        justify-content: center;
+    }
+
+    .card-platinum:hover .content {
+        left: 0;
+        opacity: 1;
+        visibility: visible;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        transition-delay: 0.5s;
+    }
 }
