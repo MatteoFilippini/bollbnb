@@ -22,7 +22,7 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic
                 possimus minus ex nobis, nihil labore optio quidem, modi tempora
                 excepturi eaque cupiditate laborum ad eum corporis ut? Eos,
-                doloremque incidunt.
+                doloremque incidunt PIPPO.
               </p>
               <div class="d-flex justify-content-between">
                 <p><strong>Stanze: </strong> 2</p>
