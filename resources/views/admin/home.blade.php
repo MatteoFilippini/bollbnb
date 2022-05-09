@@ -21,7 +21,7 @@
             Così facendo avrai accesso a diverse tipologie di sponsorizzazioni, tra cui:</p> 
 
             <div class="row">
-                <div class="col-4">
+                <div class="col-12 col-md-4 col-lg-4">
                     <div class="card-silver">
                 <div class="circle">
                     <div class="sponsor text-center">
@@ -40,7 +40,7 @@
                 </div>
             </div>
                 </div>
-                <div class="col-4">
+                <div class="col-lg-4">
                     <div class="card-gold">
                 <div class="circle">
                     <div class="sponsor text-center">
@@ -59,7 +59,7 @@
                 </div>
             </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-md-4 col-lg-4">
                     <div class="card-platinum">
                         <div class="circle">
                             <div class="sponsor text-center">

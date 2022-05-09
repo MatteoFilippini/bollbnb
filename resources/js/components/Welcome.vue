@@ -18,6 +18,9 @@ export default {
   margin-bottom: 30px;
   background-color: #63f0c1;
   height: 300px;
+  h1 {
+    color: black;
+  }
 }
 </style>
 
