@@ -49,7 +49,7 @@ export default {
     border-radius: 0.5rem 0.5rem 0 0;
     width: 100%;
     mix-blend-mode: var(--card-blend-mode);
-
+    max-height: 150px;
     ~ * {
       margin-left: 1rem;
       margin-right: 1rem;
