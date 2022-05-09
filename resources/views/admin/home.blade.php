@@ -1,62 +1,86 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     {{-- home admin con un jumbotron | vedere se mettere un immagine, per adesso è molto minimal --}}
-    <div class="jumbotron jumbotron-fluid bg-transparent">
+    <div id="stay" class="d-flex justify-content-center pt-5">
         <div class="text-center">
-            <h1>Benvenuto!</h1>
-            <p>Di seguito potrai andare nella pagina dei tuoi appartamenti e, qualora non ne avessi, aggiungerne uno sul nostro database.</p>
-        </div>
-        <small>Clicca sulla casa</small>
-        <div class="row">
-            <div class="col-4">
-                <a href="{{route('admin.flats.index')}}">
-                <img src="https://us.123rf.com/450wm/jenemilia/jenemilia1303/jenemilia130300135/18640014-in-bianco-e-nero-casa-espressiva-schizzo.jpg?ver=6" alt="immagine casa" class="img-fluid h-50">
-            </a>
+            <p>Condividi i tuoi spazi</p>
+            <p>Unisciti agli altri Host</p>
+            <div>
+                <a href="{{ route('admin.flats.index') }}" class="btn btn-primary">JOIN</a>
             </div>
+        </div>
     </div>
 
     {{-- spiegazione delle funzionalità del sito magari --}}
     <section id="about" class="my-3">
         <div class="text-center">
-            <h2>ABOUT</h2>
-        </div>
-    </section>
-
-    {{-- sezione servizi | ipotizzare di parlare già qui della possibilità delle sponsorizzazioni --}}
-    <section id="services" class="my-3">
-        <div class="text-center">
             <h2>SPONSORIZZAZIONI</h2>
+            <p>Potrai avere la possibilità, come host, di sponsorizzare i tuoi appartamenti. <br /> 
+            Così facendo avrai accesso a diverse tipologie di sponsorizzazioni, tra cui:</p> 
+
             <div class="row">
                 <div class="col-4">
-                    <div class="card bg-secondary mb-3 text-white" style="max-width: 18rem;">
-                        <div class="card-header">SILVER</div>
-                        <div class="card-body">
-                            <h5 class="card-title">Sponsorizzazione di tipo Silver</h5>
-                            <p class="card-text">Con questa tipologia di sponsorizzazione potrai mettere in evidenza il tuo appartamento.</p>
-                        </div>
+                    <div class="card-silver">
+                <div class="circle">
+                    <div class="sponsor text-center">
+                        <h2>SILVER</h2>
                     </div>
+                </div>
+                <div class="content">
+                      <div>
+                        <h3>Sponsorizzazione di tipo Silver</h3>
+                           <p>Con questa tipologia di sponsorizzazione potrai mettere in evidenza il tuo appartamento per 24 ore - risulterà essere in cima nelle ricerche.</p>
+                    </div>
+                    <div>
+                        <a href="{{route('admin.flats.index')}}" class="btn btn-success">PROVA</a>
+                    </div>
+
+                </div>
+            </div>
                 </div>
                 <div class="col-4">
-                    <div class="card bg-warning mb-3 text-dark" style="max-width: 18rem;">
-                        <div class="card-header">GOLD</div>
-                        <div class="card-body">
-                            <h5 class="card-title">Sponsorizzazione di tipo Gold</h5>
-                            <p class="card-text">Con questa tipologia di sponsorizzazione potrai mettere in evidenza il tuo appartamento.</p>
-                        </div>
+                    <div class="card-gold">
+                <div class="circle">
+                    <div class="sponsor text-center">
+                        <h2>GOLD</h2>
                     </div>
                 </div>
-                 <div class="col-4">
-                    <div class="card bg-light mb-3 text-dark" style="max-width: 18rem;">
-                        <div class="card-header">PLATINO</div>
-                        <div class="card-body">
-                            <h5 class="card-title">Sponsorizzazione di tipo Platino</h5>
-                            <p class="card-text">Con questa tipologia di sponsorizzazione potrai mettere in evidenza il tuo appartamento.</p>
-                        </div>
+                <div class="content">
+                      <div>
+                        <h3>Sponsorizzazione di tipo Gold</h3>
+                           <p>Con questa tipologia di sponsorizzazione potrai mettere in evidenza il tuo appartamento per 72 ore - risulterà essere in cima nelle ricerche.</p>
+                    </div>
+                    <div>
+                        <a href="{{route('admin.flats.index')}}" class="btn btn-success">PROVA</a>
+                    </div>
+
+                </div>
+            </div>
+                </div>
+                <div class="col-4">
+                    <div class="card-platinum">
+                        <div class="circle">
+                            <div class="sponsor text-center">
+                                <h2>PLATINUM</h2>
+                            </div>
+                 </div>
+                <div class="content">
+                    <div>
+                        <h3>Sponsorizzazione di tipo Platinum</h3>
+                           <p>Con questa tipologia di sponsorizzazione potrai mettere in evidenza il tuo appartamento per 144 ore - risulterà essere in cima nelle ricerche.</p>
+                    </div>
+                    <div>
+                        <a href="{{route('admin.flats.index')}}" class="btn btn-success">PROVA</a>
                     </div>
                 </div>
             </div>
+                </div>
+            </div>
+            
+            
+            
         </div>
     </section>
         {{-- <div class="col-md-8">
@@ -79,7 +103,6 @@
 @endsection
 
 <style scoped lang="scss">
-h1, h2 {
-    color: #63F0C1;
-}
+@import 'variables';
+@import 'home';
 </style>
