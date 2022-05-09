@@ -1,5 +1,49 @@
 <template>
   <div class="container">
+   <!-- Header Search  -->
+
+   <div class="container mt-3">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/admin">Diventa un HOST</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <!-- FORM SEARCH -->
+              <input
+                class="form-control mr-sm-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                v-model="newSearchString"
+              />
+              <button
+                class="btn btn-primary"
+                @click="newRunAll()"
+                >Search</button
+              >
+              <!-- <button
+                class="btn btn-outline-success my-2 my-sm-0"
+                type="submit"
+              >
+                Search
+              </button> -->
+            <!-- FINE FORM -->
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
     <nav class="bg-white">
       <ul class="d-flex list-unstyled justify-content-center">
         <li :id="service.id" v-for="service in servicies" :key="service.id" class="text-dark mx-2" @click="getServicesCheck(service.id)">
@@ -44,16 +88,20 @@
       <div v-else>
         <FlatCard v-for="address in filteredFlats" :key="address.id" :flat="address" :isSearch="true"/>
       </div> 
+            <Loader v-if="isLoading" />
   </div>
 </template>
 
 <script>
 import FlatCard from "../flats/FlatCard.vue";
 import tt from '@tomtom-international/web-sdk-maps';
+import Loader from "../Loader.vue";
+
 export default {
   name: "Advancedsearch",
   components: {
     FlatCard,
+    Loader,
   },
   data() {
     return {
@@ -62,13 +110,14 @@ export default {
         lat: null,
         lon: null
       },
+            isLoading: false,
       a: [],
       servicies: [],
       municipality: '',
       streetName: '',
       streetNumber: '',
       checkedServices:[], // array degli id selezionati dagli utenti
-
+      newSearchString: '',
       filteredFlats:[]
     };
   },
@@ -80,6 +129,7 @@ export default {
       const encodedQuery = encodeURIComponent(this.$route.params.address);
       return encodedQuery;
     },
+   
   },
   methods: {
     // CONFRONTA GLI ID DEI SERVIZI SELEZIONATI E GLI ID DEI SERVIZI DEL FLAT 
@@ -128,18 +178,34 @@ export default {
         });
     },
     getEncodedStreetName(){
-      const splitted = this.$route.params.address.split(/(\s+)/);
-      if(splitted.length > 1){
-        this.municipality = encodeURIComponent(splitted[splitted.length-1]);
-        this.streetName = encodeURIComponent(splitted[2]);
-        this.streetNumber = encodeURIComponent(splitted[4]);
-        if(splitted.length = 7){
-          this.streetNumber = encodeURIComponent(splitted[4]);
-        } else if (splitted.length = 5){
+      if(this.newSearchString){
+        const splitted = this.newSearchString.split(/(\s+)/);
+        if(splitted.length > 1){
+          this.municipality = encodeURIComponent(splitted[splitted.length-1]);
           this.streetName = encodeURIComponent(splitted[2]);
+          this.streetNumber = encodeURIComponent(splitted[4]);
+          if(splitted.length = 7){
+            this.streetNumber = encodeURIComponent(splitted[4]);
+          } else if (splitted.length = 5){
+            this.streetName = encodeURIComponent(splitted[2]);
+          }
+        } else if(splitted.length = 1){
+          this.municipality = encodeURIComponent(splitted[splitted.length-1]);
         }
-      } else if(splitted.length = 1){
-        this.municipality = encodeURIComponent(splitted[splitted.length-1]);
+      } else{
+          const splitted = this.$route.params.address.split(/(\s+)/);
+        if(splitted.length > 1){
+          this.municipality = encodeURIComponent(splitted[splitted.length-1]);
+          this.streetName = encodeURIComponent(splitted[2]);
+          this.streetNumber = encodeURIComponent(splitted[4]);
+          if(splitted.length = 7){
+            this.streetNumber = encodeURIComponent(splitted[4]);
+          } else if (splitted.length = 5){
+            this.streetName = encodeURIComponent(splitted[2]);
+          }
+        } else if(splitted.length = 1){
+          this.municipality = encodeURIComponent(splitted[splitted.length-1]);
+        }
       }
     },
     // PRENDERE TUTTE LE POSIZIONI
@@ -196,7 +262,12 @@ export default {
     },
     //CERCA APPARTAMENTO
     getSearchedFlats() {
-      let address = this.getAddress(this.$route.params.address);
+      let address = '';
+    if(this.newSearchString){
+      address = this.getAddress(this.newSearchString);
+    } else {
+            address = this.getAddress(this.$route.params.address);
+    }
       // console.log(address);
       axios
         .get(
@@ -250,13 +321,28 @@ export default {
     //   "position":{"lat":40.80076,"lon":-73.96556}
     //   }
     // ]
+    runAll(){
+      this.getServicies();
+      this.getEncodedStreetName();
+      this.getSearchedFlats();
+      this.getAllAddresses();    
+    },
+    newRunAll(){
+            this.isLoading = true;
+
+      this.$route.params.address = '';
+      this.runAll();
+            this.isLoading = false;
+
+    }
   },
   mounted() {
-    this.getServicies();
-    this.getEncodedStreetName();
-    this.getSearchedFlats();
-    this.getAllAddresses();    
     // this.getNearlyFlats();
+          this.isLoading = true;
+
+    this.runAll();
+          this.isLoading = false;
+
   },
   
 };
