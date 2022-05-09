@@ -67,10 +67,10 @@
                             <div class="col-xl-6 col-lg-12 apartment">
                               <h3 class="text-white text-uppercase mt-4">Ecco gli appartamenti nella zona cercata</h3>
                                   <div v-if="!checkedServices.length">
-                                    <FlatCard v-for="address in addresses" :key="address.id" :flat="address" :isSearch="true"/>
+                                    <FlatCard v-for="flat in addresses" :key="flat.id" :flat="flat" :isSearch="true"/>
                                   </div>
                                   <div v-else>
-                                    <FlatCard v-for="address in filteredFlats" :key="address.id" :flat="address" :isSearch="true"/>
+                                    <FlatCard v-for="flat in filteredFlats" :key="flat.id" :flat="flat"  :isSearch="true"/>
                                   </div> 
                             </div>
                             <div class="col-6 map">
@@ -429,6 +429,7 @@ nav {
   .map{
     position: fixed;
     right: 0;
+    top:160px;
   }
 
 </style>
