@@ -315,3 +315,9 @@ h2 {
         transition-delay: 0.5s;
     }
 }
+
+@media (max-width: 991px) {
+    .card-platinum {
+        width: 250px;
+    }
+}
