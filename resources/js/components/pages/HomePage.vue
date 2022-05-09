@@ -1,5 +1,6 @@
 <template>
   <div class="">
+        <Header />
     <div>
       <!-- sezione di benvenuto -->
       <Welcome />
@@ -39,6 +40,7 @@ import JumboLost from "../JumboLost.vue";
 import Locations from "../Locations.vue";
 import BestFlats from "../BestFlats.vue";
 import Host from "../Host.vue";
+import Header from "../Header.vue";
 
 export default {
   name: "HomePage",
@@ -51,6 +53,7 @@ export default {
     Locations,
     BestFlats,
     Host,
+    Header
   },
   data() {
     return {
