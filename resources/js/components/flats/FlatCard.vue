@@ -4,7 +4,7 @@
     <div v-if="isSearch" class="flat-search">
       <div class="row">
         <div class="col-5 image-flat">
-          <img :src="flat.default_image" alt="">
+          <img :src="flat.image_url" alt="image" class="img-fluid">
         </div>
         <div class="col-7 desc-flat">
           <div class="flat-search-title">
@@ -155,7 +155,7 @@ export default {
   border-bottom: 1px solid white;
   position: relative;
   .image-flat{
-    background-color:green;
+    // background-color:green;
     border-radius:20px;
     height: 250px;
     width: 100%;
