@@ -70,7 +70,7 @@ class FlatController extends Controller
      */
     public function show($slug)
     {
-        $flat = Flat::where('slug', $slug)->with(['user'])->first();
+        $flat = Flat::where('slug', $slug)->with(['user','address','services'])->first();
         if (!$flat) return response('Errore 404', 404);
         return response()->json($flat);
     }

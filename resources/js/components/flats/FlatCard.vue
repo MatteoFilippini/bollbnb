@@ -39,7 +39,7 @@
     <div v-if="isShow">
       <div class="flat-show">
       <h1>{{flat.title}}</h1>
-      <h3>INDIRIZZO</h3> 
+      <h3>{{flat.address.address}}</h3> 
       <div class="row border border-light mb-5">
         <div class="col-sm-12 col-lg-6 main border border-primary">DEAFULT IMAGE</div>
         <div class="col-xs-6 col-sm-6 col-lg-3 images border border-success">SE CE ALTRA IMMAGINE</div>
@@ -50,7 +50,16 @@
       <p class="text-muted">{{flat.beds}} ospiti-{{flat.rooms}} stanze-{{flat.bathrooms}} bagni-{{flat.sqare_meters}} metri</p>
       <hr class="border border-light w-20"/>
       <h3>Cosa troverai:</h3>
-      QUI METTEREMO LA LISTA DEI SERVIZI 
+      <div v-if="flat.services.length">
+                                        <ul>
+                                          <li v-for="service in flat.services" :key="service.id">
+                                            {{ service.type }}
+                                          </li>
+                                        </ul>
+                                      </div>
+                                      <div v-else>
+                                        <h5>Non ci sono servizi</h5>
+                                      </div>
       <div class="buttons">
       <router-link
           :to="{ name: 'home' }"
