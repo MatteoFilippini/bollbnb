@@ -1,28 +1,30 @@
 <template>
-<div
-          class="col-sm-12 col-md-6 col-lg-4 py-4"
-        >
-  <div class="card-wrapper">
-    <div class="card position-relative bounce-top">
-      <div class="featured lh-lg">
-        Sponsorizzato <i class="fa-solid fa-circle-check"></i>
+  <div class="col-sm-12 col-md-6 col-lg-4 py-4">
+    <div class="card-wrapper">
+      <div class="card position-relative bounce-top">
+        <div class="featured lh-lg">
+          Sponsorizzato <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <img
+          :src="`http://127.0.0.1:8000/storage/${flat.default_image}`"
+          alt="immagine appartamento"
+          class="img-responsive img-fluid"
+        />
+        <h5 class="mt-4">
+          {{ flat.title }}
+        </h5>
+        <p class="mt-4">
+          {{ flat.description }}
+        </p>
+        <div class="d-flex justify-content-between">
+          <p><strong>Stanze: </strong> {{ flat.rooms }}</p>
+          <p><strong>Bagni: </strong> {{ flat.bathrooms }}</p>
+          <p><strong>Letti:</strong> {{ flat.beds }}</p>
+          <p><strong>Metri quadrati:</strong> {{ flat.square_meters }}</p>
+        </div>
+        <a href="#" class="btn btn-sm mt-3">Scopri di più</a>
       </div>
-      <img :src="flat.image_url" alt="image" />
-      <h5 class="mt-4">
-        {{flat.title}}
-      </h5>
-      <p class="mt-4">
-        {{ flat.description }}
-      </p>
-      <div class="d-flex justify-content-between">
-        <p><strong>Stanze: </strong> {{ flat.rooms }}</p>
-        <p><strong>Bagni: </strong> {{ flat.bathrooms }}</p>
-        <p><strong>Letti:</strong> {{ flat.beds }}</p>
-        <p><strong>Metri quadrati:</strong> {{ flat.square_meters }}</p>
-      </div>
-       <a href="#" class="btn btn-sm mt-3">Scopri di più</a>
     </div>
-  </div>
   </div>
 </template>
 
@@ -51,8 +53,6 @@ export default {
   );
   overflow: hidden;
   border: 0;
-
-
 
   img {
     border-radius: 0.5rem 0.5rem 0 0;
@@ -136,18 +136,18 @@ export default {
     }
   }
 
-   @media  (max-width: 768px) {
-          img{
-            height: 200px;
-          }
+  @media (max-width: 768px) {
+    img {
+      height: 200px;
     }
-      @media (min-width:769px){
-        .card{
-          height: 450px;
-        }
-          img{
-            height: 150px;
-          }
+  }
+  @media (min-width: 769px) {
+    .card {
+      height: 450px;
     }
+    img {
+      height: 150px;
+    }
+  }
 }
 </style>
