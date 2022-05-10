@@ -9,7 +9,6 @@
       <a class="logo" href="/">
       BoolBnb
       </a>
-
       <button
         class="navbar-toggler"
         type="button"
@@ -38,19 +37,13 @@
                 @click="newRunAll()"
                 >Search</button
               >
-                <input
-                  class="form-control ml-2"
-                  type="search"
-                  placeholder="Dove vuoi andare?"
-                  aria-label="Search"
-                  v-model="newSearchString"
-                />
-                <button class="search-button" @click="newRunAll()">
-                  Search
-                </button>
               </div>
               <!-- FINE FORM -->
             </li>
+            <li class="radius ml-3 my-2">
+            <span>Scegli il raggio </span>
+            <input type="number" v-model="radius" placeholder="20km">
+          </li>
           </ul>
           <div class="d-flex justify-content-center">
             <a class="host" href="/admin">DIVENTA UN HOST</a>
@@ -70,56 +63,11 @@
             {{ service.type }}
           </li>
           
-          <li class="radius ml-3 my-2">
-            <span>Scegli il raggio </span>
-            <input type="number" v-model="radius" placeholder="20km">
-          </li>
+          
         </ul>
       </nav>
     </div>
-
-    <div>
-      <div class="row d-flex flex-direction-column corpo">
-        <Loader v-if="isLoading" />
-        <div class="col-xl-6 col-lg-12 apartment">
-          <h3 class="text-white text-uppercase mt-4">
-            Ecco gli appartamenti nella zona cercata
-          </h3>
-          <div v-if="!checkedServices.length">
-            <FlatCard
-              v-for="flat in addresses"
-              :key="flat.id"
-              :flat="flat"
-              :isSearch="true"
-            />
-          </div>
-          <div v-else>
-            <FlatCard
-              v-for="flat in filteredFlats"
-              :key="flat.id"
-              :flat="flat"
-              :isSearch="true"
-            />
-          </div>
-        </div>
-        <div class="col-6 map">
-          <div
-            id="map"
-            class="d-none d-xl-block"
-            style="width: 100%; height: 720px"
-          ></div>
-        </div>
-      </div>
-      </nav>                  
-      <nav class="nav-service col-12">
-        <ul class="d-flex list-unstyled justify-content-center">
-          <li :id="service.id" v-for="service in servicies" :key="service.id" class="mx-2" @click="getServicesCheck(service.id)">
-            {{service.type}}
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <div> 
+      
       <div class="row d-flex flex-direction-column corpo">
         <Loader v-if="isLoading"/>
         <div class="col-xl-6 col-lg-12 apartment">
@@ -140,7 +88,7 @@
           <div id="map" class="d-none d-xl-block" style="width: 100%; height: 720px;"></div>
         </div>
       </div>
-    </div>
+     
   </div>   
 </template>
 
