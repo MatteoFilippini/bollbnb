@@ -8,103 +8,22 @@
         </div>
         <div class="row justify-content-center">
 
-       
-        <div
-          class="col-sm-12 col-md-6 col-lg-4 py-4"
-        >
-          <div class="card-wrapper">
-            <div class="card position-relative bounce-top">
-              <div class="featured lh-lg">
-                Sponsorizzato <i class="fa-solid fa-circle-check"></i>
-              </div>
-
-              <img
-                src="https://stayinn-apc.herokuapp.com/img/1.4961db01.jpg"
-                alt=""
-              />
-              <p class="mt-4">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic
-                possimus minus ex nobis, nihil labore optio quidem, modi tempora
-                excepturi eaque cupiditate laborum ad eum corporis ut? Eos,
-                doloremque incidunt PIPPO.
-              </p>
-              <div class="d-flex justify-content-between">
-                <p><strong>Stanze: </strong> 2</p>
-                <p><strong>Bagni: </strong> 2</p>
-                <p><strong>Letti:</strong> 2</p>
-                <p><strong>Metri quadrati:</strong> 50</p>
-              </div>
-
-              <a href="#" class="btn btn-sm mt-3">Scopri di più</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-4 py-4 mb-4">
-          <div class="card-wrapper">
-            <div class="card position-relative bounce-top">
-              <div class="featured lh-lg">
-                Sponsorizzato <i class="fa-solid fa-circle-check"></i>
-              </div>
-
-              <img
-                src="https://stayinn-apc.herokuapp.com/img/1.850dedfc.jpg"
-                alt=""
-              />
-              <p class="mt-4">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic
-                possimus minus ex nobis, nihil labore optio quidem, modi tempora
-                excepturi eaque cupiditate laborum ad eum corporis ut? Eos,
-                doloremque incidunt.
-              </p>
-              <div class="d-flex justify-content-between">
-                <p><strong>Stanze: </strong> 2</p>
-                <p><strong>Bagni: </strong> 2</p>
-                <p><strong>Letti:</strong> 2</p>
-                <p><strong>Metri quadrati:</strong> 50</p>
-              </div>
-
-              <a href="#" class="btn btn-sm mt-3">Scopri di più</a>
-            </div>
-          </div>
-        </div>
-        <div
-          class="col-sm-12 col-md-6 col-lg-4 py-4 "
-        >
-          <div class="card-wrapper">
-            <div class="card position-relative bounce-top">
-              <div class="featured lh-lg">
-                Sponsorizzato <i class="fa-solid fa-circle-check"></i>
-              </div>
-
-              <img
-                src="https://stayinn-apc.herokuapp.com/img/1.cdae0d7b.jpg"
-                alt=""
-              />
-              <p class="mt-4">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic
-                possimus minus ex nobis, nihil labore optio quidem, modi tempora
-                excepturi eaque cupiditate laborum ad eum corporis ut? Eos,
-                doloremque incidunt.
-              </p>
-              <div class="d-flex justify-content-between">
-                <p><strong>Stanze: </strong> 2</p>
-                <p><strong>Bagni: </strong> 2</p>
-                <p><strong>Letti:</strong> 2</p>
-                <p><strong>Metri quadrati:</strong> 50</p>
-              </div>
-
-              <a href="#" class="btn btn-sm mt-3">Scopri di più</a>
-            </div>
-          </div>
-        </div>
+       <BestFlat  v-for="bestFlat in flats_sponsor" :key="bestFlat.id" :flat="bestFlat"/>
+        
+        
        </div>
     </div>
   </div>
 </template>
 
 <script>
+import BestFlat from './BestFlat.vue';
 export default {
   name: "BestFlats",
+  props:['flats_sponsor'],
+  components:{
+    BestFlat,
+  }
 };
 </script>
 
