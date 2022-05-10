@@ -12,7 +12,7 @@
 
       <!-- ancora sfondo bianco, altre cards con i migliori appartamenti -->
       <!-- si può pensare di mettere qua alcuni appartamenti sponsorizzati -->
-      <BestFlats />
+      <BestFlats :flats_sponsor='flats_sponsor'/>
 
       <!-- sezione con un altro jumbotron -->
       <div class="container-fluid py-3">

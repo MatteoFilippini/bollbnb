@@ -8,6 +8,7 @@ use App\Models\Flat;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class FlatController extends Controller
@@ -37,14 +38,15 @@ class FlatController extends Controller
 
         // prendo tutti gli appartamenti
         $flats = Flat::with('user')->get();
-
         // prendo gli apparamenti con queli id
         $sponsor = [];
         $not_sponsor = [];
         foreach ($flats as $flat) {
             if (!in_array($flat->id, $flat_sponsor_ids)) {
+                $flat['image_url'] = Storage::url($flat->default_image);
                 array_push($not_sponsor, $flat);
             } else {
+                $flat['image_url'] = Storage::url($flat->default_image);
                 array_push($sponsor, $flat);
             }
         }
