@@ -1,5 +1,7 @@
 <template>
   <div v-if="flat">
+    <div>
+
     <!-- FLAT PAGINA SEARCH -->
     <div v-if="isSearch" class="flat-search">
       <div class="row">
@@ -78,6 +80,8 @@
       </div>
     </div>
   </div>
+    </div>
+    </div>
   <!-- <div v-if="isSearch">
         SEARCH
     </div>
