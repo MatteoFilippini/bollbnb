@@ -22,11 +22,8 @@ class SearchController extends Controller
         // dd($intial);
         $fromLat = $initial['lat'];
         $fromLon = $initial['lon'];
+        $radius=$initial['radius'];
         $flats = Flat::with('user')->get();
-        
-        
-
-        
         
         $filteredFlats = [];
         // $latitude1 = 45.14296;
@@ -46,10 +43,9 @@ class SearchController extends Controller
 
         // $d = getDistance($fromLat, $fromLon, $toLat, $toLon);
 
-        
-
         foreach($flats as $flat){
-            if(getDistance($fromLat, $fromLon, $flat->address->latitude, $flat->address->longitude) <= 20){
+            
+            if(getDistance($fromLat, $fromLon, $flat->address->latitude, $flat->address->longitude) <= $radius){
                 $flat['distance'] = getDistance($fromLat, $fromLon, $flat->address->latitude, $flat->address->longitude);
                 $flat['image_url'] = Storage::url($flat->default_image);
                 // prendo gli id dei servizi diogni appartamento

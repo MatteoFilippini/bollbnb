@@ -1,39 +1,42 @@
 <template>
-  <!-- Header Search  -->
 
-  <div class="container-fluid mt-3">
-    <div class="aaaa">
-      <nav
-        class="
-          navbar navbar-expand-lg navbar-light
-          bg-white
-          d-flex
-          justify-content-between
-          align-items-center
-        "
+   <!-- Header Search  -->
+
+   <div class="container-fluid mt-3">
+                      
+    <div class="all-navbar">
+      <nav class="navbar navbar-expand-lg navbar-light bg-white d-flex justify-content-between align-items-center">
+      <a class="logo" href="/">
+      BoolBnb
+      </a>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
       >
-        <a class="logo" href="/"> BoolBnb </a>
-
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div
-          class="collapse navbar-collapse justify-content-between"
-          id="navbarNav"
-        >
-          <ul class="navbar-nav d-flex justify-content center">
-            <li class="nav-item active">
-              <!-- FORM SEARCH -->
-              <div
-                class="form-inline my-2 my-lg-0 d-flex justify-content-center"
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+        <ul class="navbar-nav d-flex justify-content-center align-items-center">
+          <li class="nav-item active">
+            <!-- FORM SEARCH -->
+            <div class="form-inline my-2 my-lg-0 d-flex justify-content-center">
+              <input
+                class="form-control ml-2"
+                type="search"
+                placeholder="Dove vuoi andare?"
+                aria-label="Search"
+                v-model="newSearchString"
+              />
+              <button
+                class="search-button "
+                @click="newRunAll()"
+                >Search</button
               >
                 <input
                   class="form-control ml-2"
@@ -65,6 +68,11 @@
             @click="getServicesCheck(service.id)"
           >
             {{ service.type }}
+          </li>
+          
+          <li class="radius ml-3 my-2">
+            <span>Scegli il raggio </span>
+            <input type="number" v-model="radius" placeholder="20km">
           </li>
         </ul>
       </nav>
@@ -102,11 +110,39 @@
           ></div>
         </div>
       </div>
+      </nav>                  
+      <nav class="nav-service col-12">
+        <ul class="d-flex list-unstyled justify-content-center">
+          <li :id="service.id" v-for="service in servicies" :key="service.id" class="mx-2" @click="getServicesCheck(service.id)">
+            {{service.type}}
+          </li>
+        </ul>
+      </nav>
     </div>
-  </div>
+    <div> 
+      <div class="row d-flex flex-direction-column corpo">
+        <Loader v-if="isLoading"/>
+        <div class="col-xl-6 col-lg-12 apartment">
+          <div class="text-white mt-5" v-if="!filteredFlats.length && checkedServices.length>=1">
+            <h4>Nessun appartamento trovato</h4>
+          </div> 
+          <div v-else>      
+            <h3 class="text-white text-uppercase mt-5">Ecco gli appartamenti nella zona cercata</h3>
+            <div v-if="!checkedServices.length">
+              <FlatCard v-for="flat in addresses" :key="flat.id" :flat="flat" :isSearch="true"/>
+            </div>
+            <div v-else>
+              <FlatCard v-for="flat in filteredFlats" :key="flat.id" :flat="flat"  :isSearch="true"/>
+            </div> 
+          </div>
+        </div>
+        <div class="col-6 map">
+          <div id="map" class="d-none d-xl-block" style="width: 100%; height: 720px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>   
 </template>
-
-
 
 <script>
 import FlatCard from "../flats/FlatCard.vue";
@@ -121,6 +157,7 @@ export default {
   },
   data() {
     return {
+      radius:20,
       isLoading: false,
       newSearchString: "",
       addresses: [],
@@ -227,15 +264,10 @@ export default {
       }
     },
     // PRENDERE TUTTE LE POSIZIONI
-    getAllAddresses() {
-      this.isLoading = true;
-      setTimeout(() => {
-        const encoded = encodeURIComponent(
-          JSON.stringify({
-            lat: this.positionCenter.lat,
-            lon: this.positionCenter.lon,
-          })
-        );
+      getAllAddresses() {
+        this.isLoading = true;
+    setTimeout(() =>{
+        const encoded = encodeURIComponent(JSON.stringify({"lat":this.positionCenter.lat,"lon":this.positionCenter.lon,"radius":this.radius}));
         axios
           .get("http://localhost:8000/api/search/" + encoded)
           .then((res) => {
@@ -405,10 +437,10 @@ export default {
 <style lang="scss" scoped>
 @import "../../../../node_modules/@tomtom-international/web-sdk-maps/dist/maps.css";
 
-.corpo {
-  padding-top: 85px;
-}
-.aaaa {
+ .corpo{
+   padding-top: 95px;
+ }
+.all-navbar{
   position: fixed;
   top: 0;
   left: 0;

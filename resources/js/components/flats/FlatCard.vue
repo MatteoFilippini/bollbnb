@@ -49,7 +49,7 @@
       </div>
       <h3>Host: {{flat.user.name}}</h3>
       <h5>{{flat.description}}</h5>
-      <p class="text-muted">{{flat.beds}} ospiti-{{flat.rooms}} stanze-{{flat.bathrooms}} bagni-{{flat.sqare_meters}} metri</p>
+      <p class="text-muted">{{flat.beds}} ospiti - {{flat.rooms}} stanze - {{flat.bathrooms}} bagni - {{flat.sqyare_meters}} metri</p>
       <hr class="border border-light w-20"/>
       <h3>Cosa troverai:</h3>
       <div v-if="flat.services.length">
