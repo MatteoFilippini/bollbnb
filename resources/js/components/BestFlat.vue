@@ -7,7 +7,7 @@
       <div class="featured lh-lg">
         Sponsorizzato <i class="fa-solid fa-circle-check"></i>
       </div>
-      <img :src="flat.image_url" alt="image" />
+      <img :src="`http://127.0.0.1:8000/storage/${flat.default_image}`" alt="image" />
       <h5 class="mt-4">
         {{flat.title}}
       </h5>
