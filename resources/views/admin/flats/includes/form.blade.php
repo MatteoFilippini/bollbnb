@@ -1,61 +1,81 @@
 @if ($errors->any())
+{{-- ERRORS --}}
 <div class="container">
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            <li>Reinserisci l'indirizzo</li>
-            @endforeach
-        </ul>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    <li>Reinserisci l'indirizzo</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 @endif
-
-
 <div class="container">
-    <a href="{{route('admin.flats.index')}}" class="btn btn-danger mb-3">TORNA INDIETRO</a>
+    {{-- Back Button --}}
+    <div class="row">
+        <div class="col text-end">
+            <a href="{{route('admin.flats.index')}}" class="btn btn-danger mb-3">TORNA INDIETRO</a>
+        </div>
+    </div>
     @if ($flat->exists)
+    {{-- EDIT --}}
     <form action="{{route('admin.flats.update', $flat->id)}}" method="POST" enctype="multipart/form-data" id="editForm">
         @method('PUT')
         @else
-        <form action="{{route('admin.flats.store')}}" method="POST" enctype="multipart/form-data" id="editForm">
-            @endif
-            @csrf
+    {{-- CREATE --}}
+    <form action="{{route('admin.flats.store')}}" method="POST" enctype="multipart/form-data" id="editForm">
+        @endif
+        @csrf
             <div class="row">
-                <div class="col-12">
+                {{--TITLE --}}
+                <div class="col-lg-12">
                     <div class="form-group">
                         <label for="title">Titolo</label>
                         <input type="text" class="form-control" id="title" name="title" value="{{old('title', $flat->title)}}" required>
                     </div>
                 </div>
-
-                <div class="col-10">
+                {{-- DEFAULT IMAGE --}}
+                <div class="col-lg-10">
                     <div class="form-group">
                         <label for="default_image">Immagine copertina</label>
                         <input type="file" class="form-control-file" id="default_image" name="default_image">
                     </div>
                 </div>
-                <div class="col-2">
+                {{-- PREVIEW --}}
+                <div class="col- 12 col-lg-2">
                     <img src="{{old("https://marcolanci.it/utils/placeholder.jpg", asset("storage/$flat->default_image"))}}" alt="placeholder" id="preview" class="img-fluid">
                 </div>
-            </div>
-
-            <div class="col-6">
-                <div class="form-group">
-                    <label for="address">Indirizzo</label>
-                    @if($flat->address)
-                    <input type="text" class="form-control" id="address" name="address" value="{{old('address', $flat->address->address)}}" placeholder="indirizzo Citta" required>
-                    @else
-                    <input type="text" class="form-control" id="address" name="address" value="{{old('address')}}" required placeholder="indirizzo Citta">
-                    @endif
+                {{-- DESCRIPTION --}}
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label for="description">Descrizione</label>
+                        <textarea class="form-control" id="description" rows="5" name="description">{{old('description', $flat->description)}}</textarea>
+                    </div>
                 </div>
             </div>
-            {{-- Minimappa --}}
-            <div class="col-6">
-                <div id="map" style="width: 300px; height: 150px;"></div>
+            <div class="row align-items-center">
+                {{-- ADDRESS  --}}
+                <div class="col-lg-8">
+                    <div class="form-group">
+                        <label for="address">Indirizzo</label>
+                        @if($flat->address)
+                        <input type="text" class="form-control" id="address" name="address" value="{{old('address', $flat->address->address)}}" placeholder="indirizzo Citta" required>
+                        @else
+                        <input type="text" class="form-control" id="address" name="address" value="{{old('address')}}" required placeholder="indirizzo Citta">
+                        @endif
+                    </div>
+                </div>
+                {{-- Minimappa --}}
+                <div class="col-lg-4">
+                    <div id="map" style="width: 100%; height: 200px;"></div>
+                </div>
             </div>
-
-            <!-- <div class="col-12">
+            <!-- <div class="col-lg-12">
                 <div class="form-group">
                     <label for="city">City</label>
                     @if($flat->address)
@@ -65,64 +85,68 @@
                     @endif
                 </div>
             </div> -->
+            <div class="row justify-content-between">
+                {{-- ROOMS --}}
+                <div class="col-6 col-lg-2">
+                    <div class="form-group">
+                        <label for="rooms">Numero Stanze</label>
+                        <input type="number" class="form-control" id="rooms" name="rooms" value="{{old('rooms', $flat->rooms)}}" min="0" required>
+                    </div>
+                </div>
+                {{-- BEDS --}}
+                <div class="col-6 col-lg-2">
+                    <div class="form-group">
+                        <label for="beds">Numero letti</label>
+                        <input type="number" class="form-control" id="beds" name="beds" value="{{old('beds', $flat->beds)}}" min="0" required>
 
-            <div class="col-12">
-                <div class="form-group">
-                    <label for="description">Descrizione</label>
-                    <textarea class="form-control" id="description" rows="5" name="description">{{old('description', $flat->description)}}</textarea>
+                    </div>
+                </div>
+                {{-- BATHROOMS --}}
+                <div class="col-6 col-lg-2">
+                    <div class="form-group">
+                        <label for="bathrooms">Numero bagni</label>
+                        <input type="number" class="form-control" id="bathrooms" name="bathrooms" value="{{old('bathrooms', $flat->bathrooms)}}" min="0" required>
+                    </div>
+                </div>
+                {{-- SQUARE METERS --}}
+                <div class="col-6 col-lg-2">
+                    <div class="form-group">
+                        <label for="square_meters">Metri quadrati</label>
+                        <input type="text" class="form-control" id="square_meters" name="square_meters" value="{{old('square_meters', $flat->square_meters)}}" min="0" required>
+                    </div>
                 </div>
             </div>
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="rooms">Numero Stanze</label>
-                    <input type="number" class="form-control" id="rooms" name="rooms" value="{{old('rooms', $flat->rooms)}}" min="0" required>
+            {{-- SERVICES --}}
+            <div class="row justify-content-between">
+                @foreach ($services as $service)
+                <div class="col-6 col-lg-3">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="service-{{$service->id}}" value="{{$service->id}}" name="services[]" @if (in_array($service->id, old('services', $flat_services_ids ?? []))) checked @endif>
+                        <label class="form-check-label" for="service-{{$service->id}}">{{$service->type}}</label>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            {{-- HIDDEN INPUTS (ADDRESS) --}}
+            @if($flat->address)
+            <input type="hidden" value="{{$flat->address->position}}" id="position" name='position'>
+            <input type="hidden" value="{{$flat->address->latitude}}" id="latitude" name='latitude'>
+            <input type="hidden" value="{{$flat->address->longitude}}" id="longitude" name='longitude'>
+            @else
+            <input type="hidden" value="" id="position" name='position'>
+            <input type="hidden" value="" id="latitude" name='latitude'>
+            <input type="hidden" value="" id="longitude" name='longitude'>
+            @endif
+            {{-- CONFIRM BUTTON --}}
+            <div class="row justify-content-end">
+                <div class="col">
+                    <button type="submit" class="btn btn-success" id="confirm">Conferma</button>
                 </div>
             </div>
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="beds">Numero letti</label>
-                    <input type="number" class="form-control" id="beds" name="beds" value="{{old('beds', $flat->beds)}}" min="0" required>
-
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="bathrooms">Numeri bagni</label>
-                    <input type="number" class="form-control" id="bathrooms" name="bathrooms" value="{{old('bathrooms', $flat->bathrooms)}}" min="0" required>
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="square_meters">Metri quadrati casa</label>
-                    <input type="text" class="form-control" id="square_meters" name="square_meters" value="{{old('square_meters', $flat->square_meters)}}" min="0" required>
-                </div>
-            </div>
+    </form>
 </div>
-<div class="col-12">
-    @foreach ($services as $service)
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="service-{{$service->id}}" value="{{$service->id}}" name="services[]" @if (in_array($service->id, old('services', $flat_services_ids ?? []))) checked @endif>
-        <label class="form-check-label" for="service-{{$service->id}}">{{$service->type}}</label>
-    </div>
-    @endforeach
-</div>
-<hr>
-@if($flat->address)
-<input type="hidden" value="{{$flat->address->position}}" id="position" name='position'>
-<input type="hidden" value="{{$flat->address->latitude}}" id="latitude" name='latitude'>
-<input type="hidden" value="{{$flat->address->longitude}}" id="longitude" name='longitude'>
-@else
-<input type="hidden" value="" id="position" name='position'>
-<input type="hidden" value="" id="latitude" name='latitude'>
-<input type="hidden" value="" id="longitude" name='longitude'>
-@endif
 
-<button type="submit" class="btn btn-success" id="confirm">Conferma</button>
 
-</div>
-</form>
-
-</div>
 <script src="{{ asset('js/app.js') }}"></script>
 
 <script>
@@ -335,4 +359,5 @@
             }
         });
     });
+    
 </script>
