@@ -1,49 +1,58 @@
 <template>
+  <!-- Header Search  -->
 
-   <!-- Header Search  -->
-
-   <div class="container-fluid mt-3">
-                      
+  <div class="container-fluid mt-3">
     <div class="all-navbar">
-      <nav class="navbar navbar-expand-lg navbar-light bg-white d-flex justify-content-between align-items-center">
-      <a class="logo" href="/">
-      BoolBnb
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
+      <nav
+        class="
+          navbar navbar-expand-lg navbar-light
+          bg-white
+          d-flex
+          justify-content-between
+          align-items-center
+        "
       >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-        <ul class="navbar-nav d-flex justify-content-center align-items-center">
-          <li class="nav-item active">
-            <!-- FORM SEARCH -->
-            <div class="form-inline my-2 my-lg-0 d-flex justify-content-center">
-              <input
-                class="form-control ml-2"
-                type="search"
-                placeholder="Dove vuoi andare?"
-                aria-label="Search"
-                v-model="newSearchString"
-              />
-              <button
-                class="search-button "
-                @click="newRunAll()"
-                >Search</button
+        <a class="logo" href="/"> BoolBnb </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-between"
+          id="navbarNav"
+        >
+          <ul
+            class="navbar-nav d-flex justify-content-center align-items-center"
+          >
+            <li class="nav-item active">
+              <!-- FORM SEARCH -->
+              <div
+                class="form-inline my-2 my-lg-0 d-flex justify-content-center"
               >
+                <input
+                  class="form-control ml-2"
+                  type="search"
+                  placeholder="Dove vuoi andare?"
+                  aria-label="Search"
+                  v-model="newSearchString"
+                />
+                <button class="search-button" @click="newRunAll()">
+                  Search
+                </button>
               </div>
               <!-- FINE FORM -->
             </li>
             <li class="radius ml-3 my-2">
-            <span>Scegli il raggio </span>
-            <input type="number" v-model="radius" placeholder="20km">
-          </li>
+              <span>Scegli il raggio </span>
+              <input type="number" v-model="radius" placeholder="20km" />
+            </li>
           </ul>
           <div class="d-flex justify-content-center">
             <a class="host" href="/admin">DIVENTA UN HOST</a>
@@ -62,34 +71,50 @@
           >
             {{ service.type }}
           </li>
-          
-          
         </ul>
       </nav>
     </div>
-      
-      <div class="row d-flex flex-direction-column corpo">
-        <Loader v-if="isLoading"/>
-        <div class="col-xl-6 col-lg-12 apartment">
-          <div class="text-white mt-5" v-if="!filteredFlats.length && checkedServices.length>=1">
-            <h4>Nessun appartamento trovato</h4>
-          </div> 
-          <div v-else>      
-            <h3 class="text-white text-uppercase mt-5">Ecco gli appartamenti nella zona cercata</h3>
-            <div v-if="!checkedServices.length">
-              <FlatCard v-for="flat in addresses" :key="flat.id" :flat="flat" :isSearch="true"/>
-            </div>
-            <div v-else>
-              <FlatCard v-for="flat in filteredFlats" :key="flat.id" :flat="flat"  :isSearch="true"/>
-            </div> 
+
+    <div class="row d-flex flex-direction-column corpo">
+      <Loader v-if="isLoading" />
+      <div class="col-xl-6 col-lg-12 apartment">
+        <div
+          class="text-white mt-5"
+          v-if="!filteredFlats.length && checkedServices.length >= 1"
+        >
+          <h4>Nessun appartamento trovato</h4>
+        </div>
+        <div v-else>
+          <h3 class="text-white text-uppercase mt-5">
+            Ecco gli appartamenti nella zona cercata
+          </h3>
+          <div v-if="!checkedServices.length">
+            <FlatCard
+              v-for="flat in addresses"
+              :key="flat.id"
+              :flat="flat"
+              :isSearch="true"
+            />
+          </div>
+          <div v-else>
+            <FlatCard
+              v-for="flat in filteredFlats"
+              :key="flat.id"
+              :flat="flat"
+              :isSearch="true"
+            />
           </div>
         </div>
-        <div class="col-6 map">
-          <div id="map" class="d-none d-xl-block" style="width: 100%; height: 720px;"></div>
-        </div>
       </div>
-     
-  </div>   
+      <div class="col-6 map">
+        <div
+          id="map"
+          class="d-none d-xl-block"
+          style="width: 100%; height: 720px"
+        ></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -105,7 +130,7 @@ export default {
   },
   data() {
     return {
-      radius:20,
+      radius: 20,
       isLoading: false,
       newSearchString: "",
       addresses: [],
@@ -135,15 +160,17 @@ export default {
   methods: {
     // CONFRONTA GLI ID DEI SERVIZI SELEZIONATI E GLI ID DEI SERVIZI DEL FLAT
     addMap(array){
-      let center = [this.positionCenter.lon, this.positionCenter.lat];
+    
+    let center = [this.positionCenter.lon, this.positionCenter.lat];
             const map = tt.map({
               key: "Mkf8SDlv7IXjC285PFjO8O6lFhDYeFdx",
               container: "map",
               center: center,
               zoom: 10,
             });
-
-           array.forEach((address) => {
+            map.addControl(new tt.FullscreenControl());
+            map.addControl(new tt.NavigationControl());
+            this.array.forEach((address) => {
               var markerHeight = 50,
                 markerRadius = 10,
                 linearOffset = 25;
@@ -179,7 +206,10 @@ export default {
                   .setHTML(`<p>${address.address.address}</p>`)
                   .addTo(map);
               });
-            });
+              map.flyTo({
+                center: center,
+              });
+            });           
     },
     filterByServices() {
       let res_array = [];
@@ -260,10 +290,16 @@ export default {
       }
     },
     // PRENDERE TUTTE LE POSIZIONI
-      getAllAddresses() {
-        this.isLoading = true;
-    setTimeout(() =>{
-        const encoded = encodeURIComponent(JSON.stringify({"lat":this.positionCenter.lat,"lon":this.positionCenter.lon,"radius":this.radius}));
+    getAllAddresses() {
+      this.isLoading = true;
+      setTimeout(() => {
+        const encoded = encodeURIComponent(
+          JSON.stringify({
+            lat: this.positionCenter.lat,
+            lon: this.positionCenter.lon,
+            radius: this.radius,
+          })
+        );
         axios
           .get("http://localhost:8000/api/search/" + encoded)
           .then((res) => {
@@ -387,10 +423,10 @@ export default {
 <style lang="scss" scoped>
 @import "../../../../node_modules/@tomtom-international/web-sdk-maps/dist/maps.css";
 
- .corpo{
-   padding-top: 95px;
- }
-.all-navbar{
+.corpo {
+  padding-top: 95px;
+}
+.all-navbar {
   position: fixed;
   top: 0;
   left: 0;

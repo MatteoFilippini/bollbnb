@@ -1,26 +1,76 @@
 <template>
   <div v-if="flat">
     <div>
-
-    <!-- FLAT PAGINA SEARCH -->
-    <div v-if="isSearch" class="flat-search">
-      <div class="row">
-        <div class="col-5 image-flat">
-          <img :src="flat.image_url" alt="image" class="img-fluid">
+      <!-- FLAT PAGINA SEARCH -->
+      <div v-if="isSearch" class="flat-search">
+        <div class="row">
+          <div class="col-5 image-flat">
+            <img
+              :src="`http://127.0.0.1:8000/storage/${flat.default_image}`"
+              alt="image"
+              class="img-fluid"
+            />
+          </div>
+          <div class="col-7 desc-flat">
+            <div class="flat-search-title">
+              <h3>{{ flat.title }}</h3>
+            </div>
+            <div class="flat-search-details mb-5">
+              <p class="text-muted">
+                Ospiti: {{ flat.beds }} - Camere: {{ flat.rooms }} - Bagni:
+                {{ flat.bathrooms }} <br />
+                Metri quadrati: {{ flat.square_meters }}
+              </p>
+            </div>
+            <div v-if="flat.services.length">
+              <h5>Servizi:</h5>
+              <ul>
+                <li v-for="service in flat.services" :key="service.id">
+                  {{ service.type }}
+                </li>
+              </ul>
+            </div>
+            <div v-else>
+              <h5>Non ci sono servizi</h5>
+            </div>
+            <router-link
+              :to="{ name: 'detail', params: { slug: flat.slug } }"
+              class="btn btn-secondary btn-sm detail-bottom"
+              v-if="!isShow"
+              >Dettaglio
+            </router-link>
+          </div>
         </div>
-        <div class="col-7 desc-flat">
-          <div class="flat-search-title">
-            <h3>{{ flat.title }}</h3>
+      </div>
+      <!-- FLAT PAGINA SHOW -->
+      <div v-if="isShow">
+        <div class="flat-show">
+          <h1>{{ flat.title }}</h1>
+          <h3>{{ flat.address.address }}</h3>
+          <div class="row border border-light mb-5">
+            <div class="col-sm-12 col-lg-6 main border border-primary">
+              DEAFULT IMAGE
+            </div>
+            <div
+              class="col-xs-6 col-sm-6 col-lg-3 images border border-success"
+            >
+              SE CE ALTRA IMMAGINE
+            </div>
+            <div
+              class="col-xs-6 col-sm-6 col-lg-3 images border border-success"
+            >
+              SE CE ALTRA IMMAGINE
+            </div>
           </div>
-          <div class="flat-search-details mb-5">
-            <p class="text-muted">
-              Ospiti: {{ flat.beds }} - Camere: {{ flat.rooms }} - Bagni:
-              {{ flat.bathrooms }} <br />
-              Metri quadrati: {{ flat.square_meters }}
-            </p>
-          </div>
+          <h3>Host: {{ flat.user.name }}</h3>
+          <h5>{{ flat.description }}</h5>
+          <p class="text-muted">
+            {{ flat.beds }} ospiti - {{ flat.rooms }} stanze -
+            {{ flat.bathrooms }} bagni - {{ flat.sqyare_meters }} metri
+          </p>
+          <hr class="border border-light w-20" />
+          <h3>Cosa troverai:</h3>
           <div v-if="flat.services.length">
-            <h5>Servizi:</h5>
             <ul>
               <li v-for="service in flat.services" :key="service.id">
                 {{ service.type }}
@@ -30,58 +80,21 @@
           <div v-else>
             <h5>Non ci sono servizi</h5>
           </div>
-          <router-link
-            :to="{ name: 'detail', params: { slug: flat.slug } }"
-            class="btn btn-secondary btn-sm detail-bottom"
-            v-if="!isShow"
-            >Dettaglio
-          </router-link>
+          <div class="buttons">
+            <router-link :to="{ name: 'home' }" class="button-b">
+              Indietro
+            </router-link>
+            <router-link
+              :to="{ name: 'messageForm', params: { id: flat.id } }"
+              class="message"
+            >
+              Contatta l'host
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
-    <!-- FLAT PAGINA SHOW -->
-    <div v-if="isShow">
-      <div class="flat-show">
-      <h1>{{flat.title}}</h1>
-      <h3>{{flat.address.address}}</h3> 
-      <div class="row border border-light mb-5">
-        <div class="col-sm-12 col-lg-6 main border border-primary">DEAFULT IMAGE</div>
-        <div class="col-xs-6 col-sm-6 col-lg-3 images border border-success">SE CE ALTRA IMMAGINE</div>
-        <div class="col-xs-6 col-sm-6 col-lg-3 images border border-success">SE CE ALTRA IMMAGINE</div>
-      </div>
-      <h3>Host: {{flat.user.name}}</h3>
-      <h5>{{flat.description}}</h5>
-      <p class="text-muted">{{flat.beds}} ospiti - {{flat.rooms}} stanze - {{flat.bathrooms}} bagni - {{flat.sqyare_meters}} metri</p>
-      <hr class="border border-light w-20"/>
-      <h3>Cosa troverai:</h3>
-      <div v-if="flat.services.length">
-                                        <ul>
-                                          <li v-for="service in flat.services" :key="service.id">
-                                            {{ service.type }}
-                                          </li>
-                                        </ul>
-                                      </div>
-                                      <div v-else>
-                                        <h5>Non ci sono servizi</h5>
-                                      </div>
-      <div class="buttons">
-      <router-link
-          :to="{ name: 'home' }"
-          class="button-b"
-        >
-          Indietro
-        </router-link>
-      <router-link
-          :to="{ name: 'messageForm', params: { id: flat.id } }"
-          class="message"
-        >
-          Contatta l'host
-        </router-link>
-      </div>
-    </div>
   </div>
-    </div>
-    </div>
   <!-- <div v-if="isSearch">
         SEARCH
     </div>
@@ -158,9 +171,9 @@ export default {
   padding: 30px;
   border-bottom: 1px solid white;
   position: relative;
-  .image-flat{
+  .image-flat {
     // background-color:green;
-    border-radius:20px;
+    border-radius: 20px;
     height: 250px;
     width: 100%;
     min-width: 200px;
