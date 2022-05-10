@@ -281,9 +281,7 @@ export default {
                     lon: address.address.longitude,
                     lat: address.address.latitude,
                   })
-                  .setHTML(
-                    /* `<p>${this.addresses}</p>` */ "<p>CAPIRE COSA STAMPARE</p>"
-                  )
+                  .setHTML(`<p>${address.address.address}</p>`)
                   .addTo(map);
               });
             });
