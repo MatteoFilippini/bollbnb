@@ -1,0 +1,21 @@
+@import 'variables';
+
+.show{
+    .msg{
+        background-color: white;
+        color: black;
+        border-radius: 10px;
+        box-shadow: 0 0px 20px rgb(0 0 0 / 0.7);
+    }
+    .img-show{
+        img{
+            margin: 30px 0;
+            height: 300px;
+            border-radius: 10px;
+        }
+}
+a{
+    margin-top: 40px;
+}
+
+}

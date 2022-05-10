@@ -37,7 +37,7 @@ class FlatController extends Controller
         };
 
         // prendo tutti gli appartamenti
-        $flats = Flat::with('user')->get();
+        $flats = Flat::with('user', 'address')->get();
         // prendo gli apparamenti con queli id
         $sponsor = [];
         $not_sponsor = [];
