@@ -8,20 +8,22 @@
         </div>
         <div class="col-7 desc-flat">
           <div class="flat-search-title">
-            <h3>{{flat.title}}</h3>
+            <h3>{{ flat.title }}</h3>
           </div>
           <div class="flat-search-details mb-5">
-            <p class="text-muted">Ospiti: {{flat.beds}} - Camere: {{flat.rooms}} - Bagni: {{flat.bathrooms}}
-              <br> Metri quadrati: {{flat.square_meters}}
+            <p class="text-muted">
+              Ospiti: {{ flat.beds }} - Camere: {{ flat.rooms }} - Bagni:
+              {{ flat.bathrooms }} <br />
+              Metri quadrati: {{ flat.square_meters }}
             </p>
           </div>
           <div v-if="flat.services.length">
             <h5>Servizi:</h5>
-              <ul>
-                <li v-for="service in flat.services" :key="service.id">
-                  {{ service.type }}
-                </li>
-              </ul>
+            <ul>
+              <li v-for="service in flat.services" :key="service.id">
+                {{ service.type }}
+              </li>
+            </ul>
           </div>
           <div v-else>
             <h5>Non ci sono servizi</h5>
@@ -75,10 +77,8 @@
         </router-link>
       </div>
     </div>
-
   </div>
-</div>
-    <!-- <div v-if="isSearch">
+  <!-- <div v-if="isSearch">
         SEARCH
     </div>
     <div class="col-sm-12 col-md-12 col-lg-3 py-4">
@@ -150,8 +150,8 @@ export default {
 }
 
 // search
-.flat-search{
-  padding:30px;
+.flat-search {
+  padding: 30px;
   border-bottom: 1px solid white;
   position: relative;
   .image-flat{
@@ -161,7 +161,7 @@ export default {
     width: 100%;
     min-width: 200px;
   }
-  .detail-bottom{
+  .detail-bottom {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -169,47 +169,47 @@ export default {
 }
 
 // show
-.flat-show{
+.flat-show {
   position: relative;
-  .main{
+  .main {
     height: 400px;
   }
-  .images{
-    height:200px;
+  .images {
+    height: 200px;
   }
-  p{
-    font-size:20px;
+  p {
+    font-size: 20px;
   }
-  h3{
+  h3 {
     font-weight: 600;
-    margin-bottom:20px;
+    margin-bottom: 20px;
   }
-  .w-20{
-    width:20%;
+  .w-20 {
+    width: 20%;
   }
-  .buttons{
+  .buttons {
     position: absolute;
     bottom: 0;
     right: 0;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
-    .button-b{
-      font-size:1rem;
+    .button-b {
+      font-size: 1rem;
       margin-right: 17px;
     }
-    .message{
-        border: 1px solid #fff;
-        background-color: black;
-        color: white;
-        padding:7px 15px;
-        border-radius:10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        font-size: 1.1rem;
-        max-width: 200px;
+    .message {
+      border: 1px solid #fff;
+      background-color: black;
+      color: white;
+      padding: 7px 15px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      font-size: 1.1rem;
+      max-width: 200px;
     }
   }
 }
