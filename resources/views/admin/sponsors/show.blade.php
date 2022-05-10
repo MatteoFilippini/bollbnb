@@ -75,18 +75,13 @@
                 buttonCancel.classList.remove("d-none");
 
                 // clicco su conferma
-                // buttonPurchase.addEventListener("click", function(){
-                //         setTimeout(() => {
-                //             element.submit();
-                //             confirm.classList.add("d-none");
-                //             bg_confirm.classList.add('d-none');
-                //         }, 3000);
-                //         Swal.fire(
-                //             'Pagamento andato a buon fine',
-                //             'Verrai reindirizzato in un altra pagina',
-                //             'success'
-                //             )
-                //         })
+                 buttonPurchase.addEventListener("click", function(){
+                         setTimeout(() => {
+                             element.submit();
+                             confirm.classList.add("d-none");
+                             bg_confirm.classList.add('d-none');
+                         }, 3000);
+                })
 
                 //clicco su cancella
                 buttonCancel.addEventListener("click", function() {
