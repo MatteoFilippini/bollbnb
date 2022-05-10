@@ -170,7 +170,7 @@ export default {
             });
             map.addControl(new tt.FullscreenControl());
             map.addControl(new tt.NavigationControl());
-            this.array.forEach((address) => {
+            array.forEach((address) => {
               var markerHeight = 50,
                 markerRadius = 10,
                 linearOffset = 25;
