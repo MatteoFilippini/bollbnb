@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\Flat;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SearchController extends Controller
 {
@@ -46,6 +47,7 @@ class SearchController extends Controller
             
             if(getDistance($fromLat, $fromLon, $flat->address->latitude, $flat->address->longitude) <= $radius){
                 $flat['distance'] = getDistance($fromLat, $fromLon, $flat->address->latitude, $flat->address->longitude);
+                $flat['image_url'] = Storage::url($flat->default_image);
                 // prendo gli id dei servizi diogni appartamento
                 $service_ids=[];
                 foreach ($flat->services as $service){
