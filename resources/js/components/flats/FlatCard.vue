@@ -177,6 +177,9 @@ export default {
     height: 250px;
     width: 100%;
     min-width: 200px;
+    display: flex;
+    align-items: center;
+    border: 1px solid white;
   }
   .detail-bottom {
     position: absolute;
@@ -229,5 +232,8 @@ export default {
       max-width: 200px;
     }
   }
+}
+img{
+      border-radius:20px;
 }
 </style>

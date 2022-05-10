@@ -2,20 +2,22 @@
   <div class="container-fluid" id="index-flats">
     <Header />
     <h2 class="text-center">Appartamenti Sponsor</h2>
-    <div class="row">
-      <div class="col-sm-12 col-md-3 col-lg-3 py-4">
+    <div class="row justify-content-center">
         <BestFlat
           v-for="flat_sponsor in flats_sponsor"
           :key="flat_sponsor.id"
           :flat="flat_sponsor"
         />
-      </div>
     </div>
     <Loader v-if="isLoading" />
     <h2 class="text-center">Tutti gli Appartamenti</h2>
     <div class="row">
-      <FlatCard v-for="flat in flats" :key="flat.id" :flat="flat" />
-    </div>
+    <BestFlat
+              v-for="flat in flats"
+              :key="flat.id"
+              :flat="flat"
+            />
+            </div>
   </div>
 </template>
 

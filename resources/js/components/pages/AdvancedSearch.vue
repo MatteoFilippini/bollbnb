@@ -159,6 +159,58 @@ export default {
   },
   methods: {
     // CONFRONTA GLI ID DEI SERVIZI SELEZIONATI E GLI ID DEI SERVIZI DEL FLAT
+    addMap(array){
+    
+    let center = [this.positionCenter.lon, this.positionCenter.lat];
+            const map = tt.map({
+              key: "Mkf8SDlv7IXjC285PFjO8O6lFhDYeFdx",
+              container: "map",
+              center: center,
+              zoom: 10,
+            });
+            map.addControl(new tt.FullscreenControl());
+            map.addControl(new tt.NavigationControl());
+            this.array.forEach((address) => {
+              var markerHeight = 50,
+                markerRadius = 10,
+                linearOffset = 25;
+              var popupOffsets = {
+                top: [0, 0],
+                "top-left": [0, 0],
+                "top-right": [0, 0],
+                bottom: [0, -markerHeight],
+                "bottom-left": [
+                  linearOffset,
+                  (markerHeight - markerRadius + linearOffset) * -1,
+                ],
+                "bottom-right": [
+                  -linearOffset,
+                  (markerHeight - markerRadius + linearOffset) * -1,
+                ],
+                left: [markerRadius, (markerHeight - markerRadius) * -1],
+                right: [-markerRadius, (markerHeight - markerRadius) * -1],
+              };
+              map.on("load", () => {
+                new tt.Marker()
+                  .setLngLat({
+                    lon: address.address.longitude,
+                    lat: address.address.latitude,
+                  })
+                  .addTo(map);
+
+                new tt.Popup({ offset: popupOffsets, className: "my-class" })
+                  .setLngLat({
+                    lon: address.address.longitude,
+                    lat: address.address.latitude,
+                  })
+                  .setHTML(`<p>${address.address.address}</p>`)
+                  .addTo(map);
+              });
+              map.flyTo({
+                center: center,
+              });
+            });           
+    },
     filterByServices() {
       let res_array = [];
       this.addresses.forEach((address) => {
@@ -189,6 +241,7 @@ export default {
       console.log("Servizi selezionati " + this.checkedServices);
 
       this.filterByServices();
+      this.addMap(this.filteredFlats);
     },
     // PRENDE TUTTI I SERVIZI
     getServicies() {
@@ -251,55 +304,7 @@ export default {
           .get("http://localhost:8000/api/search/" + encoded)
           .then((res) => {
             this.addresses = res.data;
-            let center = [this.positionCenter.lon, this.positionCenter.lat];
-            const map = tt.map({
-              key: "Mkf8SDlv7IXjC285PFjO8O6lFhDYeFdx",
-              container: "map",
-              center: center,
-              zoom: 10,
-            });
-            map.addControl(new tt.FullscreenControl());
-            map.addControl(new tt.NavigationControl());
-            this.addresses.forEach((address) => {
-              var markerHeight = 50,
-                markerRadius = 10,
-                linearOffset = 25;
-              var popupOffsets = {
-                top: [0, 0],
-                "top-left": [0, 0],
-                "top-right": [0, 0],
-                bottom: [0, -markerHeight],
-                "bottom-left": [
-                  linearOffset,
-                  (markerHeight - markerRadius + linearOffset) * -1,
-                ],
-                "bottom-right": [
-                  -linearOffset,
-                  (markerHeight - markerRadius + linearOffset) * -1,
-                ],
-                left: [markerRadius, (markerHeight - markerRadius) * -1],
-                right: [-markerRadius, (markerHeight - markerRadius) * -1],
-              };
-              map.on("load", () => {
-                new tt.Marker()
-                  .setLngLat({
-                    lon: address.address.longitude,
-                    lat: address.address.latitude,
-                  })
-                  .addTo(map);
-
-                new tt.Popup({ offset: popupOffsets, className: "my-class" })
-                  .setLngLat({
-                    lon: address.address.longitude,
-                    lat: address.address.latitude,
-                  })
-                  .setHTML(`<p>${address.address.address}</p>`)
-                  .addTo(map);
-              });
-              map.flyTo({
-                center: center,
-              });
-            });
+            this.addMap(this.addresses);
             console.log(this.addresses);
           })
           .catch((err) => {
