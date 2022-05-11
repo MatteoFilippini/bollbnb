@@ -5,7 +5,7 @@
         <div class="featured lh-lg">
           Sponsorizzato <i class="fa-solid fa-circle-check"></i>
         </div>
-        <img
+        <!-- <img
           :src="`http://127.0.0.1:8000/storage/${flat.default_image}`"
           alt="immagine appartamento"
           class="img-responsive img-fluid"
@@ -22,22 +22,22 @@
           <p><strong>Letti:</strong> {{ flat.beds }}</p>
           <p><strong>Metri quadrati:</strong> {{ flat.square_meters }}</p>
         </div>
-        <a href="#" class="btn btn-sm mt-3">Scopri di più</a>
+        <a href="#" class="btn btn-sm mt-3">Scopri di più</a> -->
+        <img :src="`http://127.0.0.1:8000/storage/${flat.default_image}`" alt="image" />
+        <h5 class="mt-4">
+          {{flat.title}}
+        </h5>
+        <p class="mt-4">
+          {{ flat.description }}
+        </p>
+        <div class="d-flex justify-content-between">
+          <p><strong>Stanze: </strong> {{ flat.rooms }}</p>
+          <p><strong>Bagni: </strong> {{ flat.bathrooms }}</p>
+          <p><strong>Letti:</strong> {{ flat.beds }}</p>
+          <p><strong>Metri quadrati:</strong> {{ flat.square_meters }}</p>
+        </div>
+        <router-link :to="{ name: 'detail', params: { slug: flat.slug } }" class="btn btn-sm mt-3">Scopri di più</router-link>
       </div>
-      <img :src="`http://127.0.0.1:8000/storage/${flat.default_image}`" alt="image" />
-      <h5 class="mt-4">
-        {{flat.title}}
-      </h5>
-      <p class="mt-4">
-        {{ flat.description }}
-      </p>
-      <div class="d-flex justify-content-between">
-        <p><strong>Stanze: </strong> {{ flat.rooms }}</p>
-        <p><strong>Bagni: </strong> {{ flat.bathrooms }}</p>
-        <p><strong>Letti:</strong> {{ flat.beds }}</p>
-        <p><strong>Metri quadrati:</strong> {{ flat.square_meters }}</p>
-      </div>
-       <router-link :to="{ name: 'detail', params: { slug: flat.slug } }" class="btn btn-sm mt-3">Scopri di più</router-link>
     </div>
   </div>
 </template>

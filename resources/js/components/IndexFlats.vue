@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid" id="index-flats">
+  <div class="container" id="index-flats">
     <Header />
     <h2 class="text-center">Appartamenti Sponsor</h2>
     <div class="row justify-content-center">
