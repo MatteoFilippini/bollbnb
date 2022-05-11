@@ -2,7 +2,7 @@
   <div class="col-sm-12 col-md-6 col-lg-4 py-4">
     <div class="card-wrapper">
       <div class="card position-relative bounce-top">
-        <div class="featured lh-lg">
+        <div class="featured lh-lg" v-if="isSponsored">
           Sponsorizzato <i class="fa-solid fa-circle-check"></i>
         </div>
         <!-- <img
@@ -45,7 +45,7 @@
 <script>
 export default {
   name: "BestFlat",
-  props: ["flat", "is-show", "is-search"],
+  props: ["flat", "is-show", "is-search", 'isSponsored'],
 };
 </script>
 

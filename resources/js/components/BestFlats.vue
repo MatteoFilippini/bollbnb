@@ -8,7 +8,7 @@
         </div>
         <div class="row justify-content-center">
 
-       <BestFlat  v-for="bestFlat in flats_sponsor" :key="bestFlat.id" :flat="bestFlat"/>
+       <BestFlat  v-for="bestFlat in flats_sponsor" :key="bestFlat.id" :flat="bestFlat" :isSponsored="true"/>
         
         
        </div>
