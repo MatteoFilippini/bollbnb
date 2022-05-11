@@ -43,7 +43,7 @@
                   aria-label="Search"
                   v-model="newSearchString"
                 />
-                <button class="search-button" @click="newRunAll()">
+                <button class="search-button" @click="newRunAll()" v-if="newSearchString">
                   Search
                 </button>
               </div>
@@ -83,11 +83,13 @@
           v-if="!filteredFlats.length && checkedServices.length >= 1"
         >
           <h4>Nessun appartamento trovato</h4>
+          
         </div>
         <div v-else>
-          <h3 class="text-white text-uppercase mt-5">
+          <h3 class="text-white text-uppercase" style="padding-top:120px">
             Ecco gli appartamenti nella zona cercata
           </h3>
+          <h4 v-if="!filteredFlats.length" style="padding-top:100px;color:white;">Nessun appartamento trovato</h4>
           <div v-if="!checkedServices.length">
             <FlatCard
               v-for="flat in addresses"

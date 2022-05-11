@@ -29,6 +29,7 @@
                 v-model="searched"
               />
               <router-link
+              v-if="searched"
                 :to="{ name: 'searchString', params: { address: searched } }"
                 class="search-button"
                 >Search</router-link
