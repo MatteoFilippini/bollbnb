@@ -2,65 +2,63 @@
   <div v-if="flat">
     <div>
       <!-- FLAT PAGINA SEARCH -->
-      <div v-if="isSearch" class="flat-search">
-        <div class="row">
-          <!-- FLAT IMAGE Display sm-to-md -->
-          <div class="col-12 d-md-none image-flat">
-            <img
-              :src="`http://127.0.0.1:8000/storage/${flat.default_image}`"
-              alt="image"
-              class="img-fluid"
-            />
-          </div>
-          <!-- FLAT DETAILS -->
-          <div class="col-12 desc-flat d-flex">
-            <!-- FLAT IMAGE display md-to-lg-->
-            <div>
+      <router-link
+              :to="{ name: 'detail', params: { slug: flat.slug } }"
+              class="btn detail-bottom"
+              v-if="!isShow"
+              >
+        <div v-if="isSearch" class="flat-search">
+          <div class="row">
+            <!-- FLAT IMAGE Display sm-to-md -->
+            <div class="col-12 d-md-none image-flat">
               <img
-              :src="`http://127.0.0.1:8000/storage/${flat.default_image}`"
-              alt="image"
-              class="img-fluid d-none d-md-inline-block details"
+                :src="`http://127.0.0.1:8000/storage/${flat.default_image}`"
+                alt="image"
+                class="img-fluid"
               />
             </div>
-            <!-- FLAT SPECIFICS-->
-            <div class="flex-grow-1 px-4">
-                          <!-- FLAT TITLE -->
-                <div class="flat-search-title">
-                  <h3>{{ flat.title }}</h3>
-                </div>
-                <!-- FLAT SPECIFICS -->
-                <div class="flat-search-details mb-5">
-                  <p>{{flat.description}}</p>
-                  <p class="text-muted">
-                    Ospiti: {{ flat.beds }} - Camere: {{ flat.rooms }} - Bagni:
-                    {{ flat.bathrooms }} <br />
-                    Metri quadrati: {{ flat.square_meters }}
-                  </p>
-                </div>
-                <!-- FLAT SERVICES -->
-                <div v-if="flat.services.length">
-                  <h5>Servizi</h5>
-                    <span v-for="service in flat.services" :key="service.id" class="badge badge-pill mx-1">
-                      {{ service.type }}
-                    </span>
-                </div>
-                <!-- no services -->
-                <div v-else>
-                  <h5>Non ci sono servizi</h5>
-                </div>
+            <!-- FLAT DETAILS -->
+            <div class="col-12 desc-flat d-flex">
+              <!-- FLAT IMAGE display md-to-lg-->
+              <div>
+                <img
+                :src="`http://127.0.0.1:8000/storage/${flat.default_image}`"
+                alt="image"
+                class="img-fluid d-none d-md-inline-block details"
+                />
+              </div>
+              <!-- FLAT SPECIFICS-->
+              <div class="flex-grow-1 px-4">
+                            <!-- FLAT TITLE -->
+                  <div class="flat-search-title">
+                    <h3>{{ flat.title }}</h3>
+                  </div>
+                  <!-- FLAT SPECIFICS -->
+                  <div class="flat-search-details mb-5">
+                    <p>{{flat.description}}</p>
+                    <p class="text-muted">
+                      Ospiti: {{ flat.beds }} - Camere: {{ flat.rooms }} - Bagni:
+                      {{ flat.bathrooms }} <br />
+                      Metri quadrati: {{ flat.square_meters }}
+                    </p>
+                  </div>
+                  <!-- FLAT SERVICES -->
+                  <div v-if="flat.services.length">
+                    <h5>Servizi</h5>
+                      <span v-for="service in flat.services" :key="service.id" class="badge badge-pill mx-1">
+                        {{ service.type }}
+                      </span>
+                  </div>
+                  <!-- no services -->
+                  <div v-else>
+                    <h5>Non ci sono servizi</h5>
+                  </div>
+              </div>
             </div>
-          </div>
-          <!-- DETAIL BUTTON -->
-          <div class="col-12">
-            <router-link
-              :to="{ name: 'detail', params: { slug: flat.slug } }"
-              class="btn btn-secondary btn-sm detail-bottom"
-              v-if="!isShow"
-              >Dettaglio
-              </router-link>
+
           </div>
         </div>
-      </div>
+      </router-link>
       <!-- FLAT PAGINA SHOW -->
       <div v-if="isShow">
         <div class="flat-show">
