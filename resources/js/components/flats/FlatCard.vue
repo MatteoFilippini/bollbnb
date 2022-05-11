@@ -7,10 +7,20 @@
               class="btn detail-bottom"
               v-if="!isShow"
               >
-        <div v-if="isSearch" class="flat-search">
-          <div class="row">
-            <!-- FLAT IMAGE Display sm-to-md -->
-            <div class="col-12 d-md-none image-flat">
+      <div v-if="isSearch" class="flat-search">
+        <div class="row">
+          <!-- FLAT IMAGE Display sm-to-md -->
+          <div class="col-12 d-md-none image-flat">
+            <img
+              :src="`http://127.0.0.1:8000/storage/${flat.default_image}`"
+              alt="image"
+              class="img-fluid"
+            />
+          </div>
+          <!-- FLAT DETAILS -->
+          <div class="col-12 desc-flat d-flex">
+            <!-- FLAT IMAGE display md-to-lg-->
+            <div class="fl-sh">
               <img
                 :src="`http://127.0.0.1:8000/storage/${flat.default_image}`"
                 alt="image"
@@ -195,6 +205,9 @@ export default {
   padding: 30px;
   border-bottom: 1px solid white;
   position: relative;
+  .fl-sh{
+    flex-shrink: 0;
+  }
   img {
     border-radius:20px;
     border: 1px solid white;
@@ -209,7 +222,7 @@ export default {
   .desc-flat{
     img{
         width:300px;
-        height:225px;
+        height:165px;
     }
   }
   .detail-bottom {
