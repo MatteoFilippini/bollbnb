@@ -7,15 +7,17 @@
           v-for="flat_sponsor in flats_sponsor"
           :key="flat_sponsor.id"
           :flat="flat_sponsor"
+          isSponsored='true'
         />
     </div>
     <Loader v-if="isLoading" />
     <h2 class="text-center">Tutti gli Appartamenti</h2>
-    <div class="row">
+    <div class="row justify-content-center">
     <BestFlat
               v-for="flat in flats"
               :key="flat.id"
               :flat="flat"
+              :isSponsored='false'
             />
             </div>
   </div>
