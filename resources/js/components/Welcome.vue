@@ -1,5 +1,5 @@
 <template>
-  <section id="info" class="text-center rounded text-dark container">
+  <section id="info" class="text-center text-dark container">
     <div class="h-100 d-flex justify-content-center align-items-center">
       <h1>BENVENUTO SU BOOLBNB</h1>
     </div>
@@ -18,6 +18,7 @@ export default {
   margin-bottom: 30px;
   background-color: #63f0c1;
   height: 300px;
+  border-radius: 10px;
   h1 {
     color: black;
   }

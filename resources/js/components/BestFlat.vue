@@ -37,7 +37,7 @@
         <p><strong>Letti:</strong> {{ flat.beds }}</p>
         <p><strong>Metri quadrati:</strong> {{ flat.square_meters }}</p>
       </div>
-       <a href="#" class="btn btn-sm mt-3">Scopri di più</a>
+       <router-link :to="{ name: 'detail', params: { slug: flat.slug } }" class="btn btn-sm mt-3">Scopri di più</router-link>
     </div>
   </div>
 </template>

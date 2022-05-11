@@ -22,7 +22,7 @@
             <!-- FORM SEARCH -->
             <form class="form-inline my-2 my-lg-0 d-flex justify-content-center">
               <input
-                class="form-control ml-2"
+                class="form-control ml-2 search-input-field"
                 type="search"
                 placeholder="Dove vuoi andare?"
                 aria-label="Search"
@@ -84,6 +84,11 @@ nav {
       font-size: 1.1rem;
       text-decoration: none;
       max-width: 200px;
+      &:hover{
+        background-color: white;
+      color: black;
+      border: 1px solid black;
+      }
     }
   }
 
@@ -92,13 +97,21 @@ nav {
   }
 }
 .search-button{
-  border-radius: 5px;
+  border-radius: 20px;
   padding: 5px 15px;
   border: 1px solid black;
   background-color:white;
   color: black;
   margin-left: 5px;
     text-decoration: none;
-  
+   &:hover{
+      background-color: black;
+      color:white;
+  }
+}
+.search-input-field{
+  border-radius: 20px;
+  border: 1px solid black;
+  padding-left: 20px;
 }
 </style>
