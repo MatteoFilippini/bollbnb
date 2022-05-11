@@ -49,7 +49,11 @@
           <h3>{{ flat.address.address }}</h3>
           <div class="row border border-light mb-5">
             <div class="col-sm-12 col-lg-6 main border border-primary">
-              DEAFULT IMAGE
+              <img
+                :src="`http://127.0.0.1:8000/storage/${flat.default_image}`"
+                alt="image"
+                class="img-fluid h-100 w-100"
+              />
             </div>
             <div
               class="col-xs-6 col-sm-6 col-lg-3 images border border-success"
@@ -177,6 +181,9 @@ export default {
     height: 250px;
     width: 100%;
     min-width: 200px;
+    display: flex;
+    align-items: center;
+    border: 1px solid white;
   }
   .detail-bottom {
     position: absolute;
@@ -229,5 +236,8 @@ export default {
       max-width: 200px;
     }
   }
+}
+img{
+      border-radius:20px;
 }
 </style>
