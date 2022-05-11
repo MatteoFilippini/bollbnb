@@ -71,9 +71,9 @@
                     </div>
                 </div>
                 {{-- Minimappa --}}
-                <div class="col-lg-4">
+                <!-- <div class="col-lg-4">
                     <div id="map" style="width: 100%; height: 200px;"></div>
-                </div>
+                </div> -->
             </div>
             <!-- <div class="col-lg-12">
                 <div class="form-group">
