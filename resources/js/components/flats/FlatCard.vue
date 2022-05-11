@@ -55,7 +55,6 @@
                   </div>
               </div>
             </div>
-
           </div>
         </div>
       </router-link>
@@ -72,20 +71,20 @@
               class="img-fluid show-img border border-light"
             />
             </div>
-            <div
+            <!-- <div
               class="col-xs-6 col-sm-6 col-lg-3 images"
             >
               <div class="border border-light">
                 <img src="https://www.costadedoi.it/images/grid/appartamento-san-cassiano-1.jpg" alt="image" class="img-fluid">
               </div>
-            </div>
-            <div
+            </div> -->
+            <!-- <div
               class="col-xs-6 col-sm-6 col-lg-3 images"
             >
               <div class="border border-light">
                 <img src="https://www.costadedoi.it/images/grid/appartamento-san-cassiano-1.jpg" alt="image" class="img-fluid">
               </div>
-            </div>
+            </div> -->
           </div>
           <h3>Host: {{ flat.user.name }}</h3>
           <h5>{{ flat.description }}</h5>
