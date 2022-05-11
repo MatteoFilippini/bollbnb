@@ -4,6 +4,7 @@
       <!-- FLAT PAGINA SEARCH -->
       <div v-if="isSearch" class="flat-search">
         <div class="row">
+          <!-- FLATIMAGE -->
           <div class="col-5 image-flat">
             <img
               :src="`http://127.0.0.1:8000/storage/${flat.default_image}`"
@@ -11,17 +12,22 @@
               class="img-fluid"
             />
           </div>
+          <!-- FLAT DETAILS -->
           <div class="col-7 desc-flat">
+            <!-- FLAT TITLE -->
             <div class="flat-search-title">
               <h3>{{ flat.title }}</h3>
             </div>
+            <!-- FLAT SPECIFICS -->
             <div class="flat-search-details mb-5">
+              <p>{{flat.description}}</p>
               <p class="text-muted">
                 Ospiti: {{ flat.beds }} - Camere: {{ flat.rooms }} - Bagni:
                 {{ flat.bathrooms }} <br />
                 Metri quadrati: {{ flat.square_meters }}
               </p>
             </div>
+            <!-- FLAT SERVICES -->
             <div v-if="flat.services.length">
               <h5>Servizi:</h5>
               <ul>
@@ -30,9 +36,11 @@
                 </li>
               </ul>
             </div>
+            <!-- no services -->
             <div v-else>
               <h5>Non ci sono servizi</h5>
             </div>
+            <!-- Button -->
             <router-link
               :to="{ name: 'detail', params: { slug: flat.slug } }"
               class="btn btn-secondary btn-sm detail-bottom"
