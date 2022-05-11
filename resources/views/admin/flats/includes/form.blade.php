@@ -189,9 +189,9 @@
           municipality = encodeURIComponent(splitted[splitted.length-1]);
           streetName = encodeURIComponent(splitted[2]);
           streetNumber = encodeURIComponent(splitted[4]);
-          if(splitted.length >= 9){
-              streetName = encodeURIComponent(splitted[4]);
-              streetNumber = encodeURIComponent(splitted[6]);
+          if(splitted.length = 9){
+              streetName = encodeURIComponent(splitted[2]);
+              streetNumber = encodeURIComponent(splitted[4]);
             }
               else if(splitted.length = 7){
                 streetNumber = encodeURIComponent(splitted[4]);

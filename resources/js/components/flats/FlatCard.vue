@@ -15,7 +15,7 @@
           <!-- FLAT DETAILS -->
           <div class="col-12 desc-flat d-flex">
             <!-- FLAT IMAGE display md-to-lg-->
-            <div>
+            <div class="fl-sh">
               <img
               :src="`http://127.0.0.1:8000/storage/${flat.default_image}`"
               alt="image"
@@ -198,6 +198,9 @@ export default {
   padding: 30px;
   border-bottom: 1px solid white;
   position: relative;
+  .fl-sh{
+    flex-shrink: 0;
+  }
   img {
     border-radius:20px;
     border: 1px solid white;
@@ -212,7 +215,7 @@ export default {
   .desc-flat{
     img{
         width:300px;
-        height:225px;
+        height:165px;
     }
   }
   .detail-bottom {
