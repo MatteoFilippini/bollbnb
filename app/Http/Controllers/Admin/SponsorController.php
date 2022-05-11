@@ -8,6 +8,7 @@ use App\Models\Sponsor;
 use App\Models\Flat;
 use App\Models\FlatSponsor;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class SponsorController extends Controller
 {
@@ -43,20 +44,60 @@ class SponsorController extends Controller
     {
         // prendo la data di oggi
         $date = Carbon::now();
-        // dd($date);
         $data = $request->all();
+        $id_flat = $data['flat_id'];
+        // prendo il tipo di sponsorizzazione e i suoi giorni
+        $d = 0;
+        if ($data['sponsor_id'] == 1) $d = 1;
+        if ($data['sponsor_id'] == 2) $d = 3;
+        if ($data['sponsor_id'] == 3) $d = 6;
+        // prendo la riga di flat_sponsors con il flat_id dell appartamento
+        $flat_sponsor = DB::table('flat_sponsors')
+        ->join('flats', 'flat_sponsors.flat_id', '=', 'flats.id')
+            ->select('flat_sponsors.*')
+            ->where('flat_id', $id_flat)
+            ->get();
 
-        // date le ore calcolo quanti giorni aggiungere partendo dalla data di oggi
-        $d = 1;
-        if ($data['sponsor_id'] == '72:00:00') $d = 2;
-        else $d = 3;
-        $modifiedMutable = $date->add($d, 'day');
-
-        $flat_sponsor = new FlatSponsor();
-        $flat_sponsor->flat_id = $data['flat_id'];
-        $flat_sponsor->sponsor_id = $data['sponsor_id'];
-        $flat_sponsor->expiration = $modifiedMutable;
-        $flat_sponsor->save();
+        // controllo se ce o no la riga
+        if (!empty($flat_sponsor[0])) {
+            // GIA SPONSORIZZATO
+            foreach ($flat_sponsor as $f) {
+                // converto la data da tipo stringa a date
+                $exp = Carbon::createFromFormat('Y-m-d', $f->expiration);
+                if ($exp > $date) {
+                    // NON SCADUTO   
+                    // aggiungo giorni alla data  
+                    $update = $exp->add($d, 'day');
+                    $a = $update->toDateString();
+                    $f->expiration = $a;
+                    // aggiorna la riga della tabella
+                    $aaaaaa= DB::table('flat_sponsors')
+                    ->where('id', $f->id)
+                    ->update(array("expiration" => $a));
+                }else {
+                    // SCADUTO  
+                    // elimino la riga 
+                    $aaaaaa= DB::table('flat_sponsors')
+                    ->where('id', $f->id)
+                    ->delete();
+                    // riaggiungo una nuova riga
+                    $modifiedMutable = $date->add($d, 'day');
+                    $flat_sponsoro = new FlatSponsor();
+                    $flat_sponsoro->flat_id = $data['flat_id'];
+                    $flat_sponsoro->sponsor_id = $data['sponsor_id'];
+                    $flat_sponsoro->expiration = $modifiedMutable;
+                    $flat_sponsoro->save();
+                  }
+            }
+        } else {
+            // NON ANCORA SPONSORIZZATO         
+            $modifiedMutable = $date->add($d, 'day');
+            $flat_sponsoro = new FlatSponsor();
+            $flat_sponsoro->flat_id = $data['flat_id'];
+            $flat_sponsoro->sponsor_id = $data['sponsor_id'];
+            $flat_sponsoro->expiration = $modifiedMutable;
+            $flat_sponsoro->save();
+        }
 
         return redirect('/');
     }
