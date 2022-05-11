@@ -39,12 +39,10 @@
                 </div>
                 <!-- FLAT SERVICES -->
                 <div v-if="flat.services.length">
-                  <h5>Servizi:</h5>
-                  <ul>
-                    <li v-for="service in flat.services" :key="service.id">
+                  <h5>Servizi</h5>
+                    <span v-for="service in flat.services" :key="service.id" class="badge badge-pill mx-1">
                       {{ service.type }}
-                    </li>
-                  </ul>
+                    </span>
                 </div>
                 <!-- no services -->
                 <div v-else>
@@ -221,6 +219,9 @@ export default {
     position: absolute;
     right: 0;
     bottom: 0;
+  }
+  .badge{
+    background-color: #FF385C;
   }
 }
 
