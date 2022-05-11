@@ -1,7 +1,7 @@
 <template>
   <div class="container" id="index-flats">
     <Header />
-    <h2 class="text-center">Appartamenti Sponsor</h2>
+    <h2 class="text-center">Tutti gli Appartamenti</h2>
     <div class="row justify-content-center">
         <BestFlat
           v-for="flat_sponsor in flats_sponsor"
@@ -11,7 +11,7 @@
         />
     </div>
     <Loader v-if="isLoading" />
-    <h2 class="text-center">Tutti gli Appartamenti</h2>
+    
     <div class="row justify-content-center">
     <BestFlat
               v-for="flat in flats"

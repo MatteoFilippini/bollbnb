@@ -3,7 +3,7 @@
     <div class="card-wrapper">
       <div class="card position-relative bounce-top">
         <div class="featured lh-lg" v-if="isSponsored">
-          Sponsorizzato <i class="fa-solid fa-circle-check"></i>
+          SUPERHOST <i class="fa-solid fa-circle-check"></i>
         </div>
         <!-- <img
           :src="`http://127.0.0.1:8000/storage/${flat.default_image}`"
