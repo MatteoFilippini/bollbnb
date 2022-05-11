@@ -67,6 +67,7 @@
             </div>
           </div>
         </div>
+      </div>  
       </router-link>
       <!-- FLAT PAGINA SHOW -->
       <div v-if="isShow">
