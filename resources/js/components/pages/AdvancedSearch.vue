@@ -37,7 +37,7 @@
                 class="form-inline my-2 my-lg-0 d-flex justify-content-center"
               >
                 <input
-                  class="form-control ml-2"
+                  class="form-control ml-2 search-input-field"
                   type="search"
                   placeholder="Dove vuoi andare?"
                   aria-label="Search"
@@ -50,8 +50,8 @@
               <!-- FINE FORM -->
             </li>
             <li class="radius ml-3 my-2">
-              <span>Scegli il raggio </span>
-              <input type="number" v-model="radius" placeholder="20km" />
+              <span class="radius-text">Scegli il raggio </span>
+              <input type="number" v-model="radius" placeholder="20km" class="input-search-field"/>
             </li>
           </ul>
           <div class="d-flex justify-content-center">
@@ -66,7 +66,7 @@
             :id="service.id"
             v-for="service in servicies"
             :key="service.id"
-            class="mx-2"
+            class="mx-2 my-1"
             @click="getServicesCheck(service.id)"
           >
             {{ service.type }}
@@ -454,17 +454,26 @@ nav {
       font-size: 1.1rem;
       text-decoration: none;
       max-width: 200px;
+       &:hover{
+        background-color: white;
+      color: black;
+      border: 1px solid black;
+      }
     }
   }
 }
 .search-button {
-  border-radius: 5px;
+  border-radius:20px;
   padding: 5px 15px;
   border: 1px solid black;
   background-color: white;
   color: black;
   margin-left: 5px;
   text-decoration: none;
+  &:hover{
+      background-color: black;
+      color:white;
+  }
 }
 
 .nav-service {
@@ -498,9 +507,28 @@ nav {
   position: relative;
   top: 180px;
 }
+.search-input-field{
+  border-radius: 20px;
+  border: 1px solid black;
+  padding-left: 20px;
+}
+.input-search-field{
+  border-radius: 20px;
+  border: 1px solid black;
+  padding: 6px 10px;
+}
+.radius-text{
+  font-weight:bold;
+}
 .map {
   position: fixed;
   right: 0;
   top: 160px;
 }
+
+@media  (max-width: 575px) {
+          .search-button{
+            margin-top: 20px;
+          }
+    }
 </style>

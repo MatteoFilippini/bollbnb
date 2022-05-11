@@ -47,19 +47,27 @@
         <div class="flat-show">
           <h1>{{ flat.title }}</h1>
           <h3>{{ flat.address.address }}</h3>
-          <div class="row border border-light mb-5">
-            <div class="col-sm-12 col-lg-6 main border border-primary">
-              DEAFULT IMAGE
+          <div class="row  mb-5">
+            <div class="col-sm-12 col-lg-6 main mb-5">
+               <img
+              :src="`http://127.0.0.1:8000/storage/${flat.default_image}`"
+              alt="image"
+              class="img-fluid show-img border border-light"
+            />
             </div>
             <div
-              class="col-xs-6 col-sm-6 col-lg-3 images border border-success"
+              class="col-xs-6 col-sm-6 col-lg-3 images"
             >
-              SE CE ALTRA IMMAGINE
+              <div class="border border-light">
+                <img src="https://www.costadedoi.it/images/grid/appartamento-san-cassiano-1.jpg" alt="image" class="img-fluid">
+              </div>
             </div>
             <div
-              class="col-xs-6 col-sm-6 col-lg-3 images border border-success"
+              class="col-xs-6 col-sm-6 col-lg-3 images"
             >
-              SE CE ALTRA IMMAGINE
+              <div class="border border-light">
+                <img src="https://www.costadedoi.it/images/grid/appartamento-san-cassiano-1.jpg" alt="image" class="img-fluid">
+              </div>
             </div>
           </div>
           <h3>Host: {{ flat.user.name }}</h3>
@@ -171,6 +179,11 @@ export default {
   padding: 30px;
   border-bottom: 1px solid white;
   position: relative;
+  img{
+      border-radius:20px;
+      border: 1px solid white;
+      height: 180px;
+}
   .image-flat {
     // background-color:green;
     border-radius: 20px;
@@ -179,7 +192,6 @@ export default {
     min-width: 200px;
     display: flex;
     align-items: center;
-    border: 1px solid white;
   }
   .detail-bottom {
     position: absolute;
@@ -192,7 +204,7 @@ export default {
 .flat-show {
   position: relative;
   .main {
-    height: 400px;
+    // height: 400px;
   }
   .images {
     height: 200px;
@@ -220,8 +232,8 @@ export default {
     }
     .message {
       border: 1px solid #fff;
-      background-color: black;
-      color: white;
+      background-color: white;
+      color: black;
       padding: 7px 15px;
       border-radius: 10px;
       display: flex;
@@ -230,10 +242,17 @@ export default {
       text-decoration: none;
       font-size: 1.1rem;
       max-width: 200px;
+      &:hover{
+        background-color: black;
+      color: white;
+      }
     }
   }
 }
-img{
-      border-radius:20px;
+
+
+.show-img{
+  border: 0;
+  border-radius:0;
 }
 </style>
