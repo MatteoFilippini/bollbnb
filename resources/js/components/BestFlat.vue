@@ -69,7 +69,7 @@ export default {
   border: 0;
 
   img {
-    border-radius: 0.5rem 0.5rem 0 0;
+    // border-radius: 0.5rem 0.5rem 0 0;
     width: 100%;
     mix-blend-mode: var(--card-blend-mode);
     height: 170px;
