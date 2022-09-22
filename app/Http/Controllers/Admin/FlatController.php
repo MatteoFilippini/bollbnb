@@ -233,10 +233,11 @@ class FlatController extends Controller
         $address = Address::where('flat_id', $flat->id);
         $updateAddress = [
             'address' => $data['address'],
-            // 'city' => $data['city'],
+            'city' => $data['city'],
             'latitude' => $data['latitude'],
             'longitude' => $data['longitude'],
             'position' => $data['position']
+
         ];
         // $address->flat_id = $flat->id;
         // $address->address = $data['address'];
